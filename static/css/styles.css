@@ -5,6 +5,7 @@
     --color-dark: #111;
     --color-light: #fff;
     --color-text: #333;
+    --color-accent: #c44536;
     --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --max-width: 1200px;
     --spacing: 2rem;
@@ -23,53 +24,62 @@ body {
     font-family: var(--font-sans);
     color: var(--color-text);
     line-height: 1.6;
+    margin: 0;
 }
 
-.container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing);
+html {
+    scroll-behavior: smooth;
 }
 
 /* ==========================
-   HEADER
+   HEADER (transparent sobre hero)
 ========================== */
 header {
-    background: var(--color-dark);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
     color: var(--color-light);
     padding: 2rem;
-    text-align: left;
+    z-index: 10;
 }
 
-header nav ul {
+header h1 {
+    margin-bottom: 1rem;
+}
+
+/* Menú principal */
+nav ul {
     list-style: none;
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     padding: 0;
-    margin: 1rem 0 0 0;
+    margin: 0;
     flex-wrap: wrap;
 }
 
-header nav a {
+nav a {
     color: var(--color-light);
     text-decoration: none;
     transition: opacity 0.2s ease;
 }
 
-header nav a:hover {
+nav a:hover {
     opacity: 0.8;
+    text-decoration: underline;
 }
 
 /* Selector d'idioma */
 .lang-switcher {
     margin-top: 1rem;
-    font-size: 0.9rem;
+    display: flex;
+    gap: 1rem;
 }
 
 .lang-switcher a {
     color: var(--color-light);
     text-decoration: none;
-    margin-right: 1rem;
 }
 
 .lang-switcher a.active {
@@ -78,11 +88,28 @@ header nav a:hover {
 }
 
 /* ==========================
-   SECCIONS
+   HERO BANNER (només a la home)
+========================== */
+.hero {
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ==========================
+   SECCIONS GENERALS
 ========================== */
 section {
-    padding: 4rem 0;
+    padding: 4rem var(--spacing);
     border-bottom: 1px solid #eee;
+    max-width: var(--max-width);
+    margin: 0 auto;
 }
 
 section:last-child {
@@ -96,12 +123,77 @@ section h2 {
 }
 
 /* ==========================
+   SECCIÓ THE BAND (columnes)
+========================== */
+.band-members {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.band-member {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.band-member:hover {
+    transform: translateY(-4px);
+}
+
+.band-photo {
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1rem auto;
+}
+
+.band-role {
+    font-weight: 600;
+    color: var(--color-accent);
+    margin: 0.5rem 0;
+}
+
+.band-bio {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: left;
+    margin: 1rem 0;
+}
+
+.band-social {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.band-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--color-accent);
+    font-size: 0.9rem;
+}
+
+.social-icon {
+    width: 22px;
+    height: 22px;
+}
+
+/* ==========================
    FOOTER
 ========================== */
 footer {
     background: var(--color-dark);
     color: var(--color-light);
-    text-align: center;
     padding: 3rem 2rem;
     margin-top: 2rem;
 }
@@ -109,83 +201,54 @@ footer {
 .footer-container {
     max-width: var(--max-width);
     margin: 0 auto;
-}
-
-.legal-menu ul {
-    list-style: none;
     display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
+    justify-content: space-between;
     flex-wrap: wrap;
+    gap: 2rem;
+    padding: 0 0 2rem 0;
 }
 
-.legal-menu a {
+.footer-left,
+.footer-right {
+    flex: 1;
+}
+
+.legal-links {
+    list-style: none;
+    text-align: right;
+}
+
+.legal-links li {
+    margin-bottom: 0.5rem;
+}
+
+.legal-links a {
     color: var(--color-light);
     text-decoration: none;
     opacity: 0.7;
     transition: opacity 0.2s ease;
 }
 
-.legal-menu a:hover {
+.legal-links a:hover {
     opacity: 1;
 }
 
 .copyright {
+    text-align: center;
     opacity: 0.6;
     font-size: 0.8rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ==========================
-   BAND (estructura)
+   CALENDARI
 ========================== */
-.band-members {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-.band-member {
-    flex: 1 1 calc(50% - 1rem);
-    text-align: center;
-}
-
-.band-leader {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-/* ==========================
-   BAND (elements visuals)
-========================== */
-.band-photo-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 1rem;
-}
-
-.band-role {
-    font-weight: bold;
-    margin: 0.5rem 0;
-    color: #666;
-}
-
-.band-links {
-    margin-top: 0.5rem;
-}
-
-.band-icon {
-    width: 22px;
-    height: 22px;
-    margin: 0 5px;
-    vertical-align: middle;
-}
-
-.band-sponsor img {
-    margin-top: 10px;
-    max-width: 120px;
+iframe {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* ==========================
@@ -195,151 +258,48 @@ footer {
     :root {
         --spacing: 1rem;
     }
-    
+
     section {
-        padding: 2rem 0;
+        padding: 2rem var(--spacing);
     }
-    
+
     section h2 {
         font-size: 1.5rem;
     }
-    
-    .band-member {
-        flex: 1 1 100%;
+
+    .band-photo {
+        width: 200px;
+        height: 200px;
     }
-    
-    .legal-menu ul {
-        gap: 1rem;
+
+    .band-members {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-container {
         flex-direction: column;
-    }
-    
-    header {
         text-align: center;
     }
-    
-    header nav ul {
+
+    .legal-links {
+        text-align: center;
+    }
+
+    header {
+        text-align: center;
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    nav ul {
         justify-content: center;
     }
-}
 
+    .lang-switcher {
+        justify-content: center;
+    }
 
-/* Social icons */
-.band-icon {
-    width: 24px;
-    height: 24px;
-    margin: 0 5px;
-    transition: opacity 0.2s ease;
-}
-
-.band-icon:hover {
-    opacity: 0.7;
-}
-
-.band-links {
-    margin: 0.5rem 0;
-}
-
-/* Bio text */
-.band-bio {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    text-align: left;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-/* Menú principal */
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: white;
-}
-
-/* Selector d'idioma */
-.lang-switcher {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.lang-switcher a {
-    color: white;
-    text-decoration: none;
-    padding: 0.25rem 0.5rem;
-}
-
-.lang-switcher a.active {
-    text-decoration: underline;
-    font-weight: bold;
-}
-
-
-/* Selector d'idioma */
-.lang-switcher {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-.lang-switcher a {
-    color: white;
-    text-decoration: none;
-    padding: 0.25rem 0.5rem;
-}
-
-.lang-switcher a.active {
-    text-decoration: underline;
-    font-weight: bold;
-}
-
-/* Enllaços del menú */
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    padding: 0;
-    margin: 0;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-/* Assegura que el contingut es manté en fer clic */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Icones de xarxes socials */
-.band-icon {
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
-    margin: 0 5px;
-}
-
-.band-links a {
-    text-decoration: none;
-}
-
-/* Perquè les icones no es trenquin en mòbil */
-@media (max-width: 768px) {
-    .band-icon {
-        width: 20px;
-        height: 20px;
+    .hero {
+        height: 50vh;
     }
 }

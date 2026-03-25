@@ -16,3 +16,8 @@ defaultContentLanguage = "en"
 
 [params]
 description = "Official website of Bratia Music – music, media, events, and more."
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

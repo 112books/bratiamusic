@@ -1,17 +1,26 @@
 <footer>
-  <div class="calendar">
-    <!-- Embed calendar highlights for next shows -->
-  </div>
-  <div class="legal">
-    <a href="/legal/aviso-legal/">Aviso Legal</a> |
-    <a href="/legal/politica-privacidad/">Política de Privacidad</a> |
-    <a href="/legal/politica-cookies/">Política de Cookies</a> |
-    <a href="/legal/configuracion-cookies/">Configuración de Cookies</a>
-  </div>
-  <div class="sponsor">
-    <a href="https://patrocinador.com"><img src="/images/sponsor.png" alt="Sponsor"></a>
-  </div>
-  <div class="credits">
-    Powered by LinuxBCN.com with Hugo | Consultancy | Development | Hosting | Design
-  </div>
+    <div class="footer-container">
+        <div class="footer-left">
+            <div class="sponsor">
+                <a href="https://sponsor.com">
+                    <img src="/images/sponsor/logo.png" alt="Sponsor">
+                </a>
+            </div>
+            <div class="signature">
+                Powered by <a href="https://linuxbcn.com">LinuxBCN.com</a> with Hugo<br>
+                | Consultancy | Development | Hosting | Design |
+            </div>
+        </div>
+        <div class="footer-right">
+            <ul class="legal-links">
+                <li><a href="/{{ .Site.Language.Lang }}/legal/aviso-legal/">{{ i18n "legal_notice" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/legal/politica-privacidad/">{{ i18n "privacy_policy" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/legal/politica-cookies/">{{ i18n "cookie_policy" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/legal/configuracion-cookies/">{{ i18n "cookie_settings" }}</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>© {{ now.Format "2006" }} {{ .Site.Title }}. {{ i18n "all_rights_reserved" }}</p>
+    </div>
 </footer>

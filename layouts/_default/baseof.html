@@ -7,10 +7,20 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+
+    
+{{ if .IsHome }}
+<div class="hero">
+    <img src="/images/home-banner.jpg" alt="{{ .Site.Title }}">
+</div>
+{{ end }}
+
+
     <header>
         <h1>{{ .Site.Title }}</h1>
         <nav>
             <ul>
+                <li><a href="/{{ .Site.Language.Lang }}/">{{ i18n "home" }}</a></li>
                 <li><a href="/{{ .Site.Language.Lang }}/#about">{{ i18n "about" }}</a></li>
                 <li><a href="/{{ .Site.Language.Lang }}/#the-band">{{ i18n "the-band" }}</a></li>
                 <li><a href="/{{ .Site.Language.Lang }}/#discography">{{ i18n "discography" }}</a></li>
