@@ -1,0 +1,23 @@
+# ============================
+# Obsidian Ignore per Hugo
+# ============================
+
+# Carpeta de compilació i generats
+public/
+resources/
+static/
+
+# Temes i plantilles visuals
+themes/
+layouts/
+assets/
+
+# Fitxers ocults de sistema i control de versions
+.git/
+.DS_Store
+.gitignore
+
+# Obsidian propi
+.obsidian/
+.obsidianignore
+workspace.json

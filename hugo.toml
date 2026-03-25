@@ -1,0 +1,18 @@
+baseURL = "http://localhost:1313/"
+languageCode = "en-us"
+title = "Bratia Music"
+defaultContentLanguage = "en"
+
+[languages]
+[languages.en]
+  title = "Bratia Music"
+  weight = 1
+[languages.es]
+  title = "Bratia Music"
+  weight = 2
+[languages.ca]
+  title = "Bratia Music"
+  weight = 3
+
+[params]
+description = "Official website of Bratia Music – music, media, events, and more."

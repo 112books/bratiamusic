@@ -1,0 +1,85 @@
+{{ define "main" }}
+
+<section id="about">
+    <h2>{{ i18n "about" }}</h2>
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "about") }}
+        {{ .Content }}
+    {{ end }}
+</section>
+
+<section id="the-band">
+    <h2>{{ i18n "the-band" }}</h2>
+    
+    {{/* Mostra el contingut introductori del _index.md (si existeix) */}}
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "the-band") }}
+        {{ .Content }}
+    {{ end }}
+    
+    {{/* Mostra el shortcode amb els membres individuals */}}
+    {{< band >}}
+</section>
+
+<section id="discography">
+    <h2>{{ i18n "discography" }}</h2>
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "discography") }}
+        {{ .Content }}
+    {{ end }}
+</section>
+
+<section id="media">
+    <h2>{{ i18n "media" }}</h2>
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "media") }}
+        {{ .Content }}
+    {{ end }}
+</section>
+
+<section id="next-shows">
+    <h2>{{ i18n "next-shows" }}</h2>
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "next-shows") }}
+        {{ .Content }}
+    {{ end }}
+</section>
+
+<section id="photos">
+    <h2>{{ i18n "photos" }}</h2>
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "photos") }}
+        {{ .Content }}
+    {{ end }}
+</section>
+
+<section id="videos">
+    <h2>{{ i18n "videos" }}</h2>
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "videos") }}
+        {{ .Content }}
+    {{ end }}
+</section>
+
+<section id="booking">
+    <h2>{{ i18n "booking" }}</h2>
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "booking") }}
+        {{ .Content }}
+    {{ end }}
+</section>
+
+<section id="merch">
+    <h2>{{ i18n "merch" }}</h2>
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "merch") }}
+        {{ .Content }}
+    {{ end }}
+</section>
+
+<section id="press-kit">
+    <h2>{{ i18n "press-kit" }}</h2>
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "press-kit") }}
+        {{ .Content }}
+    {{ end }}
+</section>
+
+<section id="newsletter">
+    <h2>{{ i18n "newsletter" }}</h2>
+    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "newsletter") }}
+        {{ .Content }}
+    {{ end }}
+</section>
+
+{{ end }}

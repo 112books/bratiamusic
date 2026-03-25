@@ -1,0 +1,33 @@
+<div class="band-member">
+
+  <img src="{{ .photo }}" alt="{{ .name }}" class="band-photo-circle">
+
+  <h2>{{ .name }}</h2>
+
+  <p class="band-role">{{ .role }}</p>
+
+  <p class="band-bio">{{ .bio }}</p>
+
+  <div class="band-links">
+    {{ with .instagram }}
+      <a href="{{ . }}" target="_blank">IG</a>
+    {{ end }}
+
+    {{ with .facebook }}
+      <a href="{{ . }}" target="_blank">FB</a>
+    {{ end }}
+
+    {{ with .web }}
+      <a href="{{ . }}" target="_blank">WEB</a>
+    {{ end }}
+  </div>
+
+  {{ if .sponsor_img }}
+    <div class="band-sponsor">
+      <a href="{{ .sponsor_url }}" target="_blank">
+        <img src="{{ .sponsor_img }}">
+      </a>
+    </div>
+  {{ end }}
+
+</div>

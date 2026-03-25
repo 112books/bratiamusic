@@ -1,0 +1,251 @@
+/* ==========================
+   VARIABLES
+========================== */
+:root {
+    --color-dark: #111;
+    --color-light: #fff;
+    --color-text: #333;
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --max-width: 1200px;
+    --spacing: 2rem;
+}
+
+/* ==========================
+   BASE
+========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing);
+}
+
+/* ==========================
+   HEADER
+========================== */
+header {
+    background: var(--color-dark);
+    color: var(--color-light);
+    padding: 2rem;
+    text-align: left;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    padding: 0;
+    margin: 1rem 0 0 0;
+    flex-wrap: wrap;
+}
+
+header nav a {
+    color: var(--color-light);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+header nav a:hover {
+    opacity: 0.8;
+}
+
+/* Selector d'idioma */
+.lang-switcher {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.lang-switcher a {
+    color: var(--color-light);
+    text-decoration: none;
+    margin-right: 1rem;
+}
+
+.lang-switcher a.active {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+/* ==========================
+   SECCIONS
+========================== */
+section {
+    padding: 4rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+section:last-child {
+    border-bottom: none;
+}
+
+section h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+/* ==========================
+   FOOTER
+========================== */
+footer {
+    background: var(--color-dark);
+    color: var(--color-light);
+    text-align: center;
+    padding: 3rem 2rem;
+    margin-top: 2rem;
+}
+
+.footer-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.legal-menu ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.legal-menu a {
+    color: var(--color-light);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.legal-menu a:hover {
+    opacity: 1;
+}
+
+.copyright {
+    opacity: 0.6;
+    font-size: 0.8rem;
+}
+
+/* ==========================
+   BAND (estructura)
+========================== */
+.band-members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.band-member {
+    flex: 1 1 calc(50% - 1rem);
+    text-align: center;
+}
+
+.band-leader {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* ==========================
+   BAND (elements visuals)
+========================== */
+.band-photo-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.band-role {
+    font-weight: bold;
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+.band-links {
+    margin-top: 0.5rem;
+}
+
+.band-icon {
+    width: 22px;
+    height: 22px;
+    margin: 0 5px;
+    vertical-align: middle;
+}
+
+.band-sponsor img {
+    margin-top: 10px;
+    max-width: 120px;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+@media (max-width: 768px) {
+    :root {
+        --spacing: 1rem;
+    }
+    
+    section {
+        padding: 2rem 0;
+    }
+    
+    section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .band-member {
+        flex: 1 1 100%;
+    }
+    
+    .legal-menu ul {
+        gap: 1rem;
+        flex-direction: column;
+    }
+    
+    header {
+        text-align: center;
+    }
+    
+    header nav ul {
+        justify-content: center;
+    }
+}
+
+
+/* Social icons */
+.band-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 5px;
+    transition: opacity 0.2s ease;
+}
+
+.band-icon:hover {
+    opacity: 0.7;
+}
+
+.band-links {
+    margin: 0.5rem 0;
+}
+
+/* Bio text */
+.band-bio {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: left;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}

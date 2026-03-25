@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+<section class="band">
+
+  <!-- Leader -->
+  <div class="band-leader">
+    {{ range where site.Data.band "leader" true }}
+      {{ partial "band-member.html" . }}
+    {{ end }}
+  </div>
+
+  <!-- Resta -->
+  <div class="band-members">
+    {{ range where site.Data.band "leader" "!=" true }}
+      {{ partial "band-member.html" . }}
+    {{ end }}
+  </div>
+
+</section>
+
+{{ end }}
