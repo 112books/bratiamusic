@@ -9,14 +9,9 @@
 
 <section id="the-band">
     <h2>{{ i18n "the-band" }}</h2>
-    
-    {{/* Mostra el contingut introductori del _index.md (si existeix) */}}
     {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "the-band") }}
         {{ .Content }}
     {{ end }}
-    
-    {{/* Mostra el shortcode amb els membres individuals */}}
-    {{< band >}}
 </section>
 
 <section id="discography">

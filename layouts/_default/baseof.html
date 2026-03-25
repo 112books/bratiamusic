@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}">
+<html lang="{{ .Site.Language.Lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Title }} | {{ .Site.Title }}</title>
-    <meta name="description" content="{{ .Site.Params.description }}">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -12,13 +11,24 @@
         <h1>{{ .Site.Title }}</h1>
         <nav>
             <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#discography">Discography</a></li>
-                <li><a href="#media">Media</a></li>
-                <li><a href="#booking">Booking</a></li>
-                <li><a href="#merch">Merch</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#about">{{ i18n "about" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#the-band">{{ i18n "the-band" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#discography">{{ i18n "discography" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#media">{{ i18n "media" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#next-shows">{{ i18n "next-shows" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#photos">{{ i18n "photos" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#videos">{{ i18n "videos" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#booking">{{ i18n "booking" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#merch">{{ i18n "merch" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#press-kit">{{ i18n "press-kit" }}</a></li>
+                <li><a href="/{{ .Site.Language.Lang }}/#newsletter">{{ i18n "newsletter" }}</a></li>
             </ul>
         </nav>
+        <div class="lang-switcher">
+            <a href="/ca/" {{ if eq .Site.Language.Lang "ca" }}class="active"{{ end }}>CA</a>
+            <a href="/es/" {{ if eq .Site.Language.Lang "es" }}class="active"{{ end }}>ES</a>
+            <a href="/en/" {{ if eq .Site.Language.Lang "en" }}class="active"{{ end }}>EN</a>
+        </div>
     </header>
 
     <main>
@@ -30,3 +40,4 @@
     </footer>
 </body>
 </html>
+EOF
