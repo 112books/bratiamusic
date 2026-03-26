@@ -597,19 +597,46 @@ iframe {
 }
 
 
-/* Discobrafy */
+/* Discobrafy
+disc data 
+disc layouts/shorcodes
+*/
+
+.disc {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  margin: 4rem 0;
+  align-items: start;
+}
+
+.disc-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.disc-content h2 {
+  margin-top: 0;
+}
+
+.disc-content p {
+  margin-bottom: 1rem;
+}
+
+.credits {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
 .music-links {
   display: flex;
-  gap: 0.8rem;
+  gap: 1rem;
   margin-top: 1rem;
 }
 
-.music-links a {
-  font-size: 1.4rem;
-  text-decoration: none;
-  opacity: 0.8;
-}
-
-.music-links a:hover {
-  opacity: 1;
+@media (max-width: 768px) {
+  .disc {
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,0 +1,26 @@
+{{ $album := .Get "album" }}
+{{ $url := .Get "url" }}
+
+<div class="album">
+
+  <img class="album-cover" src="/images/discs/{{ $album }}.jpg" alt="{{ $album }}">
+
+  <div class="album-content">
+    
+    <div class="music-links">
+      <a href="{{ $url }}" target="_blank" title="Spotify">
+        {{ partial "icons/spotify.html" }}
+      </a>
+      <a href="{{ $url }}" target="_blank" title="Apple Music">
+        {{ partial "icons/apple.html" }}
+      </a>
+      <a href="{{ $url }}" target="_blank" title="YouTube">
+        {{ partial "icons/youtube.html" }}
+      </a>
+      <a href="{{ $url }}" target="_blank" title="Deezer">
+        {{ partial "icons/deezer.html" }}
+      </a>
+    </div>
+
+  </div>
+</div>
