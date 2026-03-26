@@ -43,3 +43,19 @@ promo_cta     = "Escolta'l"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+# ── MENÚS ──
+[[menu.main]]
+  name = "Discografia"
+  url = "/ca/discografia/"
+  weight = 20
+
+[[menu.main_es]]
+  name = "Discografía" 
+  url = "/es/discografía/"
+  weight = 20
+
+[[menu.main_en]]
+  name = "Discography"
+  url = "/en/discography/"
+  weight = 20

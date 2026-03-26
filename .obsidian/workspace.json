@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/musica/discografia/_index.md",
+                "file": "content/ca/discografia/_index.md",
                 "mode": "source",
                 "source": false
               },
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/musica/discografia/_index.md",
+                "file": "content/ca/discografia/_index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +113,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/musica/discografia/_index.md",
+                "file": "content/ca/discografia/_index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -156,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/musica/discografia/_index.md",
+                "file": "content/ca/discografia/_index.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -184,8 +184,16 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "ba77583709ed5a60",
+  "active": "f01da6cf17e7802e",
   "lastOpenFiles": [
+    "layouts/partials/menu.html",
+    "content/en/discography/_index.md",
+    "content/ca/discografia/_index.md",
+    "content/en/next-shows/_index.md",
+    "content/es/discografia/_index.md",
+    "content/musica/discografia/_index.md",
+    "content/en/Sense títol",
+    "content/ca/discografia",
     "public/musica/discografia/index.xml",
     "public/musica/index.xml",
     "data/discs/susurro-cocek.yml",
@@ -194,9 +202,6 @@
     "public/musica/index.html",
     "public/musica",
     "content/ca/discography/_index.md",
-    "content/musica/discografia/_index.md",
-    "content/musica/discografia",
-    "content/musica",
-    "data/discos.yaml"
+    "content/musica/discografia"
   ]
 }
