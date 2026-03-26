@@ -1,7 +1,6 @@
 ---
 title: "Next Shows"
 date: 2026-03-24
-type: "page"
 ---
 
 ## Upcoming Concerts

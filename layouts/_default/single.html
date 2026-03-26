@@ -1,0 +1,9 @@
+{{ define "main" }}
+<div class="page-wrap">
+  <div class="page-inner page-inner--narrow">
+    <a class="back-link" href="javascript:history.back()">← {{ i18n "back" | default "Tornar" }}</a>
+    <h1 class="page-title">{{ .Title }}</h1>
+    <div class="prose">{{ .Content }}</div>
+  </div>
+</div>
+{{ end }}

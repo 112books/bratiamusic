@@ -1,15 +1,7 @@
 {{ define "main" }}
-<div class="page-wrap">
+<div class="page-wrap page-wrap--dark">
   <div class="page-inner">
-
     <h1 class="page-title">{{ .Title }}</h1>
-
-    {{ if .Content }}
-    <div class="prose">{{ .Content }}</div>
-    {{ end }}
-
-    {{/* Secció especial: the-band — llista membres */}}
-    {{ if eq .Section "the-band" }}
     <div class="band-grid">
       {{ range .RegularPages }}
       {{ if not .Params.hidden }}
@@ -45,13 +37,6 @@
       {{ end }}
       {{ end }}
     </div>
-    {{ end }}
-
-    {{/* Secció especial: photos — galeries */}}
-    {{ if eq .Section "photos" }}
-    {{/* El contingut ja inclou el shortcode {{< galleries >}} */}}
-    {{ end }}
-
   </div>
 </div>
 {{ end }}

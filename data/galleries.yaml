@@ -1,0 +1,25 @@
+# Galeries de fotos
+# Cada galeria té: id, title, date, cover (imatge de portada), photos (llista)
+# Les imatges es posen a static/images/gallery/{id}/
+
+- id: "live-2023"
+  title: "Live at Jamboree 2023"
+  date: "2023-11-15"
+  cover: "images/gallery/live-2023/cover.jpg"
+  photos:
+    - file: "images/gallery/live-2023/01.jpg"
+      caption: "Opening night"
+    - file: "images/gallery/live-2023/02.jpg"
+      caption: "Ivan Kovačević"
+    - file: "images/gallery/live-2023/03.jpg"
+      caption: "Pere Nolasc"
+
+- id: "press-2022"
+  title: "Press & Promo 2022"
+  date: "2022-10-01"
+  cover: "images/gallery/press-2022/cover.jpg"
+  photos:
+    - file: "images/gallery/press-2022/01.jpg"
+      caption: "Foto de grup"
+    - file: "images/gallery/press-2022/02.jpg"
+      caption: ""

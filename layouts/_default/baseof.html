@@ -1,91 +1,122 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
-    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}">
-    <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ .Permalink }}">
-    {{ with .Site.Params.og_image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
-    <link rel="icon" type="image/png" href="{{ "images/logo.png" | relURL }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:title"       content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="{{ .Permalink }}">
+  {{ with .Site.Params.og_image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+  <link rel="icon" type="image/svg+xml" href="{{ "images/logo.svg" | relURL }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
 </head>
 <body class="{{ if .IsHome }}is-home{{ else }}is-subpage{{ end }}">
 
+{{/* ── PROMO BANNER ── */}}
 {{ if .Site.Params.promo_enabled }}
 <div class="promo-banner" id="promoBanner" role="banner">
-    <div class="promo-inner">
-        <span class="promo-icon">🎶</span>
-        <span class="promo-text">{{ .Site.Params.promo_text | default "Nou single disponible ara!" }}</span>
-        {{ with .Site.Params.promo_url }}
-        <a href="{{ . }}" class="promo-cta" target="_blank" rel="noopener">{{ $.Site.Params.promo_cta | default "Escolta'l" }} →</a>
-        {{ end }}
-    </div>
-    <button class="promo-close" id="promoClose" aria-label="Tancar l'anunci">✕</button>
+  <div class="promo-inner">
+    <span class="promo-icon">🎶</span>
+    <span class="promo-text">{{ .Site.Params.promo_text | default "Nou single disponible!" }}</span>
+    {{ with .Site.Params.promo_url }}
+    <a href="{{ . }}" class="promo-cta" target="_blank" rel="noopener">{{ $.Site.Params.promo_cta | default "Escolta'l" }} →</a>
+    {{ end }}
+  </div>
+  <button class="promo-close" id="promoClose" aria-label="Tancar">✕</button>
 </div>
 {{ end }}
 
+{{/* ── HEADER ── */}}
 <header class="site-header" id="siteHeader">
-    <div class="header-inner">
-        <a class="site-logo" href="{{ .Site.Language.Lang | relURL }}/" aria-label="{{ .Site.Title }} – inici">
-            <img src="{{ "images/logo.png" | relURL }}" alt="" class="logo-img" aria-hidden="true">
-            <span class="logo-text">{{ .Site.Title }}</span>
-        </a>
 
-        <button class="nav-toggle" id="navToggle" aria-label="Obrir menú" aria-expanded="false" aria-controls="mainNav">
-            <span class="hamburger-bar"></span>
-            <span class="hamburger-bar"></span>
-            <span class="hamburger-bar"></span>
-        </button>
-
-        <nav class="main-nav" id="mainNav" role="navigation" aria-label="Menú principal">
-            <ul class="nav-list">
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#about">{{ i18n "about" }}</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#the-band">{{ i18n "the-band" }}</a></li>
-                <li><a href="/bratiamusic/{{ .Site.Language.Lang }}/discografia/">
-  {{ i18n "discography" }}
-</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#next-shows">{{ i18n "next-shows" }}</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#videos">{{ i18n "videos" }}</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#photos">{{ i18n "photos" }}</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#contact">{{ i18n "contact" }}</a></li>
-            </ul>
-            <div class="lang-switcher" role="navigation" aria-label="Selecció d'idioma">
-                <a href="{{ "ca/" | relURL }}"{{ if eq .Site.Language.Lang "ca" }} class="active" aria-current="true"{{ end }}>CA</a>
-                <a href="{{ "es/" | relURL }}"{{ if eq .Site.Language.Lang "es" }} class="active" aria-current="true"{{ end }}>ES</a>
-                <a href="{{ "en/" | relURL }}"{{ if eq .Site.Language.Lang "en" }} class="active" aria-current="true"{{ end }}>EN</a>
-            </div>
-        </nav>
-        <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+  <div class="header-top">
+    <a class="site-logo" href="{{ .Site.Language.Lang | relURL }}/" aria-label="{{ .Site.Title }}">
+      <img src="{{ "images/logo.svg" | relURL }}"
+           onerror="this.src='{{ "images/logo.png" | relURL }}'"
+           alt="{{ .Site.Title }}" class="logo-full" aria-hidden="true">
+    </a>
+    <div class="lang-switcher" role="navigation" aria-label="Idioma">
+      <a href="{{ "ca/" | relURL }}"{{ if eq .Site.Language.Lang "ca" }} class="active"{{ end }}>CA</a>
+      <a href="{{ "es/" | relURL }}"{{ if eq .Site.Language.Lang "es" }} class="active"{{ end }}>ES</a>
+      <a href="{{ "en/" | relURL }}"{{ if eq .Site.Language.Lang "en" }} class="active"{{ end }}>EN</a>
     </div>
+  </div>
+
+  <div class="header-rule"></div>
+
+  <div class="header-bottom">
+    <button class="nav-toggle" id="navToggle"
+            aria-label="Obrir menú" aria-expanded="false" aria-controls="mainNav">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+    <nav class="main-nav" id="mainNav" role="navigation" aria-label="Menú principal">
+      <ul class="nav-list">
+        {{- $lang := .Site.Language.Lang -}}
+        {{- $current := .RelPermalink -}}
+        <li><a href="{{ $lang | relURL }}/about/"       {{ if hasPrefix $current (printf "/%s/about"       $lang) }}class="is-active"{{ end }}>{{ i18n "about" }}</a></li>
+        <li><a href="{{ $lang | relURL }}/the-band/"    {{ if hasPrefix $current (printf "/%s/the-band"    $lang) }}class="is-active"{{ end }}>{{ i18n "the-band" }}</a></li>
+        <li><a href="{{ $lang | relURL }}/discography/" {{ if hasPrefix $current (printf "/%s/discography" $lang) }}class="is-active"{{ end }}>{{ i18n "discography" }}</a></li>
+        <li><a href="{{ $lang | relURL }}/next-shows/"  {{ if hasPrefix $current (printf "/%s/next-shows"  $lang) }}class="is-active"{{ end }}>{{ i18n "next-shows" }}</a></li>
+        <li><a href="{{ $lang | relURL }}/videos/"      {{ if hasPrefix $current (printf "/%s/videos"      $lang) }}class="is-active"{{ end }}>{{ i18n "videos" }}</a></li>
+        <li><a href="{{ $lang | relURL }}/photos/"      {{ if hasPrefix $current (printf "/%s/photos"      $lang) }}class="is-active"{{ end }}>{{ i18n "photos" }}</a></li>
+        <li><a href="{{ $lang | relURL }}/contact/"     {{ if hasPrefix $current (printf "/%s/contact"     $lang) }}class="is-active"{{ end }}>{{ i18n "contact" }}</a></li>
+      </ul>
+    </nav>
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+  </div>
+
+  {{/* ── NAV COMPACTE (scroll) ── */}}
+  <nav class="nav-compact" id="navCompact" aria-label="Navegació ràpida" aria-hidden="true">
+    <a href="{{ .Site.Language.Lang | relURL }}/" class="nav-compact__logo" aria-label="{{ .Site.Title }}">
+      <img src="{{ "images/logo.svg" | relURL }}"
+           onerror="this.src='{{ "images/logo.png" | relURL }}'"
+           alt="{{ .Site.Title }}">
+    </a>
+    {{- $lang := .Site.Language.Lang -}}
+    {{- $current := .RelPermalink -}}
+    <ul class="nav-compact__list">
+      <li><a href="{{ $lang | relURL }}/about/"       data-tip="{{ i18n "about" }}"       {{ if hasPrefix $current (printf "/%s/about"       $lang) }}class="is-active"{{ end }}>{{ partial "icon.html" "about" }}</a></li>
+      <li><a href="{{ $lang | relURL }}/the-band/"    data-tip="{{ i18n "the-band" }}"    {{ if hasPrefix $current (printf "/%s/the-band"    $lang) }}class="is-active"{{ end }}>{{ partial "icon.html" "band" }}</a></li>
+      <li><a href="{{ $lang | relURL }}/discography/" data-tip="{{ i18n "discography" }}" {{ if hasPrefix $current (printf "/%s/discography" $lang) }}class="is-active"{{ end }}>{{ partial "icon.html" "music" }}</a></li>
+      <li><a href="{{ $lang | relURL }}/next-shows/"  data-tip="{{ i18n "next-shows" }}"  {{ if hasPrefix $current (printf "/%s/next-shows"  $lang) }}class="is-active"{{ end }}>{{ partial "icon.html" "calendar" }}</a></li>
+      <li><a href="{{ $lang | relURL }}/videos/"      data-tip="{{ i18n "videos" }}"      {{ if hasPrefix $current (printf "/%s/videos"      $lang) }}class="is-active"{{ end }}>{{ partial "icon.html" "video" }}</a></li>
+      <li><a href="{{ $lang | relURL }}/photos/"      data-tip="{{ i18n "photos" }}"      {{ if hasPrefix $current (printf "/%s/photos"      $lang) }}class="is-active"{{ end }}>{{ partial "icon.html" "photo" }}</a></li>
+      <li><a href="{{ $lang | relURL }}/contact/"     data-tip="{{ i18n "contact" }}"     {{ if hasPrefix $current (printf "/%s/contact"     $lang) }}class="is-active"{{ end }}>{{ partial "icon.html" "contact" }}</a></li>
+    </ul>
+    <div class="lang-switcher lang-switcher--compact">
+      <a href="{{ "ca/" | relURL }}"{{ if eq .Site.Language.Lang "ca" }} class="active"{{ end }}>CA</a>
+      <a href="{{ "es/" | relURL }}"{{ if eq .Site.Language.Lang "es" }} class="active"{{ end }}>ES</a>
+      <a href="{{ "en/" | relURL }}"{{ if eq .Site.Language.Lang "en" }} class="active"{{ end }}>EN</a>
+    </div>
+  </nav>
+
 </header>
 
-{{ if .IsHome }}
-<div class="hero" role="img" aria-label="Bratia Music – foto de portada">
-    <img src="{{ "images/home-banner.jpg" | relURL }}" alt="" class="hero-img" loading="eager" aria-hidden="true">
-    <div class="hero-overlay">
-        <div class="hero-content">
-            <p class="hero-eyebrow">Balkan · Gypsy Jazz · World Music</p>
-            <h1 class="hero-title">{{ .Site.Title }}</h1>
-            <a href="#about" class="hero-scroll" aria-label="Baixar al contingut">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-            </a>
-        </div>
-    </div>
-</div>
-{{ end }}
-
-<main id="main-content">
-    {{ block "main" . }}{{ end }}
+{{/* ── CONTINGUT PRINCIPAL amb fade ── */}}
+<main id="main-content" class="page-transition">
+  {{ block "main" . }}{{ end }}
 </main>
 
 {{ partial "footer.html" . }}
+
+{{/* ── LIGHTBOX ── */}}
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualitzador d'imatges" hidden>
+  <button class="lightbox__close" id="lbClose" aria-label="Tancar">✕</button>
+  <button class="lightbox__prev"  id="lbPrev"  aria-label="Anterior">&#8249;</button>
+  <button class="lightbox__next"  id="lbNext"  aria-label="Següent">&#8250;</button>
+  <div class="lightbox__wrap">
+    <img class="lightbox__img" id="lbImg" src="" alt="">
+    <p  class="lightbox__cap"  id="lbCap"></p>
+  </div>
+</div>
 
 <script src="{{ "js/main.js" | relURL }}" defer></script>
 </body>

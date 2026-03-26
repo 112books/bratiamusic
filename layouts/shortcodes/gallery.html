@@ -1,0 +1,22 @@
+{{- $id := .Get "id" -}}
+{{- $gallery := "" -}}
+{{- range .Site.Data.galleries -}}
+  {{- if eq .id $id -}}{{- $gallery = . -}}{{- end -}}
+{{- end -}}
+
+{{- if $gallery -}}
+<div class="gallery" data-gallery="{{ $gallery.id }}" aria-label="Galeria {{ $gallery.title }}">
+  {{- range $i, $photo := $gallery.photos -}}
+  <button class="gallery__item"
+          data-src="{{ $photo.file | relURL }}"
+          data-cap="{{ $photo.caption }}"
+          data-index="{{ $i }}"
+          aria-label="Obrir {{ $photo.caption | default (printf "foto %d" (add $i 1)) }}">
+    <img src="{{ $photo.file | relURL }}" alt="{{ $photo.caption }}" loading="lazy">
+    {{- if $photo.caption -}}<span class="gallery__cap">{{ $photo.caption }}</span>{{- end -}}
+  </button>
+  {{- end -}}
+</div>
+{{- else -}}
+<p class="gallery-error">Galeria '{{ $id }}' no trobada</p>
+{{- end -}}
