@@ -1,3 +1,4 @@
 ## Música / Discografia
 
-{{< disc id="balkan-pompe-ignition" lang="ca" >}}
+{{< disc id="balkan-pompe-ignition" >}}
+{{< disc id="susurro-cocek" >}}
