@@ -4,9 +4,9 @@ title:
   en: "Susurro Čoček"
   es: "Susurro Čoček"
 description:
-  ca: "Primer Single."
-  en: "First Single."
-  es: "Primer Single."
+  ca: "Primer single del disc."
+  en: "First single from the album."
+  es: "Primer single del disco."
 text:
   ca: "."
   en: "."
@@ -14,10 +14,10 @@ text:
 credits:
   ca: ""
   en: ""
-  es: "."
+  es: ""
 cover: "Susurro-3000-1-600x600.jpg"
 urls:
-  spotify: "https://orcd.co/susurrococek"
-  apple: "https://orcd.co/susurrococek"
+  spotify: "https://open.spotify.com/album/1Qu7jNAqj7HDoguJZxnW6Y?si=1&nd=1&dlsi=c7fa2214099c435b"
+  apple: "https://www.youtube.com/watch?v=OLTvXMGgC68"
   youtube: "https://www.youtube.com/watch?v=OLTvXMGgC68"
-  deezer: "https://orcd.co/susurrococek"
+  amazon: "https://music.amazon.com/albums/B0C4M9N4WX?ref=dm_ff_featurefm&tag=featurefm-20"
