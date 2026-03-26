@@ -4,40 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Title }} | {{ .Site.Title }}</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
 </head>
 <body>
 
-    
 {{ if .IsHome }}
 <div class="hero">
-    <img src="/images/home-banner.jpg" alt="{{ .Site.Title }}">
+    <img src="{{ "images/home-banner.jpg" | relURL }}" alt="{{ .Site.Title }}">
 </div>
 {{ end }}
-
 
     <header>
         <h1>{{ .Site.Title }}</h1>
         <nav>
             <ul>
-                <li><a href="/{{ .Site.Language.Lang }}/">{{ i18n "home" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#about">{{ i18n "about" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#the-band">{{ i18n "the-band" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#discography">{{ i18n "discography" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#media">{{ i18n "media" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#next-shows">{{ i18n "next-shows" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#photos">{{ i18n "photos" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#videos">{{ i18n "videos" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#booking">{{ i18n "booking" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#merch">{{ i18n "merch" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#press-kit">{{ i18n "press-kit" }}</a></li>
-                <li><a href="/{{ .Site.Language.Lang }}/#newsletter">{{ i18n "newsletter" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/">{{ i18n "home" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#about">{{ i18n "about" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#the-band">{{ i18n "the-band" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#discography">{{ i18n "discography" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#media">{{ i18n "media" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#next-shows">{{ i18n "next-shows" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#photos">{{ i18n "photos" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#videos">{{ i18n "videos" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#booking">{{ i18n "booking" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#merch">{{ i18n "merch" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#press-kit">{{ i18n "press-kit" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#newsletter">{{ i18n "newsletter" }}</a></li>
             </ul>
         </nav>
         <div class="lang-switcher">
-            <a href="/ca/" {{ if eq .Site.Language.Lang "ca" }}class="active"{{ end }}>CA</a>
-            <a href="/es/" {{ if eq .Site.Language.Lang "es" }}class="active"{{ end }}>ES</a>
-            <a href="/en/" {{ if eq .Site.Language.Lang "en" }}class="active"{{ end }}>EN</a>
+            <a href="{{ "ca/" | relURL }}" {{ if eq .Site.Language.Lang "ca" }}class="active"{{ end }}>CA</a>
+            <a href="{{ "es/" | relURL }}" {{ if eq .Site.Language.Lang "es" }}class="active"{{ end }}>ES</a>
+            <a href="{{ "en/" | relURL }}" {{ if eq .Site.Language.Lang "en" }}class="active"{{ end }}>EN</a>
         </div>
     </header>
 
@@ -50,4 +48,3 @@
     </footer>
 </body>
 </html>
-EOF

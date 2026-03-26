@@ -1,21 +1,22 @@
+
 <div class="band-members">
     {{ range where .Site.RegularPages "Section" "the-band" }}
         {{ if not .Params.hidden }}
             <div class="band-member">
                 {{ with .Params.photo }}
-                    <img class="band-photo-circle" src="{{ . }}" alt="{{ $.Params.name }}">
+                    <img class="band-photo-circle" src="{{ . | relURL }}" alt="{{ $.Params.name }}">
                 {{ end }}
                 <h3>{{ .Params.name }}</h3>
                 <p class="band-role">{{ .Params.role }}</p>
                 <div class="band-links">
                     {{ with .Params.instagram }}
                         <a href="{{ . }}" target="_blank" rel="noopener">
-                            <img class="band-icon" src="/images/icons/instagram.svg" alt="Instagram">
+                            <img class="band-icon" src="{{ "images/icons/instagram.svg" | relURL }}" alt="Instagram">
                         </a>
                     {{ end }}
                     {{ with .Params.web }}
                         <a href="{{ . }}" target="_blank" rel="noopener">
-                            <img class="band-icon" src="/images/icons/web.svg" alt="Website">
+                            <img class="band-icon" src="{{ "images/icons/web.svg" | relURL }}" alt="Website">
                         </a>
                     {{ end }}
                 </div>

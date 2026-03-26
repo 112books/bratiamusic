@@ -1,7 +1,5 @@
-cat > layouts/partials/lang-switcher.html << 'EOF'
 <div class="lang-switcher">
-    <a href="/ca/" {{ if eq .Site.Language.Lang "ca" }}class="active"{{ end }}>CA</a>
-    <a href="/es/" {{ if eq .Site.Language.Lang "es" }}class="active"{{ end }}>ES</a>
-    <a href="/en/" {{ if eq .Site.Language.Lang "en" }}class="active"{{ end }}>EN</a>
+    <a href="{{ "ca/" | relURL }}" {{ if eq .Site.Language.Lang "ca" }}class="active"{{ end }}>CA</a>
+    <a href="{{ "es/" | relURL }}" {{ if eq .Site.Language.Lang "es" }}class="active"{{ end }}>ES</a>
+    <a href="{{ "en/" | relURL }}" {{ if eq .Site.Language.Lang "en" }}class="active"{{ end }}>EN</a>
 </div>
-EOF
