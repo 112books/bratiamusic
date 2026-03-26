@@ -1,21 +1,16 @@
 {{ define "main" }}
-
-<section class="band">
-
-  <!-- Leader -->
-  <div class="band-leader">
+{{ if eq .Section "band" }}
+  <!-- Els teus músics originals -->
+  <section class="band">
     {{ range where site.Data.band "leader" true }}
       {{ partial "band-member.html" . }}
     {{ end }}
-  </div>
-
-  <!-- Resta -->
-  <div class="band-members">
-    {{ range where site.Data.band "leader" "!=" true }}
-      {{ partial "band-member.html" . }}
-    {{ end }}
-  </div>
-
-</section>
-
+  </section>
+{{ else }}
+  <!-- Totes les altres llistes (discografia, etc.) -->
+  <article>
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </article>
+{{ end }}
 {{ end }}

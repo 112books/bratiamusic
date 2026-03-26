@@ -1,5 +1,8 @@
 ---
 title: "Discografia"
 ---
-{{< disc id="balkan-pompe-ignition" >}}
-{{< disc id="susurro-cocek" >}}
+
+
+**Balkan Pompe Ignition** - La miríada musical dels Balcans...
+
+**Susurro Čoček** - Primer single del disc.

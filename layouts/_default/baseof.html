@@ -48,7 +48,7 @@
             <ul class="nav-list">
                 <li><a href="{{ .Site.Language.Lang | relURL }}/#about">{{ i18n "about" }}</a></li>
                 <li><a href="{{ .Site.Language.Lang | relURL }}/#the-band">{{ i18n "the-band" }}</a></li>
-                <li><a href="{{ if eq .Site.Language.Lang "en" }}/en/discography/{{ else if eq .Site.Language.Lang "es" }}/es/discografía/{{ else }}/ca/discografia/{{ end }}">
+                <li><a href="/bratiamusic/{{ .Site.Language.Lang }}/discografia/">
   {{ i18n "discography" }}
 </a></li>
                 <li><a href="{{ .Site.Language.Lang | relURL }}/#next-shows">{{ i18n "next-shows" }}</a></li>

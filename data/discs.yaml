@@ -3,57 +3,22 @@ balkan-pompe-ignition:
     ca: Balkan Pompe Ignition
     es: Balkan Pompe Ignition
     en: Balkan Pompe Ignition
-
   description:
     ca: >
-      La miríada musical dels Balcans i l’energia i elegància del jazz gitano,
-      reunides pel nomadisme de la música romaní, creen una experiència sonora extraordinària.
+      La miríada musical dels Balcans i l'energia i elegància del jazz gitano...
     es: >
-      La miríada musical de los Balcanes y la energía y elegancia del jazz gitano,
-      reunidas por el nomadismo de la música romaní, crean una experiencia sonora extraordinaria.
+      La miríada musical de los Balcanes...
     en: >
-      The musical myriad of the Balkans and the energy and elegance of gypsy jazz,
-      brought together by the nomadism of Roma music, create an extraordinary sonic experience.
-
-  text:
-    ca: >
-      Quan un xiuxiueig del passat ens mostra qui som. “Susurro Čoček” és el primer single...
-    es: >
-      Cuando un susurro del pasado nos muestra quiénes somos. “Susurro Čoček” es el primer single...
-    en: >
-      When a whisper from the past shows us who we are. “Susurro Čoček” is the first single...
-
-  credits:
-    ca: >
-      Gravació als Sol de Sants Studios, Barcelona, per Alberto Pérez. Mezcla i master per Yves Roussel.
-    es: >
-      Grabación en Sol de Sants Studios, Barcelona, por Alberto Pérez. Mezcla y master por Yves Roussel.
-    en: >
-      Recorded at Sol de Sants Studios, Barcelona, by Alberto Pérez. Mixed and mastered by Yves Roussel.
-
-  url: https://orcd.co/balkanpompeignition
-
+      The musical myriad of the Balkans...
+  cover: "balkan-cover.jpg"
 
 susurro-cocek:
   title:
     ca: "Susurro Čoček"
-    en: "Susurro Čoček"
+    en: "Susurro Čoček" 
     es: "Susurro Čoček"
   description:
     ca: "Primer single del disc."
     en: "First single from the album."
     es: "Primer single del disco."
-  text:
-    ca: "."
-    en: "."
-    es: "."
-  credits:
-    ca: ""
-    en: ""
-    es: ""
   cover: "Susurro-3000-1-600x600.jpg"
-  urls:
-    spotify: "https://open.spotify.com/album/1Qu7jNAqj7HDoguJZxnW6Y?si=1&nd=1&dlsi=c7fa2214099c435b"
-    apple: "https://www.youtube.com/watch?v=OLTvXMGgC68"
-    youtube: "https://www.youtube.com/watch?v=OLTvXMGgC68"
-    amazon: "https://music.amazon.com/albums/B0C4M9N4WX?ref=dm_ff_featurefm&tag=featurefm-20"

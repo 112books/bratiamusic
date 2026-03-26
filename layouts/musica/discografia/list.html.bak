@@ -1,0 +1,6 @@
+{{ define "main" }}
+<div class="discography">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}  <!-- AQUÍ els shortcodes disc! -->
+</div>
+{{ end }}
