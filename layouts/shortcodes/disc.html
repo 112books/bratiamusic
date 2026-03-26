@@ -1,42 +1,37 @@
 {{ $id := .Get "id" }}
-{{ $disc := index site.Data.discs $id }}
+{{ $disc := index hugo.Data.discs $id }}
 
 <div class="disc">
 
-  <!-- Coberta -->
-  {{ if $disc.cover }}
   <div class="disc-cover">
-    <img src="/images/discs/{{ $disc.cover }}" alt="{{ index $disc.title $.Site.Language.Lang }}">
+    <img src="/images/discs/{{ $disc.cover }}" alt="{{ index $disc.title .Lang }}">
   </div>
-  {{ end }}
 
-  <!-- Contingut -->
   <div class="disc-content">
-    <h2>{{ index $disc.title $.Site.Language.Lang }}</h2>
+    <h2>{{ index $disc.title .Lang }}</h2>
 
-    {{ with index $disc.description $.Site.Language.Lang }}
-      <p>{{ . }}</p>
+    <p>{{ index $disc.description .Lang }}</p>
+    <p>{{ index $disc.text .Lang }}</p>
+
+    {{ with index $disc.credits .Lang }}
+    <p class="credits">{{ . }}</p>
     {{ end }}
 
-    {{ with index $disc.text $.Site.Language.Lang }}
-      <p>{{ . }}</p>
-    {{ end }}
-
-    {{ with index $disc.credits $.Site.Language.Lang }}
-      <p class="credits">{{ . }}</p>
-    {{ end }}
-
-    <!-- Enllaços a plataformes musicals -->
-    {{ if $disc.urls }}
     <div class="music-links">
-      {{ range $key, $url := $disc.urls }}
-        {{ $partialName := print "icons/" $key ".html" }}
-        {{ if partialExists $partialName }}
-          <a href="{{ $url }}" target="_blank">{{ partial $partialName . }}</a>
-        {{ end }}
+      {{ with $disc.urls.spotify }}
+      <a href="{{ . }}" target="_blank">{{ partial "icons/spotify.html" . }}</a>
+      {{ end }}
+      {{ with $disc.urls.apple }}
+      <a href="{{ . }}" target="_blank">{{ partial "icons/apple.html" . }}</a>
+      {{ end }}
+      {{ with $disc.urls.youtube }}
+      <a href="{{ . }}" target="_blank">{{ partial "icons/youtube.html" . }}</a>
+      {{ end }}
+      {{ with $disc.urls.deezer }}
+      <a href="{{ . }}" target="_blank">{{ partial "icons/deezer.html" . }}</a>
       {{ end }}
     </div>
-    {{ end }}
+
   </div>
 
 </div>
