@@ -1,4 +1,4 @@
-baseURL = "https://112books.github.io/bratiamusic/"
+baseURL = "/"
 languageCode = "en-us"
 title = "Bratia Music"
 defaultContentLanguage = "en"
