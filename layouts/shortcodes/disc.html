@@ -4,31 +4,33 @@
 <div class="disc">
 
   <div class="disc-cover">
-    <img src="/images/discs/{{ $disc.cover }}" alt="{{ index $disc.title .Lang }}">
+    <img src="/images/discs/{{ $disc.cover }}" alt="{{ index $disc.title .Page.Lang }}">
   </div>
 
   <div class="disc-content">
-    <h2>{{ index $disc.title .Lang }}</h2>
 
-    <p>{{ index $disc.description .Lang }}</p>
-    <p>{{ index $disc.text .Lang }}</p>
+    <h2>{{ index $disc.title .Page.Lang }}</h2>
 
-    {{ with index $disc.credits .Lang }}
-    <p class="credits">{{ . }}</p>
+    <p>{{ index $disc.description .Page.Lang }}</p>
+
+    <p>{{ index $disc.text .Page.Lang }}</p>
+
+    {{ with index $disc.credits .Page.Lang }}
+      <p class="credits">{{ . }}</p>
     {{ end }}
 
     <div class="music-links">
       {{ with $disc.urls.spotify }}
-      <a href="{{ . }}" target="_blank">{{ partial "icons/spotify.html" . }}</a>
+        <a href="{{ . }}" target="_blank">{{ partial "icons/spotify.html" . }}</a>
       {{ end }}
       {{ with $disc.urls.apple }}
-      <a href="{{ . }}" target="_blank">{{ partial "icons/apple.html" . }}</a>
+        <a href="{{ . }}" target="_blank">{{ partial "icons/apple.html" . }}</a>
       {{ end }}
       {{ with $disc.urls.youtube }}
-      <a href="{{ . }}" target="_blank">{{ partial "icons/youtube.html" . }}</a>
+        <a href="{{ . }}" target="_blank">{{ partial "icons/youtube.html" . }}</a>
       {{ end }}
       {{ with $disc.urls.deezer }}
-      <a href="{{ . }}" target="_blank">{{ partial "icons/deezer.html" . }}</a>
+        <a href="{{ . }}" target="_blank">{{ partial "icons/deezer.html" . }}</a>
       {{ end }}
     </div>
 
