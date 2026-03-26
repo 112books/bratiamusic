@@ -595,3 +595,21 @@ iframe {
 
   .logo-text { font-size: 1rem; }
 }
+
+
+/* Discobrafy */
+.music-links {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.music-links a {
+  font-size: 1.4rem;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.music-links a:hover {
+  opacity: 1;
+}
