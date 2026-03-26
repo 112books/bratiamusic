@@ -1,8 +1,3 @@
 ---
 title: "The Band"
-date: 2026-03-24
-type: "page"
 ---
-
-
-{{< band >}}

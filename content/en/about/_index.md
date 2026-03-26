@@ -4,7 +4,7 @@ date: 2026-03-24
 type: "page"
 ---
 
-![Logo](/images/logo.png)
+
 
 The Barcelona-based quintet Bratia emerges from the desire of the Serbian double bass player [Ivan Kovačević](http://ivankovacevic.com/) to merge two distinct musical worlds into a frenzied proposal. The infinitely rich soundscape of the Balkans meets the energy, sobriety and precision of gypsy jazz, brought together by the nomadism of Roma music to create an explosive cocktail that will leave none indifferent.
 

@@ -1,12 +1,9 @@
 ---
-title: "Contact / Booking"
-date: 2026-03-24
-type: "page"
+title: "Contacte / Contractació"
 ---
 
-## Contact / Booking
+Per a contractacions, premsa o qualsevol consulta, poseu-vos en contacte:
 
-Please contact us via email or booking form:
+**Email:** [booking@bratiamusic.com](mailto:booking@bratiamusic.com)
 
-- Email: booking@bratiamusic.com
-- Instagram: [@bratiamusic](#)
+**Instagram:** [@bratiamusic](https://www.instagram.com/bratiamusic/)

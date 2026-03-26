@@ -3,48 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ .Title }} | {{ .Site.Title }}</title>
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}">
+    <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ .Permalink }}">
+    {{ with .Site.Params.og_image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+    <link rel="icon" type="image/png" href="{{ "images/logo.png" | relURL }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
 </head>
-<body>
+<body class="{{ if .IsHome }}is-home{{ else }}is-subpage{{ end }}">
 
-{{ if .IsHome }}
-<div class="hero">
-    <img src="{{ "images/home-banner.jpg" | relURL }}" alt="{{ .Site.Title }}">
+{{ if .Site.Params.promo_enabled }}
+<div class="promo-banner" id="promoBanner" role="banner">
+    <div class="promo-inner">
+        <span class="promo-icon">🎶</span>
+        <span class="promo-text">{{ .Site.Params.promo_text | default "Nou single disponible ara!" }}</span>
+        {{ with .Site.Params.promo_url }}
+        <a href="{{ . }}" class="promo-cta" target="_blank" rel="noopener">{{ $.Site.Params.promo_cta | default "Escolta'l" }} →</a>
+        {{ end }}
+    </div>
+    <button class="promo-close" id="promoClose" aria-label="Tancar l'anunci">✕</button>
 </div>
 {{ end }}
 
-    <header>
-        <h1>{{ .Site.Title }}</h1>
-        <nav>
-            <ul>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/">{{ i18n "home" }}</a></li>
+<header class="site-header" id="siteHeader">
+    <div class="header-inner">
+        <a class="site-logo" href="{{ .Site.Language.Lang | relURL }}/" aria-label="{{ .Site.Title }} – inici">
+            <img src="{{ "images/logo.png" | relURL }}" alt="" class="logo-img" aria-hidden="true">
+            <span class="logo-text">{{ .Site.Title }}</span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Obrir menú" aria-expanded="false" aria-controls="mainNav">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+        </button>
+
+        <nav class="main-nav" id="mainNav" role="navigation" aria-label="Menú principal">
+            <ul class="nav-list">
                 <li><a href="{{ .Site.Language.Lang | relURL }}/#about">{{ i18n "about" }}</a></li>
                 <li><a href="{{ .Site.Language.Lang | relURL }}/#the-band">{{ i18n "the-band" }}</a></li>
                 <li><a href="{{ .Site.Language.Lang | relURL }}/#discography">{{ i18n "discography" }}</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#media">{{ i18n "media" }}</a></li>
                 <li><a href="{{ .Site.Language.Lang | relURL }}/#next-shows">{{ i18n "next-shows" }}</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#photos">{{ i18n "photos" }}</a></li>
                 <li><a href="{{ .Site.Language.Lang | relURL }}/#videos">{{ i18n "videos" }}</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#booking">{{ i18n "booking" }}</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#merch">{{ i18n "merch" }}</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#press-kit">{{ i18n "press-kit" }}</a></li>
-                <li><a href="{{ .Site.Language.Lang | relURL }}/#newsletter">{{ i18n "newsletter" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#photos">{{ i18n "photos" }}</a></li>
+                <li><a href="{{ .Site.Language.Lang | relURL }}/#contact">{{ i18n "contact" }}</a></li>
             </ul>
+            <div class="lang-switcher" role="navigation" aria-label="Selecció d'idioma">
+                <a href="{{ "ca/" | relURL }}"{{ if eq .Site.Language.Lang "ca" }} class="active" aria-current="true"{{ end }}>CA</a>
+                <a href="{{ "es/" | relURL }}"{{ if eq .Site.Language.Lang "es" }} class="active" aria-current="true"{{ end }}>ES</a>
+                <a href="{{ "en/" | relURL }}"{{ if eq .Site.Language.Lang "en" }} class="active" aria-current="true"{{ end }}>EN</a>
+            </div>
         </nav>
-        <div class="lang-switcher">
-            <a href="{{ "ca/" | relURL }}" {{ if eq .Site.Language.Lang "ca" }}class="active"{{ end }}>CA</a>
-            <a href="{{ "es/" | relURL }}" {{ if eq .Site.Language.Lang "es" }}class="active"{{ end }}>ES</a>
-            <a href="{{ "en/" | relURL }}" {{ if eq .Site.Language.Lang "en" }}class="active"{{ end }}>EN</a>
+        <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+    </div>
+</header>
+
+{{ if .IsHome }}
+<div class="hero" role="img" aria-label="Bratia Music – foto de portada">
+    <img src="{{ "images/home-banner.jpg" | relURL }}" alt="" class="hero-img" loading="eager" aria-hidden="true">
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <p class="hero-eyebrow">Balkan · Gypsy Jazz · World Music</p>
+            <h1 class="hero-title">{{ .Site.Title }}</h1>
+            <a href="#about" class="hero-scroll" aria-label="Baixar al contingut">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            </a>
         </div>
-    </header>
+    </div>
+</div>
+{{ end }}
 
-    <main>
-        {{ block "main" . }}{{ end }}
-    </main>
+<main id="main-content">
+    {{ block "main" . }}{{ end }}
+</main>
 
-    <footer>
-        <p>© {{ now.Format "2006" }} {{ .Site.Title }}</p>
-    </footer>
+{{ partial "footer.html" . }}
+
+<script src="{{ "js/main.js" | relURL }}" defer></script>
 </body>
 </html>

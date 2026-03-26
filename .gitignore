@@ -1,6 +1,15 @@
+# Hugo build output
 public/
 resources/
-themes/
-assets/
-.obsidian/
+
+# macOS
 .DS_Store
+__MACOSX/
+._*
+
+# Node
+node_modules/
+
+# Editors
+.vscode/
+.idea/

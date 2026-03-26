@@ -1,80 +1,98 @@
 {{ define "main" }}
 
-<section id="about">
-    <h2>{{ i18n "about" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "about") }}
-        {{ .Content }}
-    {{ end }}
+<section id="about" class="section">
+    <div class="section-inner">
+        <h2 class="section-title">{{ i18n "about" }}</h2>
+        {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "about") }}
+            <div class="prose">{{ .Content }}</div>
+        {{ end }}
+    </div>
 </section>
 
-<section id="the-band">
-    <h2>{{ i18n "the-band" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "the-band") }}
-        {{ .Content }}
-    {{ end }}
+<section id="the-band" class="section section--dark">
+    <div class="section-inner">
+        <h2 class="section-title">{{ i18n "the-band" }}</h2>
+        <div class="band-grid">
+            {{ range where (.Site.GetPage (path.Join "/" $.Site.Language.Lang "the-band")).RegularPages "Params.hidden" "!=" true }}
+            <article class="band-card">
+                {{ with .Params.photo }}
+                <div class="band-card__photo-wrap">
+                    <img class="band-card__photo" src="{{ . | relURL }}" alt="{{ $.Params.name }}" loading="lazy">
+                </div>
+                {{ end }}
+                <div class="band-card__body">
+                    <h3 class="band-card__name">{{ .Params.name }}</h3>
+                    <p class="band-card__role">{{ .Params.role }}</p>
+                    <div class="band-card__bio prose-sm">{{ .Content }}</div>
+                    <div class="band-card__links">
+                        {{ with .Params.instagram }}
+                        <a href="{{ . }}" target="_blank" rel="noopener" aria-label="Instagram">
+                            <img src="{{ "images/icons/instagram.svg" | relURL }}" alt="Instagram" class="social-icon">
+                        </a>
+                        {{ end }}
+                        {{ with .Params.facebook }}
+                        <a href="{{ . }}" target="_blank" rel="noopener" aria-label="Facebook">
+                            <img src="{{ "images/icons/facebook.svg" | relURL }}" alt="Facebook" class="social-icon">
+                        </a>
+                        {{ end }}
+                        {{ with .Params.web }}
+                        <a href="{{ . }}" target="_blank" rel="noopener" aria-label="Web personal">
+                            <img src="{{ "images/icons/web.svg" | relURL }}" alt="Web" class="social-icon">
+                        </a>
+                        {{ end }}
+                    </div>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </div>
 </section>
 
-<section id="discography">
-    <h2>{{ i18n "discography" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "discography") }}
-        {{ .Content }}
-    {{ end }}
+<section id="discography" class="section">
+    <div class="section-inner">
+        <h2 class="section-title">{{ i18n "discography" }}</h2>
+        {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "discography") }}
+            <div class="prose">{{ .Content }}</div>
+        {{ else }}
+            <p class="coming-soon">— {{ i18n "coming_soon" | default "Aviat disponible" }} —</p>
+        {{ end }}
+    </div>
 </section>
 
-<section id="media">
-    <h2>{{ i18n "media" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "media") }}
-        {{ .Content }}
-    {{ end }}
+<section id="next-shows" class="section section--accent">
+    <div class="section-inner">
+        <h2 class="section-title">{{ i18n "next-shows" }}</h2>
+        {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "next-shows") }}
+            <div class="prose">{{ .Content }}</div>
+        {{ end }}
+    </div>
 </section>
 
-<section id="next-shows">
-    <h2>{{ i18n "next-shows" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "next-shows") }}
-        {{ .Content }}
-    {{ end }}
+<section id="videos" class="section">
+    <div class="section-inner">
+        <h2 class="section-title">{{ i18n "videos" }}</h2>
+        {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "videos") }}
+            <div class="prose">{{ .Content }}</div>
+        {{ end }}
+    </div>
 </section>
 
-<section id="photos">
-    <h2>{{ i18n "photos" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "photos") }}
-        {{ .Content }}
-    {{ end }}
+<section id="photos" class="section section--dark">
+    <div class="section-inner">
+        <h2 class="section-title">{{ i18n "photos" }}</h2>
+        {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "photos") }}
+            <div class="prose">{{ .Content }}</div>
+        {{ end }}
+    </div>
 </section>
 
-<section id="videos">
-    <h2>{{ i18n "videos" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "videos") }}
-        {{ .Content }}
-    {{ end }}
-</section>
-
-<section id="booking">
-    <h2>{{ i18n "booking" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "booking") }}
-        {{ .Content }}
-    {{ end }}
-</section>
-
-<section id="merch">
-    <h2>{{ i18n "merch" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "merch") }}
-        {{ .Content }}
-    {{ end }}
-</section>
-
-<section id="press-kit">
-    <h2>{{ i18n "press-kit" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "press-kit") }}
-        {{ .Content }}
-    {{ end }}
-</section>
-
-<section id="newsletter">
-    <h2>{{ i18n "newsletter" }}</h2>
-    {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "newsletter") }}
-        {{ .Content }}
-    {{ end }}
+<section id="contact" class="section">
+    <div class="section-inner">
+        <h2 class="section-title">{{ i18n "contact" }}</h2>
+        {{ with .Site.GetPage (path.Join "/" $.Site.Language.Lang "contact") }}
+            <div class="prose">{{ .Content }}</div>
+        {{ end }}
+    </div>
 </section>
 
 {{ end }}

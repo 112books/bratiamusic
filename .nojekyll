@@ -1,6 +1,0 @@
-cd /Users/joan/Documents/Obsidian/bratiamusic
-git checkout main
-touch .nojekyll
-git add .nojekyll
-git commit -m "Afegeix .nojekyll per desactivar Jekyll"
-git push origin main

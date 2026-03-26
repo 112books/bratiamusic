@@ -1,14 +1,19 @@
 <footer>
     <div class="footer-container">
         <div class="footer-left">
-            <div class="sponsor">
-                <a href="https://sponsor.com">
-                    <img src="{{ "images/sponsor/logo.png" | relURL }}" alt="Sponsor">
+            <div class="footer-brand">{{ .Site.Title }}</div>
+            {{ if .Site.Params.sponsors }}
+            <div class="footer-sponsors">
+                {{ range .Site.Params.sponsors }}
+                <a href="{{ .url }}" target="_blank" rel="noopener" aria-label="{{ .name }}">
+                    <img src="{{ .logo | relURL }}" alt="{{ .name }}">
                 </a>
+                {{ end }}
             </div>
-            <div class="signature">
-                Powered by <a href="https://linuxbcn.com">LinuxBCN.com</a> with Hugo<br>
-                | Consultancy | Development | Hosting | Design |
+            {{ end }}
+            <div class="footer-signature">
+                Powered by <a href="https://linuxbcn.com" target="_blank" rel="noopener">LinuxBCN.com</a> · Hugo SSG<br>
+                Consultancy · Development · Hosting · Design
             </div>
         </div>
         <div class="footer-right">
@@ -20,7 +25,5 @@
             </ul>
         </div>
     </div>
-    <div class="copyright">
-        <p>© {{ now.Format "2006" }} {{ .Site.Title }}. {{ i18n "all_rights_reserved" }}</p>
-    </div>
+    <p class="footer-copy">© {{ now.Format "2006" }} {{ .Site.Title }}. {{ i18n "all_rights_reserved" }}</p>
 </footer>

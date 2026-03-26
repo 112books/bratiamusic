@@ -1,21 +1,43 @@
-baseURL = "/"
+baseURL = "https://112books.github.io/bratiamusic/"
 languageCode = "en-us"
 title = "Bratia Music"
-defaultContentLanguage = "en"
+defaultContentLanguage = "ca"
+
+# Sense relativeURLs: Hugo usarà el baseURL per construir totes les rutes
+# Això garanteix que funcioni tant en local (hugo server) com a GitHub Pages
 
 [languages]
-[languages.en]
+[languages.ca]
   title = "Bratia Music"
   weight = 1
 [languages.es]
   title = "Bratia Music"
   weight = 2
-[languages.ca]
+[languages.en]
   title = "Bratia Music"
   weight = 3
 
 [params]
-description = "Official website of Bratia Music – music, media, events, and more."
+description = "Web oficial de Bratia Music – Balkan, Gypsy Jazz i World Music des de Barcelona."
+tagline    = "Balkan · Gypsy Jazz · World Music"
+og_image   = "images/home-banner.jpg"
+
+# ── PROMO BANNER ── Activa quan calgui
+promo_enabled = false
+promo_text    = "Nou single disponible!"
+promo_url     = "https://open.spotify.com"
+promo_cta     = "Escolta'l"
+
+# ── SPONSORS ──
+[[params.sponsors]]
+  name = "D'Addario"
+  logo = "images/sponsor/d_addario.png"
+  url  = "https://www.daddario.com"
+
+[[params.sponsors]]
+  name = "Broken Glasses"
+  logo = "images/sponsor/broken-glasses-logo.jpg"
+  url  = "https://brokengls.com"
 
 [markup]
   [markup.goldmark]
