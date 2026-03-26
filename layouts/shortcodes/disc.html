@@ -1,34 +1,42 @@
-{{/* layouts/shortcodes/disc.html */}}
 {{ $id := .Get "id" }}
 {{ $disc := index site.Data.discs $id }}
 
 <div class="disc">
 
+  <!-- Coberta -->
+  {{ if $disc.cover }}
   <div class="disc-cover">
-    <img src="/images/discs/{{ $disc.cover }}" alt="{{ $disc.title }}">
+    <img src="/images/discs/{{ $disc.cover }}" alt="{{ index $disc.title $.Site.Language.Lang }}">
   </div>
+  {{ end }}
 
+  <!-- Contingut -->
   <div class="disc-content">
-    <h2>{{ $disc.title }}</h2>
+    <h2>{{ index $disc.title $.Site.Language.Lang }}</h2>
 
-    <p>{{ $disc.description }}</p>
-    <p>{{ $disc.text }}</p>
-
-    {{ if $disc.credits }}
-      <p class="credits">{{ $disc.credits }}</p>
+    {{ with index $disc.description $.Site.Language.Lang }}
+      <p>{{ . }}</p>
     {{ end }}
 
+    {{ with index $disc.text $.Site.Language.Lang }}
+      <p>{{ . }}</p>
+    {{ end }}
+
+    {{ with index $disc.credits $.Site.Language.Lang }}
+      <p class="credits">{{ . }}</p>
+    {{ end }}
+
+    <!-- Enllaços a plataformes musicals -->
     {{ if $disc.urls }}
     <div class="music-links">
-      {{ range $platform, $link := $disc.urls }}
-        {{/* Exemple: partials/icons/spotify.html */}}
-        <a href="{{ $link }}" target="_blank" title="Escolta {{ $disc.title }} a {{ $platform }}">
-          {{ partial (printf "icons/%s.html" $platform) . }}
-        </a>
+      {{ range $key, $url := $disc.urls }}
+        {{ $partialName := print "icons/" $key ".html" }}
+        {{ if partialExists $partialName }}
+          <a href="{{ $url }}" target="_blank">{{ partial $partialName . }}</a>
+        {{ end }}
       {{ end }}
     </div>
     {{ end }}
-
   </div>
 
 </div>
