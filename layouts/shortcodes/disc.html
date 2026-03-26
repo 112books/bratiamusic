@@ -1,40 +1,34 @@
-{{/* Shortcode: disc.html */}}
-
+{{/* layouts/shortcodes/disc.html */}}
 {{ $id := .Get "id" }}
 {{ $disc := index site.Data.discs $id }}
-{{ $lang := .Page.Language.Lang }}
 
 <div class="disc">
 
-  <!-- Portada -->
   <div class="disc-cover">
-    <img src="/images/discs/{{ $disc.cover }}" alt="{{ index $disc.title $lang }}">
+    <img src="/images/discs/{{ $disc.cover }}" alt="{{ $disc.title }}">
   </div>
 
-  <!-- Contingut -->
   <div class="disc-content">
-    <h2>{{ index $disc.title $lang }}</h2>
+    <h2>{{ $disc.title }}</h2>
 
-    <p>{{ index $disc.description $lang }}</p>
-    <p>{{ index $disc.text $lang }}</p>
+    <p>{{ $disc.description }}</p>
+    <p>{{ $disc.text }}</p>
 
-    <p class="credits">{{ index $disc.credits $lang }}</p>
+    {{ if $disc.credits }}
+      <p class="credits">{{ $disc.credits }}</p>
+    {{ end }}
 
-    <!-- Enllaços a plataformes amb SVG -->
+    {{ if $disc.urls }}
     <div class="music-links">
-      {{ with $disc.url.spotify }}
-        <a href="{{ . }}" target="_blank">{{ partial "icons/spotify.html" . }}</a>
-      {{ end }}
-      {{ with $disc.url.apple }}
-        <a href="{{ . }}" target="_blank">{{ partial "icons/apple.html" . }}</a>
-      {{ end }}
-      {{ with $disc.url.youtube }}
-        <a href="{{ . }}" target="_blank">{{ partial "icons/youtube.html" . }}</a>
-      {{ end }}
-      {{ with $disc.url.deezer }}
-        <a href="{{ . }}" target="_blank">{{ partial "icons/deezer.html" . }}</a>
+      {{ range $platform, $link := $disc.urls }}
+        {{/* Exemple: partials/icons/spotify.html */}}
+        <a href="{{ $link }}" target="_blank" title="Escolta {{ $disc.title }} a {{ $platform }}">
+          {{ partial (printf "icons/%s.html" $platform) . }}
+        </a>
       {{ end }}
     </div>
+    {{ end }}
+
   </div>
 
 </div>
