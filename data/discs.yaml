@@ -1,18 +1,34 @@
 balkan-pompe-ignition:
-  title: Balkan Pompe Ignition
-  cover: BRATIA_ALBUM_Balkan-Pompe-Ignition_Portada_600x600.jpg
+  title:
+    ca: Balkan Pompe Ignition
+    es: Balkan Pompe Ignition
+    en: Balkan Pompe Ignition
 
-  description: >
-    The musical myriad of the Balkans and the energy and elegance of gypsy jazz,
-    brought together by the nomadism of Roma music, create an extraordinary sonic experience,
-    a musical universe, a brotherhood.
+  description:
+    ca: >
+      La miríada musical dels Balcans i l’energia i elegància del jazz gitano,
+      reunides pel nomadisme de la música romaní, creen una experiència sonora extraordinària.
+    es: >
+      La miríada musical de los Balcanes y la energía y elegancia del jazz gitano,
+      reunidas por el nomadismo de la música romaní, crean una experiencia sonora extraordinaria.
+    en: >
+      The musical myriad of the Balkans and the energy and elegance of gypsy jazz,
+      brought together by the nomadism of Roma music, create an extraordinary sonic experience.
 
-  text: >
-    When a whisper from the past shows us who we are. “Susurro Čoček” is the first single
-    from their first album “Balkan Pompe Ignition”.
+  text:
+    ca: >
+      Quan un xiuxiueig del passat ens mostra qui som. “Susurro Čoček” és el primer single...
+    es: >
+      Cuando un susurro del pasado nos muestra quiénes somos. “Susurro Čoček” es el primer single...
+    en: >
+      When a whisper from the past shows us who we are. “Susurro Čoček” is the first single...
 
-  credits: >
-    Recorded at Sol de Sants Studios, Barcelona, by Alberto Pérez.
-    Mixed and mastered by Yves Roussel.
+  credits:
+    ca: >
+      Gravació als Sol de Sants Studios, Barcelona, per Alberto Pérez. Mezcla i master per Yves Roussel.
+    es: >
+      Grabación en Sol de Sants Studios, Barcelona, por Alberto Pérez. Mezcla y master por Yves Roussel.
+    en: >
+      Recorded at Sol de Sants Studios, Barcelona, by Alberto Pérez. Mixed and mastered by Yves Roussel.
 
   url: https://orcd.co/balkanpompeignition
