@@ -27,3 +27,6 @@
     </div>
     <p class="footer-copy">© {{ now.Format "2006" }} {{ .Site.Title }}. {{ i18n "all_rights_reserved" }}</p>
 </footer>
+
+{{/* ── ESTADÍSTIQUES amb GoatCounter (config a hugo.toml) ── */}}
+{{ partial "analytics/goatcounter.html" . }}

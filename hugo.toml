@@ -38,3 +38,7 @@ promo_cta     = "Escolta'l"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+[params.analytics]
+goatcounter = "bratiamusic"
+enabled = true

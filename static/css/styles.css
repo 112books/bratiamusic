@@ -650,6 +650,46 @@ footer { background: var(--c-dark); color: var(--c-light); padding: 3rem var(--g
 }
 .page-wrap--dark .page-title { color: var(--c-light); }
 
+
+
+/* ── ADMIN ─────────────────────────────────────────── */
+.terminal {
+  background: #0b0f0c;
+  color: #b7ffb0;
+  font-family: "Courier New", monospace;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.terminal pre.system {
+  color: #6eff8f;
+  border-left: 2px solid #2cff7a;
+  padding-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+.terminal .content h1,
+.terminal .content h2,
+.terminal .content h3 {
+  color: #9cffb1;
+  font-weight: normal;
+}
+
+.terminal .content {
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.terminal .content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.terminal .content li::before {
+  content: "> ";
+  color: #2cff7a;
+}
+
 /* ── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 900px) {
   :root { --header-top-h: 70px; --header-h: 114px; --section-v: 4rem; }
@@ -700,3 +740,6 @@ footer { background: var(--c-dark); color: var(--c-light); padding: 3rem var(--g
   .lightbox__prev { left: .5rem; }
   .lightbox__next { right: .5rem; }
 }
+
+
+
