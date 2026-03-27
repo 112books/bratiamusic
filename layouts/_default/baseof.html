@@ -1,56 +1,27 @@
 <!doctype html>
-<html lang="ca">
+<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>{{ .Title }}</title>
 
-  <!-- CSS del site -->
-<link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
 
-  <!-- analytics -->
   {{ partial "analytics/goatcounter.html" . }}
   <script src="{{ "js/track.js" | relURL }}"></script>
 </head>
 
 <body>
 
-{{ $isAdmin := hasPrefix .RelPermalink "/admin/" }}
-
-{{ if $isAdmin }}
-
-  <header style="background:#0b0f0c;color:#b7ffb0;font-family:monospace;padding:1rem;border-bottom:1px solid #2a3;">
-    <a href="https://linuxbcn.com" style="color:#7dff9b;text-decoration:none;">
-      LinuxBCN.com
-    </a>
-    · <strong>Estadístiques de Bratia</strong>
-
-    <nav style="margin-top:0.5rem;">
-      <a href="/admin/">← Admin home</a> |
-      <a href="/">Go to site</a>
-    </nav>
-  </header>
-
-  <main style="background:#0b0f0c;color:#b7ffb0;font-family:monospace;padding:2rem;">
-    {{ block "main" . }}{{ end }}
-  </main>
-
-{{ else }}
-
-  <!-- SITE SIMPLE (sense partials per evitar errors) -->
-
   <header>
     <h1>{{ .Site.Title }}</h1>
   </header>
 
   <main>
-    {{ block "main" . }}{{ end }}
+    {{ block "main" . }}{{ .Content }}{{ end }}
   </main>
 
   {{ partial "footer.html" . }}
-
-{{ end }}
 
 </body>
 </html>

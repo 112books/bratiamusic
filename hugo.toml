@@ -3,42 +3,146 @@ languageCode = "en-us"
 title = "Bratia Music"
 defaultContentLanguage = "ca"
 
-# Sense relativeURLs: Hugo usarà el baseURL per construir totes les rutes
-# Això garanteix que funcioni tant en local (hugo server) com a GitHub Pages
-
-[languages]
 [languages.ca]
   title = "Bratia Music"
+  languageName = "Català"
   weight = 1
+
+[[languages.ca.menus.main]]
+  name = "Qui som"
+  url = "/ca/about/"
+  weight = 1
+
+[[languages.ca.menus.main]]
+  name = "El grup"
+  url = "/ca/the-band/"
+  weight = 2
+
+[[languages.ca.menus.main]]
+  name = "Música / Discografia"
+  url = "/ca/music/"
+  weight = 3
+
+[[languages.ca.menus.main]]
+  name = "Propers concerts"
+  url = "/ca/concerts/"
+  weight = 4
+
+[[languages.ca.menus.main]]
+  name = "Vídeos"
+  url = "/ca/videos/"
+  weight = 5
+
+[[languages.ca.menus.main]]
+  name = "Fotografies"
+  url = "/ca/photos/"
+  weight = 6
+
+[[languages.ca.menus.main]]
+  name = "Contacte / Contractació"
+  url = "/ca/contact/"
+  weight = 7
+
 [languages.es]
   title = "Bratia Music"
+  languageName = "Español"
   weight = 2
+
+[[languages.es.menus.main]]
+  name = "Quiénes somos"
+  url = "/es/about/"
+  weight = 1
+
+[[languages.es.menus.main]]
+  name = "El grupo"
+  url = "/es/the-band/"
+  weight = 2
+
+[[languages.es.menus.main]]
+  name = "Música / Discografía"
+  url = "/es/music/"
+  weight = 3
+
+[[languages.es.menus.main]]
+  name = "Próximos conciertos"
+  url = "/es/concerts/"
+  weight = 4
+
+[[languages.es.menus.main]]
+  name = "Vídeos"
+  url = "/es/videos/"
+  weight = 5
+
+[[languages.es.menus.main]]
+  name = "Fotografías"
+  url = "/es/photos/"
+  weight = 6
+
+[[languages.es.menus.main]]
+  name = "Contacto / Contratación"
+  url = "/es/contact/"
+  weight = 7
+
 [languages.en]
   title = "Bratia Music"
+  languageName = "English"
   weight = 3
+
+[[languages.en.menus.main]]
+  name = "About"
+  url = "/en/about/"
+  weight = 1
+
+[[languages.en.menus.main]]
+  name = "The band"
+  url = "/en/the-band/"
+  weight = 2
+
+[[languages.en.menus.main]]
+  name = "Music / Discography"
+  url = "/en/music/"
+  weight = 3
+
+[[languages.en.menus.main]]
+  name = "Upcoming concerts"
+  url = "/en/concerts/"
+  weight = 4
+
+[[languages.en.menus.main]]
+  name = "Videos"
+  url = "/en/videos/"
+  weight = 5
+
+[[languages.en.menus.main]]
+  name = "Photos"
+  url = "/en/photos/"
+  weight = 6
+
+[[languages.en.menus.main]]
+  name = "Contact / Booking"
+  url = "/en/contact/"
+  weight = 7
 
 [params]
 description = "Web oficial de Bratia Music – Balkan, Gypsy Jazz i World Music des de Barcelona."
-tagline    = "Balkan · Gypsy Jazz · World Music"
-og_image   = "images/home-banner.jpg"
+tagline     = "Balkan · Gypsy Jazz · World Music"
+og_image    = "images/home-banner.jpg"
 
-# ── PROMO BANNER ── Activa quan calgui
 promo_enabled = false
 promo_text    = "Nou single disponible!"
 promo_url     = "https://open.spotify.com"
 promo_cta     = "Escolta'l"
 
-# ── SPONSORS ──
 [[params.sponsors]]
   name = "Broken Glasses"
   logo = "images/sponsor/broken-glasses-logo.jpg"
   url  = "https://brokengls.com"
 
+[params.analytics]
+goatcounter = "bratiamusic"
+enabled     = true
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
-
-[params.analytics]
-goatcounter = "bratiamusic"
-enabled = true

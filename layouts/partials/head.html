@@ -1,1 +1,68 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<header class="site-header">
+
+  <!-- Fila 1: logo + idiomes -->
+  <div class="header-top">
+    <a href="{{ .Site.BaseURL }}" class="site-logo">
+      <img class="logo-full" src="{{ "images/logo.png" | relURL }}" alt="{{ .Site.Title }}">
+    </a>
+    <div class="lang-switcher">
+      {{ range .Site.Languages }}
+        <a href="/{{ .Lang }}/" {{ if eq $.Site.Language.Lang .Lang }}class="active"{{ end }}>
+          {{ upper .Lang }}
+        </a>
+      {{ end }}
+    </div>
+  </div>
+
+  <!-- Separador -->
+  <div class="header-rule"></div>
+
+  <!-- Fila 2: nav principal -->
+  <div class="header-bottom">
+    <nav class="main-nav" id="main-nav">
+      <ul class="nav-list">
+        {{ range .Site.Menus.main }}
+        <li>
+          <a href="{{ .URL | relURL }}" {{ if $.IsHome }}{{ end }}>
+            {{ .Name }}
+          </a>
+        </li>
+        {{ end }}
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menú">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+  </div>
+
+</header>
+
+<!-- Nav compacte (apareix en scroll) -->
+<nav class="nav-compact" id="nav-compact">
+  <div class="nav-compact__logo">
+    <a href="{{ .Site.BaseURL }}">
+      <img src="{{ "images/logo.png" | relURL }}" alt="{{ .Site.Title }}">
+    </a>
+  </div>
+  <ul class="nav-compact__list">
+    {{ range .Site.Menus.main }}
+    <li>
+      <a href="{{ .URL | relURL }}" data-tip="{{ .Name }}">
+        {{ partial "icons/nav-icon.html" .Identifier }}
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+  <div class="lang-switcher lang-switcher--compact">
+    {{ range .Site.Languages }}
+      <a href="/{{ .Lang }}/" {{ if eq $.Site.Language.Lang .Lang }}class="active"{{ end }}>
+        {{ upper .Lang }}
+      </a>
+    {{ end }}
+  </div>
+</nav>
+
+<div class="nav-overlay" id="nav-overlay"></div>
+
