@@ -1,21 +1,16 @@
 <!doctype html>
-<html>
+<html lang="{{ .Site.Language.Lang }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ .Title }}</title>
-
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
   <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
-
   {{ partial "analytics/goatcounter.html" . }}
   <script src="{{ "js/track.js" | relURL }}"></script>
 </head>
-
 <body>
 
-  <header>
-    <h1>{{ .Site.Title }}</h1>
-  </header>
+  {{ partial "head.html" . }}
 
   <main>
     {{ block "main" . }}{{ .Content }}{{ end }}
@@ -23,5 +18,10 @@
 
   {{ partial "footer.html" . }}
 
-</body>
+  {{ if .IsHome }}
+  <script src="{{ "js/hero-intro.js" | relURL }}" defer></script>
+  {{ end }}
+
+<body class="{{ if .IsHome }}is-home{{ else }}is-subpage{{ end }}">
+
 </html>

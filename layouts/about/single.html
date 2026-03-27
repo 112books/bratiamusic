@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="about-split">
+
+  <div class="about-split__image">
+    <img src="{{ "images/bratia-about.jpg" | relURL }}" alt="{{ .Site.Title }}">
+  </div>
+
+  <div class="about-split__content">
+    <h1 class="page-title">{{ .Title }}</h1>
+    <div class="prose">{{ .Content }}</div>
+  </div>
+
+</div>
+{{ end }}

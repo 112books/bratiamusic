@@ -149,6 +149,13 @@ Cada galeria ha de tenir:
 - El promo banner existeix al config però està desactivat (`promo_enabled = false`)
 - Logo reconstruït en SVG vectorial a partir del PNG original
 
+- Cal tenir eines SEO, estudiar cóm implementar-les
+- Revisar Cookies
+    - Calen? 
+    - Podem extreure dades de visites? quins? utilitat?
+- Estadistiques amb goatcounter.com
+    - Com posar user - pass
+    - Com accedir-hi?
 
 
 ## per seguir
