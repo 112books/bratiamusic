@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "Qui som"
 date: 2026-03-24
 ---
 
