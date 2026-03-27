@@ -221,3 +221,32 @@ static/
 
 - D'Addario (`images/sponsor/d_addario.png`)
 - Broken Glasses (`images/sponsor/broken-glasses-logo.jpg`)
+
+A fer:
+
+- Cal veure a portada els botons de la part inferior.
+- Cal que tinguin un hover amb les icones del menú superior (m'agraden) i veure que faguin bé el link, ara no el fan bé
+- revisar els documents legals:
+    - que sigui veritat el que diu (ara no tenim google analytics, si calander)
+    - insistir que intentem respectar al 100% la privacitat i explicar les dades que es recullen, com i perquè.
+- El tema SEO, veure cóm fer-ho bé, per als continguts i per el web en general.
+- Fer el web super-segur, super-estandard amb les normatives actuals, que es pugui gaudir en la majoria de navegadors i andràmines
+- També accesible per persones amd dificutats visuals, invidents, etc.
+- Pagina d'error amb la foto de cachondeo del guitarrista
+- galeries, la millor forma (internes? externes?)
+- Videos galeria, externs (vimeo, youtube, etc)
+- Secció de contacte que amb imatge i que animi i explici breument el tipus de mísica, espectacle que ofereix.
+
+
+Això és per a Cowork:
+
+No sé massa que fas, però.. la idea que tinc està aquí, amb més coses, però la idea es podeder crar un sistema de web per a clients que un cop acabat Bratia (veurem tot el que cal desenvolupar) es pugui "revendre" a altres clients.
+
+La idea és prescindir de WordPress o simimars per estavliar recursos (ecològics, sostenibles, més barat, segur i robust)
+
+caldrà estudiar opcions per SEO, cóm els clients poden editar els fitxers .md per si volen fer canvis al web, etc.
+
+anirem fent sobre la marxa però pensant que despés ha de ser un projecte que es pugui vendre solt de moment a musics i bandes.
+
+
+Cal everigual limits i tal
