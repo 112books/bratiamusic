@@ -1,0 +1,58 @@
+{{ define "main" }}
+<section class="concerts-section"
+  data-calendar="{{ .Site.Params.google_calendar_ical }}"
+  data-lang="{{ .Lang }}">
+
+  <div class="concerts-header">
+    <h1 class="concerts-title">{{ .Title }}</h1>
+  </div>
+
+  <div class="concerts-layout">
+
+    {{/* Calendari mensual */}}
+    <div class="cal-wrapper">
+      <div class="cal-nav">
+        <button class="cal-prev" aria-label="Mes anterior">&#8592;</button>
+        <h2 class="cal-month-label"></h2>
+        <button class="cal-next" aria-label="Mes següent">&#8594;</button>
+      </div>
+      <div class="cal-grid-header">
+        {{ if eq .Lang "ca" }}
+          <span>Dl</span><span>Dt</span><span>Dc</span><span>Dj</span><span>Dv</span><span>Ds</span><span>Dg</span>
+        {{ else if eq .Lang "es" }}
+          <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sá</span><span>Do</span>
+        {{ else }}
+          <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+        {{ end }}
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+    </div>
+
+    {{/* Llistat de concerts */}}
+    <div class="concerts-list-wrapper">
+      <div class="concerts-upcoming" id="concerts-upcoming">
+        <p class="concerts-loading">
+          {{ if eq .Lang "ca" }}Carregant concerts...
+          {{ else if eq .Lang "es" }}Cargando conciertos...
+          {{ else }}Loading concerts...
+          {{ end }}
+        </p>
+      </div>
+
+      <div class="concerts-past-wrapper">
+        <h3 class="concerts-past-title">
+          {{ if eq .Lang "ca" }}Concerts passats
+          {{ else if eq .Lang "es" }}Conciertos pasados
+          {{ else }}Past concerts
+          {{ end }}
+        </h3>
+        <div class="concerts-past" id="concerts-past"></div>
+      </div>
+    </div>
+
+  </div>{{/* /.concerts-layout */}}
+
+</section>
+
+<script src="{{ "js/concerts.js" | relURL }}"></script>
+{{ end }}

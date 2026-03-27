@@ -133,6 +133,8 @@ promo_text    = "Nou single disponible!"
 promo_url     = "https://open.spotify.com"
 promo_cta     = "Escolta'l"
 
+google_calendar_ical = "https://calendar.google.com/calendar/ical/7713a217c6e9631a76ac934719903101dbbc9550c23cfb6dc082c9114d8bf981%40group.calendar.google.com/public/basic.ics"
+
 [[params.sponsors]]
   name = "Broken Glasses"
   logo = "images/sponsor/broken-glasses-logo.jpg"

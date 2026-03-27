@@ -461,6 +461,221 @@ a   { color: inherit; }
 }
 .show-tickets a:hover { background: rgba(200,168,75,.15); }
 
+/* ============================================================
+   SECCIÓ 9 — CONCERTS
+   Afegir a static/css/styles.css
+   ============================================================ */
+
+/* Layout general */
+.concerts-section {
+  padding: var(--spacing-xl) var(--spacing-md);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.concerts-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.concerts-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.concerts-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--spacing-xl);
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .concerts-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Calendari ── */
+.cal-wrapper {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  padding: var(--spacing-md);
+  position: sticky;
+  top: 80px;
+}
+
+.cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.cal-month-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--color-text);
+}
+
+.cal-prev,
+.cal-next {
+  background: none;
+  border: none;
+  color: var(--color-gold);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 4px 8px;
+  transition: opacity 0.2s;
+}
+
+.cal-prev:hover,
+.cal-next:hover {
+  opacity: 0.7;
+}
+
+.cal-grid-header,
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.cal-grid-header {
+  margin-bottom: 4px;
+}
+
+.cal-grid-header span {
+  text-align: center;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--color-text-muted, rgba(255,255,255,0.4));
+  padding: 2px 0;
+}
+
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  border-radius: 2px;
+  cursor: default;
+  color: var(--color-text);
+}
+
+.cal-cell--empty {
+  opacity: 0;
+}
+
+.cal-cell--today {
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.cal-cell--event {
+  background: var(--color-gold);
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+/* ── Llista concerts ── */
+.concerts-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.concert-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  align-items: start;
+}
+
+.concert-item--past {
+  opacity: 0.45;
+}
+
+.concert-date {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gold);
+  margin-bottom: 0.4em;
+  grid-column: 1 / -1;
+}
+
+.concert-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.25em;
+  color: var(--color-text);
+}
+
+.concert-location {
+  font-size: 0.85rem;
+  color: var(--color-text-muted, rgba(255,255,255,0.6));
+  margin: 0;
+}
+
+.concert-desc {
+  font-size: 0.82rem;
+  color: var(--color-text-muted, rgba(255,255,255,0.5));
+  margin: 0.3em 0 0;
+}
+
+.concert-actions {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 1.5em;
+}
+
+.concert-link {
+  display: inline-block;
+  padding: 0.35em 1em;
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.concert-link:hover {
+  background: var(--color-gold);
+  color: #000;
+}
+
+/* Past concerts title */
+.concerts-past-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted, rgba(255,255,255,0.4));
+  margin-bottom: var(--spacing-sm);
+}
+
+/* États */
+.concerts-loading,
+.concerts-empty,
+.concerts-error {
+  font-size: 0.9rem;
+  color: var(--color-text-muted, rgba(255,255,255,0.5));
+  padding: var(--spacing-md) 0;
+}
+
+.concerts-error {
+  color: #e07070;
+}
 
 /* ── 10. GALERIES + LIGHTBOX ─────────────────────────────── */
 .galleries-grid {
