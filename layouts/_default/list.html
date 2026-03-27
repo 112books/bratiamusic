@@ -4,16 +4,18 @@
 
     <h1 class="page-title">{{ .Title }}</h1>
 
+
+
     {{ if .Content }}
     <div class="prose">{{ .Content }}</div>
     {{ end }}
 
     {{/* Secció especial: the-band — llista membres */}}
-    {{ if eq .Section "the-band" }}
+    {{ if eq .Type "the-band" }}
     <div class="band-grid">
       {{ range .RegularPages }}
       {{ if not .Params.hidden }}
-      <article class="band-card">
+      <article class="band-card{{ if .Params.leader }} band-card--leader{{ end }}">
         {{ with .Params.photo }}
         <div class="band-card__photo-wrap">
           <img class="band-card__photo" src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy">

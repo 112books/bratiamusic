@@ -4,6 +4,7 @@ name:  "Ivan Kovačević"
 role:  "Leader, vocals & double bass"
 photo: "images/ivan.jpg"
 weight: 1
+leader: true
 instagram: "https://www.instagram.com/kovacevic_doublebass/"
 facebook:  "https://www.facebook.com/ivan.kovacevic.5686"
 web:       "https://ivankovacevic.com/"

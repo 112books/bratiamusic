@@ -1,3 +1,4 @@
 ---
-title: "The Band"
+title: "Bratia, the band"
+type: "the-band"
 ---

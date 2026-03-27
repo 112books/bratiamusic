@@ -30,11 +30,6 @@ promo_cta     = "Escolta'l"
 
 # ── SPONSORS ──
 [[params.sponsors]]
-  name = "D'Addario"
-  logo = "images/sponsor/d_addario.png"
-  url  = "https://www.daddario.com"
-
-[[params.sponsors]]
   name = "Broken Glasses"
   logo = "images/sponsor/broken-glasses-logo.jpg"
   url  = "https://brokengls.com"
