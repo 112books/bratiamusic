@@ -15,12 +15,16 @@
       {{ end }}
     </p>
 
-    {{/* Reproductor principal + llista lateral */}}
     <div class="videos-layout" id="videos-layout">
 
       <div class="videos-player">
-        <div class="videos-player__embed" id="videos-player-wrap">
-          {{/* S'omple via JS */}}
+        {{/* Facade: miniatura clicable → carrega iframe en clicar */}}
+        <div class="videos-facade" id="videos-facade">
+          <div class="videos-facade__loading">
+            <span class="music-notes">
+              <span>♩</span><span>♪</span><span>♫</span><span>♬</span><span>♪</span>
+            </span>
+          </div>
         </div>
         <div class="videos-player__info" id="videos-player-info"></div>
       </div>
@@ -61,25 +65,52 @@
 
 <script>
 (function() {
-  const dataUrl = '{{ "data/videos.json" | absURL }}';
+  const dataUrl   = '{{ "data/videos.json" | absURL }}';
+  const ytChannel = 'https://www.youtube.com/@bratiamusic';
+  let allVideos   = [];
+  let activeIdx   = 0;
 
   fetch(dataUrl)
     .then(r => r.json())
     .then(videos => {
       if (!videos.length) return showError();
-      renderPlayer(videos[0]);
+      allVideos = videos;
+      renderFacade(videos[0]);
       renderList(videos);
     })
     .catch(showError);
 
-  function renderPlayer(v) {
-    const wrap = document.getElementById('videos-player-wrap');
-    const info = document.getElementById('videos-player-info');
-    if (!wrap) return;
-    wrap.innerHTML = `<iframe src="${v.embed}" title="${esc(v.title)}"
-      frameborder="0"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      allowfullscreen></iframe>`;
+  // ── Facade: miniatura + botó play ──────────────────────────
+  function renderFacade(v) {
+    const facade = document.getElementById('videos-facade');
+    const info   = document.getElementById('videos-player-info');
+    if (!facade) return;
+
+    // Miniatura màxima qualitat disponible
+    const thumb = v.thumb.replace('hqdefault', 'maxresdefault');
+
+    facade.innerHTML = `
+      <div class="videos-facade__wrap" data-id="${v.id}" data-url="${v.url}">
+        <img class="videos-facade__thumb" src="${thumb}"
+          onerror="this.src='${v.thumb}'"
+          alt="${esc(v.title)}" loading="lazy">
+        <button class="videos-facade__btn" aria-label="Reproduir vídeo">
+          <svg viewBox="0 0 68 48" width="68" height="48">
+            <path class="ytp-large-play-button-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"/>
+            <path d="M 45,24 27,14 27,34" fill="#fff"/>
+          </svg>
+        </button>
+        <a class="videos-facade__yt" href="${v.url}" target="_blank" rel="noopener" aria-label="Veure a YouTube">
+          {{ if eq .Lang "ca" }}Veure a YouTube{{ else if eq .Lang "es" }}Ver en YouTube{{ else }}Watch on YouTube{{ end }}
+        </a>
+      </div>`;
+
+    // Clic al botó play → carrega iframe
+    facade.querySelector('.videos-facade__btn').addEventListener('click', () => {
+      loadIframe(v);
+    });
+
+    // Info del vídeo
     if (info) {
       info.innerHTML = `
         <h2 class="videos-player__title">${esc(v.title)}</h2>
@@ -87,9 +118,24 @@
     }
   }
 
+  function loadIframe(v) {
+    const facade = document.getElementById('videos-facade');
+    if (!facade) return;
+    facade.innerHTML = `
+      <div class="videos-player__embed">
+        <iframe src="${v.embed}&autoplay=1"
+          title="${esc(v.title)}"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>`;
+  }
+
+  // ── Llista de vídeos ──────────────────────────────────────
   function renderList(videos) {
     const ul = document.getElementById('videos-list');
     if (!ul) return;
+
     ul.innerHTML = videos.map((v, i) => `
       <li class="videos-item${i === 0 ? ' is-active' : ''}" data-idx="${i}">
         <div class="videos-item__thumb">
@@ -105,10 +151,10 @@
     ul.querySelectorAll('.videos-item').forEach(li => {
       li.addEventListener('click', () => {
         const idx = +li.dataset.idx;
+        activeIdx = idx;
         ul.querySelectorAll('.videos-item').forEach(el => el.classList.remove('is-active'));
         li.classList.add('is-active');
-        renderPlayer(videos[idx]);
-        // scroll al player en mòbil
+        renderFacade(videos[idx]);
         if (window.innerWidth < 900) {
           document.getElementById('videos-layout')
             .scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -118,8 +164,14 @@
   }
 
   function showError() {
-    const ul = document.getElementById('videos-list');
-    if (ul) ul.innerHTML = '<li style="color:rgba(255,255,255,.4);padding:1rem 0">No s\'han pogut carregar els vídeos.</li>';
+    const facade = document.getElementById('videos-facade');
+    if (facade) facade.innerHTML = `
+      <div class="videos-facade__error">
+        <p>{{ if eq .Lang "ca" }}No s'han pogut carregar els vídeos.{{ else if eq .Lang "es" }}No se han podido cargar los vídeos.{{ else }}Videos could not be loaded.{{ end }}</p>
+        <a href="${ytChannel}" target="_blank" rel="noopener" class="videos-cta__link" style="margin-top:1rem">
+          {{ if eq .Lang "ca" }}Veure al canal de YouTube{{ else if eq .Lang "es" }}Ver en el canal de YouTube{{ else }}Watch on YouTube channel{{ end }}
+        </a>
+      </div>`;
   }
 
   function esc(s) {

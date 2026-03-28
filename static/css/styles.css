@@ -705,7 +705,7 @@ footer { background: var(--c-dark); color: var(--c-light); padding: 3rem var(--g
   .footer-container { flex-direction: column; }
   .legal-links { text-align: left; }
 
-  .videos-layout { grid-template-columns: 1fr; }
+  .videos-layout { grid-template-columns: 1fr !important; }
   .videos-list { max-height: 300px; }
   .videos-player { order: 1; }
   .videos-sidebar { order: 2; }
@@ -759,7 +759,27 @@ footer { background: var(--c-dark); color: var(--c-light); padding: 3rem var(--g
   margin-bottom: 3rem;
 }
 
-/* Reproductor */
+/* Facade: miniatura clicable → iframe */
+.videos-facade { width: 100%; }
+.videos-facade__loading { display: flex; align-items: center; justify-content: center; aspect-ratio: 16/9; background: #000; border-radius: 4px; }
+.videos-facade__wrap { position: relative; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; cursor: pointer; background: #000; }
+.videos-facade__thumb { width: 100%; height: 100%; object-fit: cover; display: block; transition: filter .2s; }
+.videos-facade__wrap:hover .videos-facade__thumb { filter: brightness(.8); }
+.videos-facade__btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: none; border: none; cursor: pointer; padding: 0; transition: transform .15s; }
+.videos-facade__btn:hover { transform: translate(-50%,-50%) scale(1.08); }
+.ytp-large-play-button-bg { transition: fill .1s; }
+.videos-facade__btn:hover .ytp-large-play-button-bg { fill: #cc0000; }
+.videos-facade__yt {
+  position: absolute; bottom: .75rem; right: .75rem;
+  background: rgba(0,0,0,.7); color: rgba(255,255,255,.85);
+  font-size: .68rem; text-decoration: none; letter-spacing: .04em;
+  padding: .25rem .6rem; border-radius: 2px;
+  transition: background .15s;
+}
+.videos-facade__yt:hover { background: rgba(0,0,0,.9); color: #fff; }
+.videos-facade__error { display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 16/9; background: rgba(0,0,0,.3); border-radius: 4px; color: rgba(255,255,255,.5); text-align: center; padding: 2rem; }
+
+/* Reproductor (quan es carrega l'iframe) */
 .videos-player__embed {
   position: relative;
   padding-bottom: 56.25%;
