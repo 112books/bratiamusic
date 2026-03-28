@@ -26,7 +26,7 @@
 
         {{ if .cover }}
         <div class="gallery-card__thumb">
-          <img src="{{ .cover | relURL }}" alt="{{ index .title $.Lang }}" loading="lazy">
+          <img src="{{ .cover }}" alt="{{ index .title $.Lang }}" loading="lazy">
         </div>
         {{ else }}
         <div class="gallery-card__thumb gallery-card__thumb--placeholder">
