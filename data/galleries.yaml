@@ -1,60 +1,55 @@
 galleries:
-  - id: sol-de-sants-2022
-    title:
-      ca: "Bratia a l'estudi Sol de Sants"
-      es: "Bratia en el estudio Sol de Sants"
-      en: "Bratia at Sol de Sants Studio"
-    date: "2022-12-17"
-    author: "Xavi Almirall"
-    url: "https://photos.app.goo.gl/AtZqGjK5TCymXHGd7"
-    cover: ""
-
-  - id: here-comes-the-sound-2022
-    title:
-      ca: "Bratia a l'estudi Here Comes the Sound"
-      es: "Bratia en el estudio Here Comes the Sound"
-      en: "Bratia at Here Comes the Sound Studio"
-    date: "2022-02-24"
-    author: "@linuxbcn"
-    url: "https://photos.app.goo.gl/5swisFscUNmAJCZ69"
-    cover: ""
-
-  - id: llumatics-1-2021
-    title:
-      ca: "Bratia, assaig a Llumàtics (Nau Bostik)"
-      es: "Bratia, ensayo en Llumàtics (Nau Bostik)"
-      en: "Bratia, rehearsal at Llumàtics (Nau Bostik)"
-    date: "2021-01-23"
-    author: "@linuxbcn"
-    url: "https://photos.app.goo.gl/NqBvwcaC2pUdC8q77"
-    cover: ""
-
-  - id: llumatics-2-2021
-    title:
-      ca: "Bratia, assaig a Llumàtics (Nau Bostik) II"
-      es: "Bratia, ensayo en Llumàtics (Nau Bostik) II"
-      en: "Bratia, rehearsal at Llumàtics (Nau Bostik) II"
-    date: "2021-01-23"
-    author: "@linuxbcn"
-    url: "https://photos.app.goo.gl/2qnpcorvAcgUPQTFA"
-    cover: ""
-
-  - id: can-deu-2021
-    title:
-      ca: "Bratia a Can Deu"
-      es: "Bratia en Can Deu"
-      en: "Bratia at Can Deu"
-    date: "2021-04-18"
-    author: "@linuxbcn"
-    url: "https://photos.app.goo.gl/ftU8CdFnbchDAZaS6"
-    cover: ""
-
-  - id: bratia-xavi-almirall-2022
-    title:
-      ca: "Bratia per Xavi Almirall"
-      es: "Bratia por Xavi Almirall"
-      en: "Bratia by Xavi Almirall"
-    date: "2022-02-25"
-    author: "Xavi Almirall"
-    url: "https://photos.app.goo.gl/Jo1dP24SqNipd5z89"
-    cover: ""
+- id: sol-de-sants-2022
+  title:
+    ca: Bratia a l'estudi Sol de Sants
+    es: Bratia en el estudio Sol de Sants
+    en: Bratia at Sol de Sants Studio
+  date: '2022-12-17'
+  author: Xavi Almirall
+  url: https://photos.app.goo.gl/AtZqGjK5TCymXHGd7
+  cover: https://lh3.googleusercontent.com/pw/AP1GczMgaxVl0Z5shp57YWYUz3SMvHZtlGHWIXXXETziDYl4rQrRkFRagZwRZheAWT6f2MhHpugKyRS29cARw2OSJzHUXLMmsOBWgMlDQBjZqOeGWZDVf8XP=w600-h315-p-k
+- id: here-comes-the-sound-2022
+  title:
+    ca: Bratia a l'estudi Here Comes the Sound
+    es: Bratia en el estudio Here Comes the Sound
+    en: Bratia at Here Comes the Sound Studio
+  date: '2022-02-24'
+  author: '@linuxbcn'
+  url: https://photos.app.goo.gl/5swisFscUNmAJCZ69
+  cover: https://lh3.googleusercontent.com/pw/AP1GczNXn92fNOx74VKdvsTwe8Xr6HV7cfteIQWoJbDmsQlSAdTV398JCihr_ZcdaF7bN_vAI2vn9YVHwWXewA1LjBSLEDgNSZSLx_k8yfW_CQ7lyZbJj4vT=w600-h315-p-k
+- id: llumatics-1-2021
+  title:
+    ca: Bratia, assaig a Llumàtics (Nau Bostik)
+    es: Bratia, ensayo en Llumàtics (Nau Bostik)
+    en: Bratia, rehearsal at Llumàtics (Nau Bostik)
+  date: '2021-01-23'
+  author: '@linuxbcn'
+  url: https://photos.app.goo.gl/NqBvwcaC2pUdC8q77
+  cover: https://lh3.googleusercontent.com/pw/AP1GczMWWW1KZtpQykmtWHAAjF4R-K3JSdbLyoyIbS1CkHr3zUhbayKacBExJLCN27I7cjG77XKBQWEuzaNgMPCAbPf6KVjvPqMjYjQE2YJWjYHb74aGQWde=w600-h315-p-k
+- id: llumatics-2-2021
+  title:
+    ca: Bratia, assaig a Llumàtics (Nau Bostik) II
+    es: Bratia, ensayo en Llumàtics (Nau Bostik) II
+    en: Bratia, rehearsal at Llumàtics (Nau Bostik) II
+  date: '2021-01-23'
+  author: '@linuxbcn'
+  url: https://photos.app.goo.gl/2qnpcorvAcgUPQTFA
+  cover: https://lh3.googleusercontent.com/pw/AP1GczNhlvxB_yHQcA4ant_QKQuESjlvHAn1025NLb8ThZwjrrXaFKcjiTEn9TH8jQ_ZTVEXIP1l5XbFuokRiH7vmi4Exn8Bl5c8JUfaMpI3t7XvhIjweOwT=w600-h315-p-k
+- id: can-deu-2021
+  title:
+    ca: Bratia a Can Deu
+    es: Bratia en Can Deu
+    en: Bratia at Can Deu
+  date: '2021-04-18'
+  author: '@linuxbcn'
+  url: https://photos.app.goo.gl/ftU8CdFnbchDAZaS6
+  cover: https://lh3.googleusercontent.com/pw/AP1GczOOCFlnsqOA-C_QFVaSaAUtSIyTgnnnogh1cRIUgvNOLB18QqrjiqKhTP2p-bpG6ErFL_kkEY0hxZLMJLlM4FL5jyG7S3Guw7d06uDjGpkjPjANPv85=w600-h315-p-k
+- id: bratia-xavi-almirall-2022
+  title:
+    ca: Bratia per Xavi Almirall
+    es: Bratia por Xavi Almirall
+    en: Bratia by Xavi Almirall
+  date: '2022-02-25'
+  author: Xavi Almirall
+  url: https://photos.app.goo.gl/Jo1dP24SqNipd5z89
+  cover: https://lh3.googleusercontent.com/pw/AP1GczNE66YAAi-YolEgBvpTiBaLZM-CwHOPXBRlB_fPda-36z6m6P53PO_tYRhA7W0YtHwEDtp65gaXKWXBfqbytdLbdZvzJHm2z9NaNQIGmpM_ocmzx-U8=w600-h315-p-k
