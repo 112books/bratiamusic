@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 270" role="img" aria-label="Bratia – Balkan Pompe Ignition">
+  <title>Bratia – Balkan Pompe Ignition</title>
+
+  <!-- ─── LÍNIES HORITZONTALS ─────────────────────────── -->
+  <!-- Superior -->
+  <line x1="69" y1="48"  x2="429" y2="48"  stroke="currentColor" stroke-width="5" fill="none"/>
+  <!-- Inferior (sota BRATIA) -->
+  <line x1="69" y1="207" x2="429" y2="207" stroke="currentColor" stroke-width="5" fill="none"/>
+
+  <!-- ─── B  (x=69–121) ──────────────────────────────── -->
+  <path stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"
+    d="M 74 55 L 74 200
+       M 74 55  C 74 55  118 55  118 108  C 118 160  74 160  74 160
+       M 74 160 C 74 160  124 160 124 180 C 124 200  74 200  74 200"/>
+
+  <!-- ─── R  (x=133–191) ─────────────────────────────── -->
+  <path stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"
+    d="M 138 55 L 138 200
+       M 138 55  C 138 55  183 55  183 108 C 183 160  138 160  138 160
+       M 155 160 L 188 200"/>
+
+  <!-- ─── A  (x=204–274) ─────────────────────────────── -->
+  <path stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"
+    d="M 207 200 L 239 55 L 271 200
+       M 215 170 L 263 170"/>
+
+  <!-- ─── T (doble) + I: vertical esq. (x≈292–307) ─── -->
+  <!-- Les dues T comparteixen la barra horitzontal de la línia mitja y≈165 -->
+  <!-- Vertical T1 -->
+  <line x1="299" y1="55"  x2="299" y2="200" stroke="currentColor" stroke-width="3.5"/>
+  <!-- Vertical T2 / I -->
+  <line x1="338" y1="55"  x2="338" y2="200" stroke="currentColor" stroke-width="3.5"/>
+  <!-- Barra horitzontal doble-T (a l'alçada de la línia mitja) -->
+  <line x1="270" y1="92"  x2="360" y2="92"  stroke="currentColor" stroke-width="3.5"/>
+
+  <!-- ─── A  (x=359–429) ─────────────────────────────── -->
+  <path stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"
+    d="M 362 200 L 394 55 L 426 200
+       M 370 170 L 418 170"/>
+
+  <!-- ─── SUBTÍTOL ────────────────────────────────────── -->
+  <text
+    x="249" y="238"
+    text-anchor="middle"
+    font-family="'DM Sans','Helvetica Neue',Helvetica,Arial,sans-serif"
+    font-size="12.5"
+    font-weight="300"
+    letter-spacing="5.5"
+    fill="currentColor">BALKAN POMPE IGNITION</text>
+</svg>

@@ -1,0 +1,32 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Bratia Music - calendar
+X-WR-TIMEZONE:Europe/Madrid
+X-WR-CALDESC:The next shows for this band
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260401
+DTEND;VALUE=DATE:20260402
+DTSTAMP:20260328T090745Z
+UID:1eci3cfuaq726d1kk540jjhjn5@google.com
+CREATED:20260326T102701Z
+DESCRIPTION:<h3><a href="https://bratiamusic.com/event/gira-bratia-contra-b
+ aix-xtac-fac-la-cate-de-figueres/">Gira Bratia Contra Baix XTAC-FAC – La Ca
+ te de Figueres</a></h3><br><header><address>La Cate - Entitat cultural Rond
+ a del Rector Arolas\, 4\, Figueres</address></header><br><p>“La riquesa mus
+ ical dels Balcans i l’energia i elegància del jazz manouche\, units pel nom
+ adisme del propi art\, creen una proposta única\, un món sonor\, una german
+ or. Com el mateix nom d’origen eslau indica… BRATIA.” Quatre músics de la i
+ cònica banda Barcelona Gipsy Balkan Orchestra\, guiats per la necessitat d’
+ explorar un món musical encara per</p>
+LAST-MODIFIED:20260326T102701Z
+LOCATION:Jamboree\, Pl. Reial\, 17\, Ciutat Vella\, 08002 Barcelona\, Espan
+ ya
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Test per concert de BRATIA
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
