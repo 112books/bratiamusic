@@ -1086,3 +1086,141 @@ footer { background: var(--c-dark); color: var(--c-light); padding: 3rem var(--g
   .disc-platform__icon { width: 44px; height: 44px; }
   .disc-platform__icon svg { width: 24px; height: 24px; }
 }
+
+
+/* ── 17. CONTACTE ────────────────────────────────────────── */
+.contact-wrap {
+  min-height: calc(100vh - var(--compact-h));
+  position: relative;
+  background:
+    var(--contact-bg, none) center center / cover no-repeat;
+  display: flex;
+  align-items: stretch;
+}
+
+.contact-overlay {
+  flex: 1;
+  background: linear-gradient(
+    105deg,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.75) 55%,
+    rgba(0,0,0,0.3) 100%
+  );
+  display: flex;
+  align-items: center;
+}
+
+.contact-inner {
+  max-width: var(--max-w);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--section-v) var(--gap);
+}
+
+.contact-text {
+  max-width: 560px;
+}
+
+.contact-title {
+  font-family: var(--f-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: var(--c-gold);
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 1rem;
+}
+.contact-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 3rem; height: 2px;
+  background: var(--c-gold);
+}
+
+.contact-lead {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 2.5rem;
+}
+
+/* Email */
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--c-white);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 2px;
+  transition: border-color 0.25s, background 0.25s, color 0.25s;
+  margin-bottom: 2.5rem;
+}
+.contact-email:hover {
+  border-color: var(--c-gold);
+  background: rgba(200,168,75,0.1);
+  color: var(--c-gold);
+}
+.contact-email__icon {
+  display: flex;
+  align-items: center;
+}
+.contact-email__icon svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Separador */
+.contact-divider {
+  width: 3rem;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  margin-bottom: 2rem;
+}
+
+/* Label Instagram */
+.contact-social-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 1rem;
+}
+
+/* Instagram */
+.contact-socials {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: color 0.25s;
+}
+.contact-social-link svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.contact-social-link:hover { color: var(--c-gold); }
+
+@media (max-width: 560px) {
+  .contact-email {
+    font-size: 0.88rem;
+    padding: 0.85rem 1.1rem;
+    word-break: break-all;
+  }
+}
