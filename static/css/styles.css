@@ -818,7 +818,7 @@ footer { background: var(--c-dark); color: var(--c-light); padding: 3rem var(--g
 .footer-signature { font-size: .75rem; color: rgba(255,255,255,.3); line-height: 1.5; }
 .footer-signature a { color: rgba(255,255,255,.45); text-decoration: none; }
 .footer-signature a:hover { color: var(--c-gold); }
-.legal-links { list-style: none; display: flex; flex-direction: column; gap: .2rem; text-align: right; }
+.legal-links { list-style: none; display: flex; flex-direction: column; gap: .05rem; text-align: right; }
 .legal-links li::before { content: '– '; color: rgba(255,255,255,.2); }
 .legal-links a { font-size: .68rem; color: rgba(255,255,255,.35); text-decoration: none; transition: color var(--dur); }
 .legal-links a:hover { color: var(--c-gold); }
