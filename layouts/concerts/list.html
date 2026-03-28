@@ -31,10 +31,9 @@
     <div class="concerts-list-col">
       <ul class="concerts-upcoming-list" id="concerts-upcoming">
         <li class="concerts-loading">
-          {{ if eq .Lang "ca" }}Carregant concerts...
-          {{ else if eq .Lang "es" }}Cargando conciertos...
-          {{ else }}Loading concerts...
-          {{ end }}
+          <span class="music-notes">
+            <span>♩</span><span>♪</span><span>♫</span><span>♬</span><span>♪</span>
+          </span>
         </li>
       </ul>
     </div>
