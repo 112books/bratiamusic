@@ -1,5 +1,5 @@
 ---
-title: "Photos"
+title: "Fotografies"
 type: photos
 layout: list
 ---
