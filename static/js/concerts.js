@@ -1,7 +1,7 @@
 /**
- * concerts.js — Bratia Music v2
- * Estructura: calendari mensual (esquerra) + llista <li> (dreta)
- * + detall a sota en clicar + concerts passats + missatge newsletter
+ * concerts.js — Bratia Music v3
+ * Llegeix /data/concerts.ics (fitxer local, sense CORS)
+ * generat cada nit per GitHub Actions.
  */
 
 (function () {
@@ -37,41 +37,19 @@
   const section = document.querySelector(".concerts-section");
   if (!section) return;
 
-  const icalUrl       = section.dataset.calendar;
   const lang          = section.dataset.lang || "ca";
   const newsletterUrl = section.dataset.newsletter || "#newsletter";
   const t             = I18N[lang] || I18N.ca;
 
-  if (!icalUrl || icalUrl.includes("XXXX")) {
-    renderError("URL del calendari no configurada.");
-    return;
-  }
-
   let calDate   = new Date();
   let allEvents = [];
-  let activeIdx = null;
 
-  // ─── Fetch amb fallback ───────────────────────────────────────────────────
-  async function fetchICal(url) {
-    try {
-      const r = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(url));
-      if (r.ok) {
-        const json = await r.json();
-        if (json.contents && json.contents.includes("BEGIN:VCALENDAR")) return json.contents;
-      }
-    } catch(e) {}
-    try {
-      const r = await fetch("https://corsproxy.io/?" + encodeURIComponent(url));
-      if (r.ok) { const t = await r.text(); if (t.includes("BEGIN:VCALENDAR")) return t; }
-    } catch(e) {}
-    try {
-      const r = await fetch("https://api.codetabs.com/v1/proxy?quest=" + url);
-      if (r.ok) { const t = await r.text(); if (t.includes("BEGIN:VCALENDAR")) return t; }
-    } catch(e) {}
-    throw new Error("Tots els proxies han fallat");
-  }
-
-  fetchICal(icalUrl)
+  // Fitxer local — sense CORS, sense proxy
+  fetch('/data/concerts.ics')
+    .then((r) => {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.text();
+    })
     .then((ical) => {
       allEvents = parseICal(ical);
       renderCalendar(calDate);
@@ -152,10 +130,8 @@
         c.classList.add("cal-cell--today");
       if (eventDays.has(day)) {
         c.classList.add("cal-cell--event");
-        const ev = eventsOnDay(year, month, day);
-        c.title = ev.map(e => e.title).join(" · ");
+        c.title = eventsOnDay(year, month, day).map(e => e.title).join(" · ");
         c.onclick = () => {
-          // selecciona el primer event d'aquest dia a la llista
           const idx = allEvents.findIndex(e =>
             e.start && e.start.getFullYear()===year && e.start.getMonth()===month && e.start.getDate()===day
           );
@@ -210,7 +186,6 @@
       li.addEventListener("click", () => selectEvent(+li.dataset.idx));
     });
 
-    // Selecciona el primer per defecte
     selectEvent(upcoming[0].i);
   }
 
@@ -240,21 +215,17 @@
     });
   }
 
-  // ─── Seleccionar i mostrar detall ─────────────────────────────────────────
+  // ─── Detall ───────────────────────────────────────────────────────────────
   function selectEvent(idx) {
-    activeIdx = idx;
     const event = allEvents[idx];
     if (!event) return;
 
-    // Marca actiu a les llistes
     document.querySelectorAll(".concert-li").forEach(li => {
       li.classList.toggle("is-active", +li.dataset.idx === idx);
     });
 
-    // Marca dia al calendari
     document.querySelectorAll(".cal-cell--selected").forEach(c => c.classList.remove("cal-cell--selected"));
     if (event.start) {
-      // Navega al mes de l'event si cal
       if (event.start.getMonth() !== calDate.getMonth() || event.start.getFullYear() !== calDate.getFullYear()) {
         calDate = new Date(event.start.getFullYear(), event.start.getMonth(), 1);
         renderCalendar(calDate);
@@ -265,7 +236,6 @@
       if (targetCell) targetCell.classList.add("cal-cell--selected");
     }
 
-    // Renderitza detall
     const detail = document.getElementById("concert-detail");
     if (!detail) return;
 
@@ -285,7 +255,6 @@
       ${event.url      ? `<a href="${event.url}" class="concert-detail-link" target="_blank" rel="noopener">${t.tickets}</a>` : ""}
     `;
 
-    // Scroll suau cap al detall (mòbil)
     if (window.innerWidth < 769) {
       detail.scrollIntoView({ behavior: "smooth", block: "start" });
     }
