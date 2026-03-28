@@ -414,7 +414,7 @@ a   { color: inherit; }
 /* Fons amb imatge de concert */
 .concerts-section {
   position: relative;
-  padding: calc(var(--section-v) + 2rem) var(--gap);
+  padding: var(--section-v) var(--gap);
   /* La imatge ve via --concerts-bg injectat pel layout Hugo (absURL) */
   background:
     linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.90)),
