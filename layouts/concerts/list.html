@@ -1,15 +1,15 @@
 {{ define "main" }}
 <section class="concerts-section"
   data-calendar="{{ .Site.Params.google_calendar_ical }}"
-  data-lang="{{ .Lang }}">
+  data-lang="{{ .Lang }}"
+  data-newsletter="/{{ .Lang }}/newsletter/">
 
-  <div class="concerts-header">
-    <h1 class="concerts-title">{{ .Title }}</h1>
+  <div class="section-header">
+    <h1 class="section-title">{{ .Title }}</h1>
   </div>
 
-  <div class="concerts-layout">
+  <div class="concerts-top">
 
-    {{/* Calendari mensual */}}
     <div class="cal-wrapper">
       <div class="cal-nav">
         <button class="cal-prev" aria-label="Mes anterior">&#8592;</button>
@@ -28,29 +28,30 @@
       <div class="cal-grid" id="cal-grid"></div>
     </div>
 
-    {{/* Llistat de concerts */}}
-    <div class="concerts-list-wrapper">
-      <div class="concerts-upcoming" id="concerts-upcoming">
-        <p class="concerts-loading">
+    <div class="concerts-list-col">
+      <ul class="concerts-upcoming-list" id="concerts-upcoming">
+        <li class="concerts-loading">
           {{ if eq .Lang "ca" }}Carregant concerts...
           {{ else if eq .Lang "es" }}Cargando conciertos...
           {{ else }}Loading concerts...
           {{ end }}
-        </p>
-      </div>
-
-      <div class="concerts-past-wrapper">
-        <h3 class="concerts-past-title">
-          {{ if eq .Lang "ca" }}Concerts passats
-          {{ else if eq .Lang "es" }}Conciertos pasados
-          {{ else }}Past concerts
-          {{ end }}
-        </h3>
-        <div class="concerts-past" id="concerts-past"></div>
-      </div>
+        </li>
+      </ul>
     </div>
 
-  </div>{{/* /.concerts-layout */}}
+  </div>
+
+  <div class="concert-detail" id="concert-detail" hidden></div>
+
+  <div class="concerts-past-section">
+    <h3 class="concerts-past-title">
+      {{ if eq .Lang "ca" }}Concerts passats
+      {{ else if eq .Lang "es" }}Conciertos pasados
+      {{ else }}Past concerts
+      {{ end }}
+    </h3>
+    <ul class="concerts-past-list" id="concerts-past"></ul>
+  </div>
 
 </section>
 

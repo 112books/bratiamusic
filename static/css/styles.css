@@ -421,45 +421,295 @@ a   { color: inherit; }
 .social-icon { width: 20px; height: 20px; filter: invert(1); }
 
 
-/* ── 9. CONCERTS / SHOWS ─────────────────────────────────── */
-.shows-wrap {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 2rem; align-items: start;
+/* ============================================================
+   SECCIÓ 9 — CONCERTS  (substitueix l'anterior completament)
+   ============================================================ */
+
+.concerts-section {
+  padding: var(--spacing-xl) var(--spacing-md);
+  max-width: 1100px;
+  margin: 0 auto;
 }
-.shows-calendar iframe {
-  width: 100%; border-radius: 6px; border: none;
-  box-shadow: 0 2px 16px rgba(0,0,0,.15);
+
+/* ── Títol — hereta l'estil global de section-title ── */
+.concerts-section .section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gold, #c9a84c);
+  margin-bottom: var(--spacing-xl, 3rem);
 }
-.shows-link {
-  display: inline-flex; align-items: center; gap: .5rem;
-  margin-top: 1rem; font-size: .85rem; color: var(--c-gold-light);
-  text-decoration: none; transition: opacity var(--dur);
+
+/* ── Fila superior: calendari + llista ── */
+.concerts-top {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-bottom: var(--spacing-xl, 3rem);
 }
-.shows-link:hover { opacity: .8; }
-.shows-list { font-size: .9rem; }
-.shows-list h3 {
-  font-family: var(--f-display); font-size: 1.1rem; margin-bottom: 1.5rem;
-  color: var(--c-gold-light);
+
+@media (max-width: 768px) {
+  .concerts-top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
 }
-.shows-list ul { list-style: none; }
-.shows-list li {
-  padding: .85rem 0; border-bottom: 1px solid rgba(255,255,255,.08);
-  display: flex; align-items: baseline; gap: 1rem;
+
+/* ── Calendari ── */
+.cal-wrapper {
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  padding: 1.25rem;
+  background: rgba(255,255,255,0.03);
 }
-.shows-list li:last-child { border-bottom: none; }
-.show-date {
-  font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--c-gold); white-space: nowrap; min-width: 7rem;
+
+/* Mòbil: NO sticky — flueix amb la pàgina */
+@media (min-width: 769px) {
+  .cal-wrapper {
+    position: sticky;
+    top: 80px;
+  }
 }
-.show-info { display: flex; flex-direction: column; gap: .15rem; }
-.show-venue { font-weight: 500; color: var(--c-white); }
-.show-city  { font-size: .8rem; color: rgba(255,255,255,.5); }
-.show-tickets a {
-  font-size: .75rem; color: var(--c-gold-light); text-decoration: none;
-  border: 1px solid rgba(200,168,75,.4); padding: .15rem .5rem; border-radius: 2px;
-  transition: background var(--dur);
+
+.cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
-.show-tickets a:hover { background: rgba(200,168,75,.15); }
+
+.cal-month-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 0.05em;
+  color: var(--color-text, #fff);
+}
+
+.cal-prev,
+.cal-next {
+  background: none;
+  border: none;
+  color: var(--color-gold, #c9a84c);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 4px 10px;
+  transition: opacity 0.2s;
+  line-height: 1;
+}
+.cal-prev:hover, .cal-next:hover { opacity: 0.6; }
+
+.cal-grid-header,
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.cal-grid-header {
+  margin-bottom: 4px;
+}
+
+.cal-grid-header span {
+  text-align: center;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.35);
+  padding: 2px 0;
+}
+
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  border-radius: 50%;
+  color: var(--color-text, #fff);
+  cursor: default;
+  transition: background 0.15s;
+}
+
+.cal-cell--empty { opacity: 0; pointer-events: none; }
+
+.cal-cell--today {
+  outline: 1px solid rgba(255,255,255,0.4);
+  outline-offset: -2px;
+}
+
+/* Cercle daurat — més gran i visible */
+.cal-cell--event {
+  background: var(--color-gold, #c9a84c);
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+}
+.cal-cell--event:hover {
+  background: #e0b84e;
+}
+
+/* Dia seleccionat */
+.cal-cell--selected {
+  outline: 2px solid var(--color-gold, #c9a84c);
+  outline-offset: -2px;
+}
+
+/* ── Llista de propers concerts ── */
+.concerts-list-col {
+  padding-top: 0.25rem;
+}
+
+.concerts-upcoming-list,
+.concerts-past-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.concert-li {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 0.9rem 0;
+  cursor: pointer;
+  transition: padding-left 0.2s;
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.concert-li:hover {
+  padding-left: 0.5rem;
+}
+.concert-li.is-active {
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--color-gold, #c9a84c);
+}
+
+.concert-li-date {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-gold, #c9a84c);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.concert-li-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text, #fff);
+}
+
+.concert-li-location {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.15rem;
+}
+
+/* Past: opacitat reduïda */
+.concert-li--past {
+  opacity: 0.4;
+}
+.concert-li--past:hover {
+  opacity: 0.7;
+}
+
+/* ── Detall de l'esdeveniment seleccionat ── */
+.concert-detail {
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  padding: 2rem;
+  margin-bottom: var(--spacing-xl, 3rem);
+  background: rgba(255,255,255,0.03);
+}
+.concert-detail[hidden] { display: none; }
+
+.concert-detail-date {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-gold, #c9a84c);
+  margin-bottom: 0.5rem;
+}
+
+.concert-detail-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-text, #fff);
+  margin: 0 0 1rem;
+}
+
+.concert-detail-location {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.concert-detail-desc {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  white-space: pre-line;
+}
+
+.concert-detail-link {
+  display: inline-block;
+  padding: 0.5em 1.5em;
+  border: 1px solid var(--color-gold, #c9a84c);
+  color: var(--color-gold, #c9a84c);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.concert-detail-link:hover {
+  background: var(--color-gold, #c9a84c);
+  color: #000;
+}
+
+/* ── Sense concerts ── */
+.concerts-empty-msg {
+  padding: 1.5rem 0;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.9rem;
+}
+
+.concerts-newsletter-link {
+  color: var(--color-gold, #c9a84c);
+  text-decoration: underline;
+}
+
+/* ── Concerts passats ── */
+.concerts-past-section {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: var(--spacing-lg, 2rem);
+}
+
+.concerts-past-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 1rem;
+}
+
+/* ── Estats de càrrega / error ── */
+.concerts-loading {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.88rem;
+  padding: 1rem 0;
+}
+.concerts-error {
+  color: #e07070;
+  font-size: 0.88rem;
+  padding: 1rem 0;
+}
 
 /* ============================================================
    SECCIÓ 9 — CONCERTS

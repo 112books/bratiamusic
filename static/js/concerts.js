@@ -1,267 +1,309 @@
 /**
- * concerts.js — Bratia Music
- * Llegeix el feed iCal de Google Calendar via proxy allorigins.win
- * i renderitza: calendari mensual + propers concerts + concerts passats.
- *
- * Depèn de:
- *   - data-calendar="URL_ICAL"  a l'element .concerts-section
- *   - data-lang="ca|es|en"      a l'element .concerts-section
+ * concerts.js — Bratia Music v2
+ * Estructura: calendari mensual (esquerra) + llista <li> (dreta)
+ * + detall a sota en clicar + concerts passats + missatge newsletter
  */
 
 (function () {
   "use strict";
 
-  // ─── Proxy (evita CORS de Google Calendar) ───────────────────────────────
-  const PROXY = "https://api.codetabs.com/v1/proxy?quest=";
-
-  // ─── Localització ────────────────────────────────────────────────────────
   const I18N = {
     ca: {
       months: ["Gener","Febrer","Març","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"],
+      shortMonths: ["gen","feb","mar","abr","mai","jun","jul","ago","set","oct","nov","des"],
       noUpcoming: "No hi ha propers concerts programats.",
+      noUpcomingNewsletter: "Subscriu-te al newsletter per rebre novetats.",
       noPast: "Sense concerts recents.",
       tickets: "Entrades",
-      moreInfo: "Més info",
     },
     es: {
       months: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
+      shortMonths: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
       noUpcoming: "No hay próximos conciertos programados.",
+      noUpcomingNewsletter: "Suscríbete al newsletter para recibir novedades.",
       noPast: "Sin conciertos recientes.",
       tickets: "Entradas",
-      moreInfo: "Más info",
     },
     en: {
       months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+      shortMonths: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
       noUpcoming: "No upcoming concerts scheduled.",
+      noUpcomingNewsletter: "Subscribe to our newsletter to stay updated.",
       noPast: "No recent concerts.",
       tickets: "Tickets",
-      moreInfo: "More info",
     },
   };
 
-  // ─── Inicialització ───────────────────────────────────────────────────────
   const section = document.querySelector(".concerts-section");
   if (!section) return;
 
-  const icalUrl = section.dataset.calendar;
-  const lang = section.dataset.lang || "ca";
-  const t = I18N[lang] || I18N.ca;
+  const icalUrl       = section.dataset.calendar;
+  const lang          = section.dataset.lang || "ca";
+  const newsletterUrl = section.dataset.newsletter || "#newsletter";
+  const t             = I18N[lang] || I18N.ca;
 
   if (!icalUrl || icalUrl.includes("XXXX")) {
-    renderError("URL del calendari no configurada. Afegeix google_calendar_ical al hugo.toml.");
+    renderError("URL del calendari no configurada.");
     return;
   }
 
-  // Estat del calendari visual
-  let calDate = new Date();
+  let calDate   = new Date();
   let allEvents = [];
+  let activeIdx = null;
 
-  fetch(PROXY + encodeURIComponent(icalUrl))
-    .then((r) => {
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      return r.text();
-    })
+  // ─── Fetch amb fallback ───────────────────────────────────────────────────
+  async function fetchICal(url) {
+    try {
+      const r = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent(url));
+      if (r.ok) {
+        const json = await r.json();
+        if (json.contents && json.contents.includes("BEGIN:VCALENDAR")) return json.contents;
+      }
+    } catch(e) {}
+    try {
+      const r = await fetch("https://corsproxy.io/?" + encodeURIComponent(url));
+      if (r.ok) { const t = await r.text(); if (t.includes("BEGIN:VCALENDAR")) return t; }
+    } catch(e) {}
+    try {
+      const r = await fetch("https://api.codetabs.com/v1/proxy?quest=" + url);
+      if (r.ok) { const t = await r.text(); if (t.includes("BEGIN:VCALENDAR")) return t; }
+    } catch(e) {}
+    throw new Error("Tots els proxies han fallat");
+  }
+
+  fetchICal(icalUrl)
     .then((ical) => {
       allEvents = parseICal(ical);
       renderCalendar(calDate);
-      renderLists();
+      renderUpcoming();
+      renderPast();
     })
-    .catch((err) => {
-      renderError("No s'ha pogut carregar el calendari. (" + err.message + ")");
-    });
+    .catch((err) => renderError(err.message));
 
   // ─── Parser iCal ─────────────────────────────────────────────────────────
   function parseICal(raw) {
     const events = [];
     const blocks = raw.split("BEGIN:VEVENT");
-    blocks.shift(); // descarta la capçalera
-
+    blocks.shift();
     blocks.forEach((block) => {
       const get = (key) => {
         const re = new RegExp(key + "(?:;[^:]*)?:([\\s\\S]*?)(?=\\r?\\n[A-Z])", "m");
         const m = block.match(re);
         return m ? m[1].replace(/\r?\n[ \t]/g, "").trim() : "";
       };
-
       const dtRaw = get("DTSTART");
-      const dtEndRaw = get("DTEND");
       if (!dtRaw) return;
-
       events.push({
         title:    unfold(get("SUMMARY")),
         start:    parseDate(dtRaw),
-        end:      parseDate(dtEndRaw),
+        end:      parseDate(get("DTEND")),
         location: unfold(get("LOCATION")),
         desc:     unfold(get("DESCRIPTION")),
         url:      get("URL"),
       });
     });
-
-    // Ordena per data ascendent
     events.sort((a, b) => a.start - b.start);
     return events;
   }
 
   function parseDate(str) {
     if (!str) return null;
-    // Format: 20241231T203000Z o 20241231
     const s = str.replace(/Z$/, "");
-    if (s.length === 8) {
-      return new Date(
-        parseInt(s.slice(0, 4)),
-        parseInt(s.slice(4, 6)) - 1,
-        parseInt(s.slice(6, 8))
-      );
-    }
-    return new Date(
-      parseInt(s.slice(0, 4)),
-      parseInt(s.slice(4, 6)) - 1,
-      parseInt(s.slice(6, 8)),
-      parseInt(s.slice(9, 11) || 0),
-      parseInt(s.slice(11, 13) || 0)
-    );
+    if (s.length === 8)
+      return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8));
+    return new Date(+s.slice(0,4), +s.slice(4,6)-1, +s.slice(6,8), +s.slice(9,11)||0, +s.slice(11,13)||0);
   }
 
   function unfold(str) {
-    return str.replace(/\\n/g, "\n").replace(/\\,/g, ",").replace(/\\;/g, ";");
+    return str.replace(/\\n/g,"\n").replace(/\\,/g,",").replace(/\\;/g,";").replace(/<[^>]+>/g,"").trim();
   }
 
-  // ─── Calendari visual ─────────────────────────────────────────────────────
+  // ─── Calendari ───────────────────────────────────────────────────────────
   function renderCalendar(d) {
-    const grid = document.getElementById("cal-grid");
+    const grid  = document.getElementById("cal-grid");
     const label = document.querySelector(".cal-month-label");
     if (!grid || !label) return;
 
-    label.textContent = t.months[d.getMonth()] + " " + d.getFullYear();
-
-    const year = d.getFullYear();
+    const year  = d.getFullYear();
     const month = d.getMonth();
-    const firstDay = new Date(year, month, 1).getDay(); // 0=dg
-    // Converteix diumenge=0 a dilluns=0
-    const startOffset = (firstDay + 6) % 7;
+    label.textContent = t.months[month] + " " + year;
+
+    const startOffset = (new Date(year, month, 1).getDay() + 6) % 7;
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const today = new Date();
 
-    // Dies dels concerts aquest mes
     const eventDays = new Set(
       allEvents
-        .filter((e) => e.start && e.start.getFullYear() === year && e.start.getMonth() === month)
-        .map((e) => e.start.getDate())
+        .filter(e => e.start && e.start.getFullYear()===year && e.start.getMonth()===month)
+        .map(e => e.start.getDate())
     );
 
     grid.innerHTML = "";
-
-    // Buits inicials
     for (let i = 0; i < startOffset; i++) {
-      const cell = document.createElement("div");
-      cell.className = "cal-cell cal-cell--empty";
-      grid.appendChild(cell);
+      const c = document.createElement("div");
+      c.className = "cal-cell cal-cell--empty";
+      grid.appendChild(c);
     }
-
     for (let day = 1; day <= daysInMonth; day++) {
-      const cell = document.createElement("div");
-      cell.className = "cal-cell";
-      cell.textContent = day;
-
-      const isToday =
-        today.getDate() === day &&
-        today.getMonth() === month &&
-        today.getFullYear() === year;
-
-      if (isToday) cell.classList.add("cal-cell--today");
+      const c = document.createElement("div");
+      c.className = "cal-cell";
+      c.textContent = day;
+      if (today.getDate()===day && today.getMonth()===month && today.getFullYear()===year)
+        c.classList.add("cal-cell--today");
       if (eventDays.has(day)) {
-        cell.classList.add("cal-cell--event");
-        cell.title = eventsOnDay(year, month, day)
-          .map((e) => e.title)
-          .join(" · ");
+        c.classList.add("cal-cell--event");
+        const ev = eventsOnDay(year, month, day);
+        c.title = ev.map(e => e.title).join(" · ");
+        c.onclick = () => {
+          // selecciona el primer event d'aquest dia a la llista
+          const idx = allEvents.findIndex(e =>
+            e.start && e.start.getFullYear()===year && e.start.getMonth()===month && e.start.getDate()===day
+          );
+          if (idx >= 0) selectEvent(idx);
+        };
       }
-
-      grid.appendChild(cell);
+      grid.appendChild(c);
     }
 
-    // Navegació
     document.querySelector(".cal-prev").onclick = () => {
-      calDate = new Date(calDate.getFullYear(), calDate.getMonth() - 1, 1);
+      calDate = new Date(calDate.getFullYear(), calDate.getMonth()-1, 1);
       renderCalendar(calDate);
     };
     document.querySelector(".cal-next").onclick = () => {
-      calDate = new Date(calDate.getFullYear(), calDate.getMonth() + 1, 1);
+      calDate = new Date(calDate.getFullYear(), calDate.getMonth()+1, 1);
       renderCalendar(calDate);
     };
   }
 
   function eventsOnDay(year, month, day) {
-    return allEvents.filter(
-      (e) =>
-        e.start &&
-        e.start.getFullYear() === year &&
-        e.start.getMonth() === month &&
-        e.start.getDate() === day
+    return allEvents.filter(e =>
+      e.start && e.start.getFullYear()===year && e.start.getMonth()===month && e.start.getDate()===day
     );
   }
 
-  // ─── Llistes de concerts ──────────────────────────────────────────────────
-  function renderLists() {
-    const now = new Date();
-    const upcoming = allEvents.filter((e) => e.start && e.start >= now);
-    const past = allEvents
-      .filter((e) => e.start && e.start < now)
-      .slice(-5)
-      .reverse();
+  // ─── Llista propers concerts ──────────────────────────────────────────────
+  function renderUpcoming() {
+    const now     = new Date();
+    const upcoming = allEvents.map((e,i) => ({e,i})).filter(({e}) => e.start && e.start >= now);
+    const ul = document.getElementById("concerts-upcoming");
+    if (!ul) return;
 
-    const upEl = document.getElementById("concerts-upcoming");
-    const pastEl = document.getElementById("concerts-past");
-
-    // Propers
-    if (upEl) {
-      if (upcoming.length === 0) {
-        upEl.innerHTML = '<p class="concerts-empty">' + t.noUpcoming + "</p>";
-      } else {
-        upEl.innerHTML = upcoming.map(concertCard).join("");
-      }
+    if (upcoming.length === 0) {
+      ul.innerHTML = `
+        <li class="concerts-empty-msg">
+          ${t.noUpcoming}<br>
+          <a href="${newsletterUrl}" class="concerts-newsletter-link">${t.noUpcomingNewsletter}</a>
+        </li>`;
+      return;
     }
 
-    // Passats
-    if (pastEl) {
-      if (past.length === 0) {
-        pastEl.innerHTML = '<p class="concerts-empty">' + t.noPast + "</p>";
-      } else {
-        pastEl.innerHTML = past.map((e) => concertCard(e, true)).join("");
+    ul.innerHTML = upcoming.map(({e, i}) => `
+      <li class="concert-li" data-idx="${i}">
+        <div class="concert-li-date">${shortDate(e.start)}</div>
+        <div>
+          <div class="concert-li-title">${e.title}</div>
+          ${e.location ? `<div class="concert-li-location">${e.location}</div>` : ""}
+        </div>
+      </li>`).join("");
+
+    ul.querySelectorAll(".concert-li").forEach(li => {
+      li.addEventListener("click", () => selectEvent(+li.dataset.idx));
+    });
+
+    // Selecciona el primer per defecte
+    selectEvent(upcoming[0].i);
+  }
+
+  // ─── Concerts passats ─────────────────────────────────────────────────────
+  function renderPast() {
+    const now  = new Date();
+    const past = allEvents.map((e,i) => ({e,i})).filter(({e}) => e.start && e.start < now).slice(-5).reverse();
+    const ul = document.getElementById("concerts-past");
+    if (!ul) return;
+
+    if (past.length === 0) {
+      ul.innerHTML = `<li class="concerts-empty-msg">${t.noPast}</li>`;
+      return;
+    }
+
+    ul.innerHTML = past.map(({e, i}) => `
+      <li class="concert-li concert-li--past" data-idx="${i}">
+        <div class="concert-li-date">${shortDate(e.start)}</div>
+        <div>
+          <div class="concert-li-title">${e.title}</div>
+          ${e.location ? `<div class="concert-li-location">${e.location}</div>` : ""}
+        </div>
+      </li>`).join("");
+
+    ul.querySelectorAll(".concert-li").forEach(li => {
+      li.addEventListener("click", () => selectEvent(+li.dataset.idx));
+    });
+  }
+
+  // ─── Seleccionar i mostrar detall ─────────────────────────────────────────
+  function selectEvent(idx) {
+    activeIdx = idx;
+    const event = allEvents[idx];
+    if (!event) return;
+
+    // Marca actiu a les llistes
+    document.querySelectorAll(".concert-li").forEach(li => {
+      li.classList.toggle("is-active", +li.dataset.idx === idx);
+    });
+
+    // Marca dia al calendari
+    document.querySelectorAll(".cal-cell--selected").forEach(c => c.classList.remove("cal-cell--selected"));
+    if (event.start) {
+      // Navega al mes de l'event si cal
+      if (event.start.getMonth() !== calDate.getMonth() || event.start.getFullYear() !== calDate.getFullYear()) {
+        calDate = new Date(event.start.getFullYear(), event.start.getMonth(), 1);
+        renderCalendar(calDate);
       }
+      const cells = document.querySelectorAll(".cal-cell");
+      const startOffset = (new Date(calDate.getFullYear(), calDate.getMonth(), 1).getDay() + 6) % 7;
+      const targetCell  = cells[startOffset + event.start.getDate() - 1];
+      if (targetCell) targetCell.classList.add("cal-cell--selected");
+    }
+
+    // Renderitza detall
+    const detail = document.getElementById("concert-detail");
+    if (!detail) return;
+
+    const dateStr = event.start
+      ? event.start.toLocaleDateString(langLocale(), {weekday:"long", day:"numeric", month:"long", year:"numeric"})
+      : "";
+    const timeStr = event.start && event.start.getHours() > 0
+      ? " · " + event.start.toLocaleTimeString(langLocale(), {hour:"2-digit", minute:"2-digit"})
+      : "";
+
+    detail.removeAttribute("hidden");
+    detail.innerHTML = `
+      <div class="concert-detail-date">${dateStr}${timeStr}</div>
+      <h2 class="concert-detail-title">${event.title}</h2>
+      ${event.location ? `<p class="concert-detail-location">📍 ${event.location}</p>` : ""}
+      ${event.desc     ? `<p class="concert-detail-desc">${event.desc}</p>` : ""}
+      ${event.url      ? `<a href="${event.url}" class="concert-detail-link" target="_blank" rel="noopener">${t.tickets}</a>` : ""}
+    `;
+
+    // Scroll suau cap al detall (mòbil)
+    if (window.innerWidth < 769) {
+      detail.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }
 
-  function concertCard(event, isPast) {
-    const dateStr = event.start
-      ? event.start.toLocaleDateString(langLocale(), { weekday: "long", day: "numeric", month: "long", year: "numeric" })
-      : "";
-    const timeStr = event.start && event.start.getHours() > 0
-      ? event.start.toLocaleTimeString(langLocale(), { hour: "2-digit", minute: "2-digit" })
-      : "";
-
-    const linkBtn = event.url
-      ? `<a href="${event.url}" class="concert-link" target="_blank" rel="noopener">${t.tickets}</a>`
-      : "";
-
-    return `
-      <article class="concert-item${isPast ? " concert-item--past" : ""}">
-        <div class="concert-date">${dateStr}${timeStr ? " · " + timeStr : ""}</div>
-        <div class="concert-info">
-          <h3 class="concert-title">${event.title}</h3>
-          ${event.location ? `<p class="concert-location">📍 ${event.location}</p>` : ""}
-          ${event.desc ? `<p class="concert-desc">${event.desc.split("\n")[0]}</p>` : ""}
-        </div>
-        ${linkBtn ? `<div class="concert-actions">${linkBtn}</div>` : ""}
-      </article>`;
+  // ─── Helpers ─────────────────────────────────────────────────────────────
+  function shortDate(d) {
+    if (!d) return "";
+    return d.getDate() + " " + t.shortMonths[d.getMonth()];
   }
 
   function langLocale() {
-    return { ca: "ca-ES", es: "es-ES", en: "en-GB" }[lang] || "ca-ES";
+    return {ca:"ca-ES", es:"es-ES", en:"en-GB"}[lang] || "ca-ES";
   }
 
-  // ─── Error ────────────────────────────────────────────────────────────────
   function renderError(msg) {
-    const upEl = document.getElementById("concerts-upcoming");
-    if (upEl) upEl.innerHTML = `<p class="concerts-error">⚠️ ${msg}</p>`;
+    const ul = document.getElementById("concerts-upcoming");
+    if (ul) ul.innerHTML = `<li class="concerts-error">⚠️ ${msg}</li>`;
   }
+
 })();
