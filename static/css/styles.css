@@ -930,10 +930,10 @@ footer { background: var(--c-dark); color: var(--c-light); padding: 3rem var(--g
 .disc-platform__icons { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
 .disc-platform__icon {
   display: flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px; color: var(--c-text-muted);
+  width: 44px; height: 44px; color: var(--c-text-muted);
   transition: color var(--dur), transform var(--dur); text-decoration: none;
 }
-.disc-platform__icon svg { width: 20px; height: 20px; }
+.disc-platform__icon svg { width: 24px; height: 24px; }
 .disc-platform__icon:hover { color: var(--c-gold); transform: translateY(-2px); }
 
 @media (max-width: 768px) {
