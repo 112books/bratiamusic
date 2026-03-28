@@ -3,7 +3,6 @@ title: "Balkan Pompe Ignition"
 type_release: "album"
 year: 2023
 cover: "images/discography/balkan-pompe-ignition.jpg"
-description: "El mosaic musical dels Balcans i l'energia i l'elegància del jazz gitano, units pel nomadisme de la música romaní, creen una experiència sonora extraordinària, un univers musical, una germandat."
 spotify_embed: "https://open.spotify.com/embed/album/50KP9q2fYisoeMWT3bsdeX?utm_source=generator&theme=0"
 spotify:      "https://open.spotify.com/album/50KP9q2fYisoeMWT3bsdeX"
 apple_music:  "https://geo.music.apple.com/es/album/balkan-pompe-ignition/1687764298"
@@ -16,8 +15,6 @@ smartlink:    "https://orcd.co/balkanpompeignition"
 weight: 1
 ---
 
-The musical myriad of the Balkans and the energy and elegance of gypsy jazz, brought together by the nomadism of Roma music, create an extraordinary sonic experience, a musical universe, a brotherhood. As the band's very name of Slavic origin suggests… BRATIA.
+El mosaic musical dels Balcans i l'energia i l'elegància del jazz gitano, units pel nomadisme de la música romaní, creen una experiència sonora extraordinària, un univers musical, una germandat. Com el propi nom de la banda, d'origen eslau, indica… BRATIA.
 
-Recorded at [Sol de Sants Studios](http://www.soldesants.com/), Barcelona, by Alberto Pérez. Mixed and mastered by [Yves Roussel](https://www.yvesroussel.com/).
-
-
+Gravat a [Sol de Sants Studios](http://www.soldesants.com/), Barcelona, per Alberto Pérez. Mescla i masterització per [Yves Roussel](https://www.yvesroussel.com/).
