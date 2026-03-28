@@ -28,6 +28,15 @@
         </li>
         {{ end }}
       </ul>
+      <!-- Selector idiomes dins el menú mòbil -->
+      <div class="lang-switcher lang-switcher--mobile">
+        {{ range .Site.Languages }}
+          {{ $url := printf "%s%s/" $.Site.BaseURL .Lang }}
+          <a href="{{ $url }}" {{ if eq $.Site.Language.Lang .Lang }}class="active"{{ end }}>
+            {{ upper .Lang }}
+          </a>
+        {{ end }}
+      </div>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menú">
       <span class="hamburger-bar"></span>
@@ -41,7 +50,7 @@
 <!-- Nav compacte (apareix en scroll) -->
 <nav class="nav-compact" id="nav-compact">
   <div class="nav-compact__logo">
-    <a href="{{ .Site.BaseURL }}">
+    <a href="{{ printf "%s%s/" .Site.BaseURL .Site.Language.Lang }}">
       <img src="{{ "images/logo.png" | relURL }}" alt="{{ .Site.Title }}">
     </a>
   </div>
@@ -54,10 +63,10 @@
     </li>
     {{ end }}
   </ul>
-  <div class="lang-switcher">
+  <div class="lang-switcher lang-switcher--compact">
     {{ range .Site.Languages }}
       {{ $url := printf "%s%s/" $.Site.BaseURL .Lang }}
-<a href="{{ $url }}" {{ if eq $.Site.Language.Lang .Lang }}class="active"{{ end }}>
+      <a href="{{ $url }}" {{ if eq $.Site.Language.Lang .Lang }}class="active"{{ end }}>
         {{ upper .Lang }}
       </a>
     {{ end }}
@@ -75,12 +84,12 @@
 
 <script>
 (function() {
-  const header       = document.getElementById('site-header');
-  const compact      = document.getElementById('nav-compact');
-  const toggle       = document.getElementById('nav-toggle');
+  const header        = document.getElementById('site-header');
+  const compact       = document.getElementById('nav-compact');
+  const toggle        = document.getElementById('nav-toggle');
   const compactToggle = document.getElementById('nav-compact-toggle');
-  const overlay      = document.getElementById('nav-overlay');
-  const mainNav      = document.querySelector('.main-nav');
+  const overlay       = document.getElementById('nav-overlay');
+  const mainNav       = document.querySelector('.main-nav');
 
   // Scroll: intercanvi header ↔ nav compacte
   window.addEventListener('scroll', function() {
@@ -89,7 +98,6 @@
     header.classList.toggle('is-hidden', scrolled);
   }, { passive: true });
 
-  // Tanca el menú
   function closeMenu() {
     mainNav.classList.remove('is-open');
     overlay.classList.remove('is-active');
@@ -97,24 +105,14 @@
     compactToggle && compactToggle.setAttribute('aria-expanded', 'false');
   }
 
-  // Obre/tanca el menú
   function toggleMenu(btn) {
     const open = mainNav.classList.toggle('is-open');
     overlay.classList.toggle('is-active', open);
     btn && btn.setAttribute('aria-expanded', String(open));
   }
 
-  // Hamburguesa header normal (mòbil)
-  toggle && toggle.addEventListener('click', function() {
-    toggleMenu(toggle);
-  });
-
-  // Hamburguesa nav compacte (mòbil + scroll)
-  compactToggle && compactToggle.addEventListener('click', function() {
-    toggleMenu(compactToggle);
-  });
-
-  // Overlay tanca
+  toggle && toggle.addEventListener('click', function() { toggleMenu(toggle); });
+  compactToggle && compactToggle.addEventListener('click', function() { toggleMenu(compactToggle); });
   overlay && overlay.addEventListener('click', closeMenu);
 })();
 </script>
