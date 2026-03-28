@@ -417,7 +417,7 @@ a   { color: inherit; }
   padding: calc(var(--section-v) + 2rem) var(--gap);
   background:
     linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.88)),
-    url('/imatges/concerts/bratia-concerts-IMG_3091.jpg') center center / cover no-repeat;
+    url('/images/concerts/bratia-concerts-IMG_3091.jpg') center center / cover no-repeat;
   background-attachment: fixed;
   color: var(--c-light);
 }
