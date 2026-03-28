@@ -14,8 +14,8 @@
       {{ end }}
     </p>
 
-   {{ $galleries := hugo.Data.galleries.galleries }}
-    {{ if $galleries }}
+   {{ $galleries := site.Data.galleries.galleries }}
+       {{ if $galleries }}
     <div class="galleries-grid">
       {{ range $galleries }}
       <a class="gallery-card"
