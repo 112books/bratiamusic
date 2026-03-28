@@ -1,6 +1,6 @@
 {{ define "main" }}
 <section class="concerts-section"
-  data-calendar="{{ .Site.Params.google_calendar_ical }}"
+  data-ical="{{ "data/concerts.txt" | absURL }}"
   data-lang="{{ .Lang }}"
   data-newsletter="/{{ .Lang }}/newsletter/">
 
