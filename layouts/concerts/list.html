@@ -1,5 +1,6 @@
 {{ define "main" }}
 <section class="concerts-section"
+  style="--concerts-bg: url('{{ "images/concerts/bratia-concerts-IMG_3091.jpg" | absURL }}')"
   data-ical="{{ "data/concerts.txt" | absURL }}"
   data-lang="{{ .Lang }}"
   data-newsletter="/{{ .Lang }}/newsletter/">

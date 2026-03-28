@@ -415,10 +415,10 @@ a   { color: inherit; }
 .concerts-section {
   position: relative;
   padding: calc(var(--section-v) + 2rem) var(--gap);
+  /* La imatge ve via --concerts-bg injectat pel layout Hugo (absURL) */
   background:
-    linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.88)),
-    url('/images/concerts/bratia-concerts-IMG_3091.jpg') center center / cover no-repeat;
-  background-attachment: fixed;
+    linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.90)),
+    var(--concerts-bg, none) center center / cover no-repeat;
   color: var(--c-light);
 }
 
