@@ -707,6 +707,8 @@ footer { background: var(--c-dark); color: var(--c-light); padding: 3rem var(--g
 
   .videos-layout { grid-template-columns: 1fr; }
   .videos-list { max-height: 300px; }
+  .videos-player { order: 1; }
+  .videos-sidebar { order: 2; }
 }
 
 @media (max-width: 560px) {
