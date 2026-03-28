@@ -158,6 +158,10 @@ a   { color: inherit; }
   display: none; position: fixed; inset: 0;
   background: rgba(0,0,0,.55); z-index: 800;
   opacity: 0; transition: opacity var(--dur);
+  pointer-events: none;
+}
+.nav-overlay.is-active {
+  pointer-events: auto;
 }
 
 
