@@ -1,0 +1,30 @@
+name: Fetch concerts iCal
+
+on:
+  schedule:
+    - cron: '0 3 * * *'   # cada nit a les 3:00 UTC
+  workflow_dispatch:        # permet executar-lo manualment
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download iCal
+        run: |
+          mkdir -p static/data
+          curl -L --fail --silent --show-error \
+            "https://calendar.google.com/calendar/ical/7713a217c6e9631a76ac934719903101dbbc9550c23cfb6dc082c9114d8bf981%40group.calendar.google.com/public/basic.ics" \
+            -o static/data/concerts.txt
+          echo "Fitxer descarregat:"
+          wc -l static/data/concerts.ics
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add static/data/concerts.txt
+          git diff --staged --quiet || git commit -m "chore: actualitzar concerts.ics [skip ci]"
+          git push

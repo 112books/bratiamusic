@@ -148,3 +148,12 @@ enabled     = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+[mediaTypes]
+  [mediaTypes."text/calendar"]
+    suffixes = ["ics"]
+
+[outputFormats]
+  [outputFormats.Calendar]
+    mediaType = "text/calendar"
+    isPlainText = true

@@ -45,7 +45,7 @@
   let allEvents = [];
 
   // Fitxer local — sense CORS, sense proxy
-  fetch('/data/concerts.ics')
+  fetch('/data/concerts.txt')
     .then((r) => {
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.text();
