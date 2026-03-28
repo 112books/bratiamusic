@@ -1,8 +1,60 @@
 {{ define "main" }}
 <div class="page-wrap page-wrap--dark">
   <div class="page-inner">
+
     <h1 class="page-title">{{ .Title }}</h1>
-    {{ .Content }}
+
+    <p class="galleries-lead">
+      {{ if eq .Lang "ca" }}
+        Moments capturats. La vida de Bratia Music dins i fora de l'escenari.
+      {{ else if eq .Lang "es" }}
+        Momentos capturados. La vida de Bratia Music dentro y fuera del escenario.
+      {{ else }}
+        Captured moments. The life of Bratia Music on and off stage.
+      {{ end }}
+    </p>
+
+    {{ $galleries := site.Data.galleries.galleries }}
+    {{ if $galleries }}
+    <div class="galleries-grid">
+      {{ range $galleries }}
+      <a class="gallery-card"
+         href="{{ .url }}"
+         target="_blank"
+         rel="noopener"
+         aria-label="{{ index .title $.Lang }}">
+
+        {{ if .cover }}
+        <div class="gallery-card__thumb">
+          <img src="{{ .cover | relURL }}" alt="{{ index .title $.Lang }}" loading="lazy">
+        </div>
+        {{ else }}
+        <div class="gallery-card__thumb gallery-card__thumb--placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+          </svg>
+        </div>
+        {{ end }}
+
+        <div class="gallery-card__info">
+          <h3 class="gallery-card__title">{{ index .title $.Lang }}</h3>
+          <p class="gallery-card__date">{{ .date }}</p>
+          {{ if .author }}
+          <p class="gallery-card__author">{{ .author }}</p>
+          {{ end }}
+          <p class="gallery-card__cta">
+            {{ if eq $.Lang "ca" }}Veure a Google Photos ↗
+            {{ else if eq $.Lang "es" }}Ver en Google Photos ↗
+            {{ else }}View on Google Photos ↗
+            {{ end }}
+          </p>
+        </div>
+
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+
   </div>
 </div>
 {{ end }}

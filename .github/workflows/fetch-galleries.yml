@@ -1,0 +1,69 @@
+name: Fetch gallery covers
+
+on:
+  schedule:
+    - cron: '0 5 * * *'   # cada nit a les 5:00 UTC
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instal·la dependències Python
+        run: pip install requests pyyaml --break-system-packages
+
+      - name: Extreu portades de Google Photos
+        run: |
+          python3 << 'PYEOF'
+          import requests
+          import yaml
+          import re
+          import sys
+
+          HEADERS = {
+              'User-Agent': 'Mozilla/5.0 (compatible; BratiaBot/1.0)'
+          }
+
+          with open('data/galleries.yaml', 'r', encoding='utf-8') as f:
+              data = yaml.safe_load(f)
+
+          changed = False
+          for gallery in data.get('galleries', []):
+              url = gallery.get('url', '')
+              if not url:
+                  continue
+              try:
+                  r = requests.get(url, headers=HEADERS, timeout=10)
+                  # Extreu og:image
+                  match = re.search(r'<meta\s+property=["\']og:image["\']\s+content=["\'](https://[^"\']+)["\']', r.text)
+                  if not match:
+                      match = re.search(r'<meta\s+content=["\'](https://lh3\.googleusercontent[^"\']+)["\']\s+property=["\']og:image["\']', r.text)
+                  if match:
+                      cover = match.group(1)
+                      if gallery.get('cover') != cover:
+                          gallery['cover'] = cover
+                          changed = True
+                          print(f"✓ {gallery['id']}: portada actualitzada")
+                  else:
+                      print(f"⚠ {gallery['id']}: og:image no trobada")
+              except Exception as e:
+                  print(f"✗ {gallery['id']}: error — {e}")
+
+          if changed:
+              with open('data/galleries.yaml', 'w', encoding='utf-8') as f:
+                  yaml.dump(data, f, allow_unicode=True, default_flow_style=False, sort_keys=False)
+              print("YAML actualitzat")
+          else:
+              print("Sense canvis")
+          PYEOF
+
+      - name: Commit si hi ha canvis
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/galleries.yaml
+          git diff --staged --quiet || git commit -m "chore: actualitzar portades galeries [skip ci]"
+          git push

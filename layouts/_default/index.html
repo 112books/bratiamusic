@@ -4,7 +4,6 @@
   <img src="{{ "images/home-banner.jpg" | relURL }}" alt="" class="hero-img" loading="eager" aria-hidden="true">
   <div class="hero-overlay">
 
-    <!-- Logo intro: animació primera visita -->
     <div class="hero-logo-intro" id="hero-logo-intro">
       <img src="{{ "images/logo.png" | relURL }}" alt="{{ .Site.Title }}" class="hero-logo-intro__img">
     </div>
@@ -17,27 +16,26 @@
 
 <nav class="section-nav" aria-label="{{ i18n "sections" | default "Seccions" }}">
   <div class="section-nav__inner">
-    <a class="section-nav__item" href="{{ .Site.Language.Lang | relURL }}/about/">
-      <span class="section-nav__label">{{ i18n "about" }}</span>
-    </a>
-    <a class="section-nav__item" href="{{ .Site.Language.Lang | relURL }}/the-band/">
-      <span class="section-nav__label">{{ i18n "the-band" }}</span>
-    </a>
-    <a class="section-nav__item" href="{{ .Site.Language.Lang | relURL }}/discography/">
-      <span class="section-nav__label">{{ i18n "discography" }}</span>
-    </a>
-    <a class="section-nav__item" href="{{ .Site.Language.Lang | relURL }}/next-shows/">
-      <span class="section-nav__label">{{ i18n "next-shows" }}</span>
-    </a>
-    <a class="section-nav__item" href="{{ .Site.Language.Lang | relURL }}/videos/">
-      <span class="section-nav__label">{{ i18n "videos" }}</span>
-    </a>
-    <a class="section-nav__item" href="{{ .Site.Language.Lang | relURL }}/photos/">
-      <span class="section-nav__label">{{ i18n "photos" }}</span>
-    </a>
-    <a class="section-nav__item" href="{{ .Site.Language.Lang | relURL }}/contact/">
-      <span class="section-nav__label">{{ i18n "contact" }}</span>
-    </a>
+
+    {{ $lang := .Site.Language.Lang }}
+
+    {{ $sections := slice
+      (dict "id" "about"       "label" (i18n "about"))
+      (dict "id" "the-band"    "label" (i18n "the-band"))
+      (dict "id" "music"       "label" (i18n "discography"))
+      (dict "id" "concerts"    "label" (i18n "next-shows"))
+      (dict "id" "videos"      "label" (i18n "videos"))
+      (dict "id" "photos"      "label" (i18n "photos"))
+      (dict "id" "contact"     "label" (i18n "contact"))
+    }}
+
+    {{ range $sections }}
+      <a class="section-nav__item" href="{{ printf "%s%s/%s/" $.Site.BaseURL $lang .id }}">
+        <span class="section-nav__icon">{{ partial "icons/nav-icon.html" (printf "/%s/%s/" $lang .id) }}</span>
+        <span class="section-nav__label">{{ .label }}</span>
+      </a>
+    {{ end }}
+
   </div>
 </nav>
 
