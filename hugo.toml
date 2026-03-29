@@ -141,7 +141,7 @@ google_calendar_ical = "https://calendar.google.com/calendar/ical/7713a217c6e963
   url  = "https://brokengls.com"
 
 [params.analytics]
-goatcounter = "bratiamusic"
+goatcounter = "bratia-music"
 enabled     = true
 
 [markup]
