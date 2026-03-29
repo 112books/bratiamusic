@@ -1,0 +1,55 @@
+{{ define "main" }}
+<style>
+  .admin-index {
+    padding: 3rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  }
+  .admin-index h1 {
+    color: #00ff41;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #1a3320;
+    padding-bottom: 1rem;
+  }
+  .admin-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: #1a3320;
+  }
+  .admin-menu li { background: #111; }
+  .admin-menu a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    color: #c8ffd4;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: background 0.15s;
+  }
+  .admin-menu a:hover { background: #003310; color: #00ff41; }
+  .admin-menu .menu-icon { color: #00cc33; }
+  .admin-menu .menu-desc { font-size: 0.7rem; color: #4a7a54; margin-left: auto; }
+</style>
+
+<div class="admin-index">
+  <h1>// Admin · Bratia Music</h1>
+  <ul class="admin-menu">
+    <li>
+      <a href="/bratiamusic/admin/insights/">
+        <span class="menu-icon">▸</span>
+        analytics_console
+        <span class="menu-desc">GoatCounter insights</span>
+      </a>
+    </li>
+  </ul>
+</div>
+{{ end }}
