@@ -19,7 +19,7 @@ jobs:
             "https://calendar.google.com/calendar/ical/7713a217c6e9631a76ac934719903101dbbc9550c23cfb6dc082c9114d8bf981%40group.calendar.google.com/public/basic.ics" \
             -o static/data/concerts.txt
           echo "Fitxer descarregat:"
-          wc -l static/data/concerts.ics
+          wc -l static/data/concerts.txt
 
       - name: Commit if changed
         run: |
