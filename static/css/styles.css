@@ -294,6 +294,14 @@ a   { color: inherit; }
 .is-home    main { padding-top: 0; }
 .is-subpage main { padding-top: var(--header-h); }
 
+.hero-slogan {
+  font-family: 'Dancing Script', 'Segoe Script', cursive;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: rgba(255,255,255,0.85);
+  margin-top: 0.4rem;
+  letter-spacing: 0.02em;
+  font-style: italic;
+}
 
 /* ── 6. SECTION NAV (home grid) ──────────────────────────── */
 .section-nav {
