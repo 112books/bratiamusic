@@ -274,3 +274,38 @@ Aquest web és la base d'una **plantilla reutilitzable per a músics i bandes**,
 - Per fer!
 -- Els botons de portada que tinguin un over on es mostren les icones del menú de navegació, per donar-os un toc diferent i més entenedor.
 -- Revisar l'Avis legal: lineas mes juntes i revisar el contingut, destacar que respectem privacitat i verificar que es fa servir de cookies i demés.
+
+
+Aquí tens el resum de l'estat actual:
+✅ Implementat i funcionant
+
+Header shrinking (logo gran → nav compacte amb icones)
+Menú hamburguesa mòbil + selector idiomes
+Hero amb animació logo (sessionStorage)
+About (layout split)
+The Band (fotos rodones, jerarquia 1+2+2)
+Discografia (2 discs, multiidioma, Spotify embed)
+Concerts (Google Calendar → GitHub Action → .txt local, calendari, llista, detall)
+Vídeos (RSS YouTube sense Shorts → GitHub Action → JSON, facade pattern)
+Galeries (Google Photos, portades automàtiques via GitHub Action)
+Contacte (immersiu amb imatge, email + xarxes socials)
+Footer (legal links compactes)
+Botons home amb icones + text hover
+Fix clics mòbil (nav-overlay pointer-events)
+
+⚠️ Pendent prioritari
+
+GoatCounter estadístiques (a mitges — partial existent però events no implementats)
+Legal (pàgines creades però contingut a revisar — reflectir realitat tècnica)
+Pipeline desplegament a producció (Dinahosting)
+
+🔲 Pendent futur
+
+SEO (metadades, schema markup)
+Accessibilitat (ARIA, contrast)
+Seguretat (CSP, HSTS)
+Pàgina 404 amb foto del guitarrista
+Newsletter
+Línia del temps de la banda
+
+Per on vols començar avui?

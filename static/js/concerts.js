@@ -7,7 +7,7 @@
 (function () {
   "use strict";
 
-  const I18N = {
+const I18N = {
     ca: {
       months: ["Gener","Febrer","Març","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"],
       shortMonths: ["gen","feb","mar","abr","mai","jun","jul","ago","set","oct","nov","des"],
@@ -15,6 +15,7 @@
       noUpcomingNewsletter: "Subscriu-te al newsletter per rebre novetats.",
       noPast: "Sense concerts recents.",
       tickets: "Entrades",
+      addToCalendar: "Afegir al calendari",
     },
     es: {
       months: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
@@ -23,6 +24,7 @@
       noUpcomingNewsletter: "Suscríbete al newsletter para recibir novedades.",
       noPast: "Sin conciertos recientes.",
       tickets: "Entradas",
+      addToCalendar: "Añadir al calendario",
     },
     en: {
       months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
@@ -31,6 +33,7 @@
       noUpcomingNewsletter: "Subscribe to our newsletter to stay updated.",
       noPast: "No recent concerts.",
       tickets: "Tickets",
+      addToCalendar: "Add to calendar",
     },
   };
 
@@ -239,12 +242,14 @@
     const detail = document.getElementById("concert-detail");
     if (!detail) return;
 
-    const dateStr = event.start
-      ? event.start.toLocaleDateString(langLocale(), {weekday:"long", day:"numeric", month:"long", year:"numeric"})
-      : "";
-    const timeStr = event.start && event.start.getHours() > 0
-      ? " · " + event.start.toLocaleTimeString(langLocale(), {hour:"2-digit", minute:"2-digit"})
-      : "";
+ const dateStr = event.start
+  ? event.start.toLocaleDateString(langLocale(), {weekday:"long", day:"numeric", month:"long", year:"numeric"}).toUpperCase()
+  : "";
+const timeStr = event.start && event.start.getHours() > 0
+  ? " · " + event.start.toLocaleTimeString(langLocale(), {hour:"2-digit", minute:"2-digit"})
+  : "";
+
+  const icalUrl = section.dataset.ical || "";
 
     detail.removeAttribute("hidden");
     detail.innerHTML = `
@@ -253,6 +258,17 @@
       ${event.location ? `<p class="concert-detail-location">📍 ${event.location}</p>` : ""}
       ${event.desc     ? `<p class="concert-detail-desc">${event.desc}</p>` : ""}
       ${event.url      ? `<a href="${event.url}" class="concert-detail-link" target="_blank" rel="noopener">${t.tickets}</a>` : ""}
+      ${icalUrl ? `
+      <div class="concert-detail-cal">
+        <a href="${icalUrl}" download="bratia-concert.ics" class="cal-subscribe__btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          ${t.addToCalendar}
+        </a>
+      </div>` : ""}
     `;
 
     if (window.innerWidth < 769) {

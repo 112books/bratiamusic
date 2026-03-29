@@ -5,14 +5,7 @@
     <a href="{{ .Site.BaseURL }}" class="site-logo">
       <img class="logo-full" src="{{ "images/logo.png" | relURL }}" alt="{{ .Site.Title }}">
     </a>
-    <div class="lang-switcher lang-switcher--compact">
-    {{ range .Site.Languages }}
-        {{ $url := printf "%s%s/" $.Site.BaseURL .Lang }}
-        <a href="{{ $url }}" {{ if eq $.Site.Language.Lang .Lang }}class="active"{{ end }}>
-        {{ upper .Lang }}
-        </a>
-    {{ end }}
-    </div>
+    {{ partial "lang-switcher.html" (dict "Site" .Site "Translations" .Translations "class" "lang-switcher--compact") }}
   </div>
 
   <!-- Separador -->
@@ -22,6 +15,9 @@
   <div class="header-bottom">
     <nav class="main-nav" id="main-nav">
       <ul class="nav-list">
+        
+        <!-- DEBUG: {{ .Site.Language.Lang }} -->
+<!-- LANG: {{ .Site.Language.Lang }} | MENU COUNT: {{ len .Site.Menus.main }} -->
         {{ range .Site.Menus.main }}
         <li>
           <a href="{{ .URL | relURL }}">{{ .Name }}</a>
@@ -29,14 +25,7 @@
         {{ end }}
       </ul>
       <!-- Selector idiomes dins el menú mòbil -->
-      <div class="lang-switcher lang-switcher--mobile">
-        {{ range .Site.Languages }}
-          {{ $url := printf "%s%s/" $.Site.BaseURL .Lang }}
-          <a href="{{ $url }}" {{ if eq $.Site.Language.Lang .Lang }}class="active"{{ end }}>
-            {{ upper .Lang }}
-          </a>
-        {{ end }}
-      </div>
+      {{ partial "lang-switcher.html" (dict "Site" .Site "Translations" .Translations "class" "lang-switcher--mobile") }}
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menú">
       <span class="hamburger-bar"></span>
@@ -63,14 +52,7 @@
     </li>
     {{ end }}
   </ul>
-  <div class="lang-switcher lang-switcher--compact">
-    {{ range .Site.Languages }}
-      {{ $url := printf "%s%s/" $.Site.BaseURL .Lang }}
-      <a href="{{ $url }}" {{ if eq $.Site.Language.Lang .Lang }}class="active"{{ end }}>
-        {{ upper .Lang }}
-      </a>
-    {{ end }}
-  </div>
+  {{ partial "lang-switcher.html" (dict "Site" .Site "Translations" .Translations "class" "lang-switcher--compact") }}
   <!-- Hamburguesa només visible en mòbil -->
   <button class="nav-toggle nav-toggle--compact" id="nav-compact-toggle"
           aria-expanded="false" aria-label="Menú">
@@ -91,7 +73,6 @@
   const overlay       = document.getElementById('nav-overlay');
   const mainNav       = document.querySelector('.main-nav');
 
-  // Scroll: intercanvi header ↔ nav compacte
   window.addEventListener('scroll', function() {
     const scrolled = window.scrollY > 80;
     compact.classList.toggle('is-visible', scrolled);

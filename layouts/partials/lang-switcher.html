@@ -1,5 +1,22 @@
-<div class="lang-switcher">
-    <a href="{{ "ca/" | relURL }}" {{ if eq .Site.Language.Lang "ca" }}class="active"{{ end }}>CA</a>
-    <a href="{{ "es/" | relURL }}" {{ if eq .Site.Language.Lang "es" }}class="active"{{ end }}>ES</a>
-    <a href="{{ "en/" | relURL }}" {{ if eq .Site.Language.Lang "en" }}class="active"{{ end }}>EN</a>
+<div class="lang-switcher {{ .class }}">
+  <a href="#" data-lang="ca" onclick="switchLang('ca'); return false;">CA</a>
+  <a href="#" data-lang="es" onclick="switchLang('es'); return false;">ES</a>
+  <a href="#" data-lang="en" onclick="switchLang('en'); return false;">EN</a>
 </div>
+
+<script>
+function switchLang(lang) {
+  window.location.href = '/bratiamusic/' + lang + '/';
+}
+
+// Marca l'idioma actiu
+(function() {
+  const path = window.location.pathname;
+  const match = path.match(/\/(ca|es|en)\//);
+  if (match) {
+    document.querySelectorAll('.lang-switcher [data-lang]').forEach(a => {
+      a.classList.toggle('active', a.dataset.lang === match[1]);
+    });
+  }
+})();
+</script>

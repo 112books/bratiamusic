@@ -1,4 +1,11 @@
 {{ define "main" }}
+
+<!-- DEBUG -->
+{{ range .Translations }}
+  <p style="color:red">TRADUCCIÓ: {{ .Lang }} → {{ .Permalink }}</p>
+{{ end }}
+<!-- /DEBUG -->
+
 <section class="concerts-section"
   style="--concerts-bg: url('{{ "images/concerts/bratia-concerts-IMG_3091.jpg" | absURL }}')"
   data-ical="{{ "data/concerts.txt" | absURL }}"
@@ -10,7 +17,6 @@
   </div>
 
   <div class="concerts-top">
-
     <div class="cal-wrapper">
       <div class="cal-nav">
         <button class="cal-prev" aria-label="Mes anterior">&#8592;</button>
@@ -38,10 +44,13 @@
         </li>
       </ul>
     </div>
-
   </div>
 
   <div class="concert-detail" id="concert-detail" hidden></div>
+
+  <div class="concerts-subscribe-wrap">
+    {{ partial "calendar-subscribe.html" . }}
+  </div>
 
   <div class="concerts-past-section">
     <h3 class="concerts-past-title">

@@ -8,37 +8,37 @@ defaultContentLanguage = "ca"
   languageName = "Català"
   weight = 1
 
-[[languages.ca.menus.main]]
+[[languages.ca.menu.main]]
   name = "Qui som"
   url = "/ca/about/"
   weight = 1
 
-[[languages.ca.menus.main]]
+[[languages.ca.menu.main]]
   name = "El grup"
   url = "/ca/the-band/"
   weight = 2
 
-[[languages.ca.menus.main]]
+[[languages.ca.menu.main]]
   name = "Música / Discografia"
   url = "/ca/music/"
   weight = 3
 
-[[languages.ca.menus.main]]
+[[languages.ca.menu.main]]
   name = "Propers concerts"
   url = "/ca/concerts/"
   weight = 4
 
-[[languages.ca.menus.main]]
+[[languages.ca.menu.main]]
   name = "Vídeos"
   url = "/ca/videos/"
   weight = 5
 
-[[languages.ca.menus.main]]
+[[languages.ca.menu.main]]
   name = "Fotografies"
   url = "/ca/photos/"
   weight = 6
 
-[[languages.ca.menus.main]]
+[[languages.ca.menu.main]]
   name = "Contacte / Contractació"
   url = "/ca/contact/"
   weight = 7
@@ -48,37 +48,37 @@ defaultContentLanguage = "ca"
   languageName = "Español"
   weight = 2
 
-[[languages.es.menus.main]]
+[[languages.es.menu.main]]
   name = "Quiénes somos"
   url = "/es/about/"
   weight = 1
 
-[[languages.es.menus.main]]
+[[languages.es.menu.main]]
   name = "El grupo"
   url = "/es/the-band/"
   weight = 2
 
-[[languages.es.menus.main]]
+[[languages.es.menu.main]]
   name = "Música / Discografía"
   url = "/es/music/"
   weight = 3
 
-[[languages.es.menus.main]]
+[[languages.es.menu.main]]
   name = "Próximos conciertos"
   url = "/es/concerts/"
   weight = 4
 
-[[languages.es.menus.main]]
+[[languages.es.menu.main]]
   name = "Vídeos"
   url = "/es/videos/"
   weight = 5
 
-[[languages.es.menus.main]]
+[[languages.es.menu.main]]
   name = "Fotografías"
   url = "/es/photos/"
   weight = 6
 
-[[languages.es.menus.main]]
+[[languages.es.menu.main]]
   name = "Contacto / Contratación"
   url = "/es/contact/"
   weight = 7
@@ -88,37 +88,37 @@ defaultContentLanguage = "ca"
   languageName = "English"
   weight = 3
 
-[[languages.en.menus.main]]
+[[languages.en.menu.main]]
   name = "About"
   url = "/en/about/"
   weight = 1
 
-[[languages.en.menus.main]]
+[[languages.en.menu.main]]
   name = "The band"
   url = "/en/the-band/"
   weight = 2
 
-[[languages.en.menus.main]]
+[[languages.en.menu.main]]
   name = "Music / Discography"
   url = "/en/music/"
   weight = 3
 
-[[languages.en.menus.main]]
+[[languages.en.menu.main]]
   name = "Upcoming concerts"
   url = "/en/concerts/"
   weight = 4
 
-[[languages.en.menus.main]]
+[[languages.en.menu.main]]
   name = "Videos"
   url = "/en/videos/"
   weight = 5
 
-[[languages.en.menus.main]]
+[[languages.en.menu.main]]
   name = "Photos"
   url = "/en/photos/"
   weight = 6
 
-[[languages.en.menus.main]]
+[[languages.en.menu.main]]
   name = "Contact / Booking"
   url = "/en/contact/"
   weight = 7
