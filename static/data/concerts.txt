@@ -7,9 +7,27 @@ X-WR-CALNAME:Bratia Music - calendar
 X-WR-TIMEZONE:Europe/Madrid
 X-WR-CALDESC:The next shows for this band
 BEGIN:VEVENT
+DTSTART:20260405T180000Z
+DTEND:20260405T183000Z
+DTSTAMP:20260329T111918Z
+UID:58qtgbf4oh4gtftju0buu3nrd5@google.com
+CREATED:20260329T110940Z
+DESCRIPTION:Nit de Balkan i Gypsy Jazz al cor del Raval.<br><br>Portes: 21:
+ 00 | Inici: 22:00<br>Preu: 8€ anticipada / 12€ taquilla<br>Entrades: <a hre
+ f="https://entrades.cat/bratia-raval">https://entrades.cat/bratia-raval</a>
+ <br><br>Sala Apolo – Carrer Nou de la Rambla 113\, Barcelona
+LAST-MODIFIED:20260329T110940Z
+LOCATION:Jamboree\, Pl. Reial\, 17\, Ciutat Vella\, 08002 Barcelona\, Espan
+ ya
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Test 2 de concert de Bratia al Jamboree
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
 DTSTART;VALUE=DATE:20260401
 DTEND;VALUE=DATE:20260402
-DTSTAMP:20260328T090745Z
+DTSTAMP:20260329T111918Z
 UID:1eci3cfuaq726d1kk540jjhjn5@google.com
 CREATED:20260326T102701Z
 DESCRIPTION:<h3><a href="https://bratiamusic.com/event/gira-bratia-contra-b
