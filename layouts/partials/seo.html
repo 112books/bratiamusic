@@ -1,0 +1,62 @@
+{{- $title       := cond .IsHome .Site.Title (printf "%s · %s" .Title .Site.Title) -}}
+{{- $description := .Params.description | default .Site.Params.description -}}
+{{- $canonical   := .Permalink -}}
+{{- $lang        := .Site.Language.Lang -}}
+
+{{- $ogImage := "" -}}
+{{- if .Params.og_image -}}
+  {{- $ogImage = .Params.og_image | absURL -}}
+{{- else if .Site.Params.og_image -}}
+  {{- $ogImage = .Site.Params.og_image | absURL -}}
+{{- end -}}
+
+<!-- SEO: description -->
+{{ if $description }}<meta name="description" content="{{ $description }}">{{ end }}
+<link rel="canonical" href="{{ $canonical }}">
+<meta name="robots" content="index, follow">
+
+<!-- OpenGraph -->
+<meta property="og:type"        content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:title"       content="{{ $title }}">
+<meta property="og:url"         content="{{ $canonical }}">
+<meta property="og:site_name"   content="{{ .Site.Title }}">
+<meta property="og:locale"      content="{{ if eq $lang "ca" }}ca_ES{{ else if eq $lang "es" }}es_ES{{ else }}en_GB{{ end }}">
+{{ if $description }}<meta property="og:description" content="{{ $description }}">{{ end }}
+{{ if $ogImage }}<meta property="og:image" content="{{ $ogImage }}">{{ end }}
+
+<!-- Twitter Card -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="{{ $title }}">
+{{ if $description }}<meta name="twitter:description" content="{{ $description }}">{{ end }}
+{{ if $ogImage }}<meta name="twitter:image" content="{{ $ogImage }}">{{ end }}
+
+<!-- hreflang multilingüe -->
+{{ range .Translations }}
+<link rel="alternate" hreflang="{{ .Site.Language.Lang }}" href="{{ .Permalink }}">
+{{ end }}
+<link rel="alternate" hreflang="{{ $lang }}" href="{{ $canonical }}">
+<link rel="alternate" hreflang="x-default" href="{{ .Site.BaseURL }}">
+
+<!-- Schema.org -->
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "name": "Bratia Music",
+  "description": "{{ $description }}",
+  "url": "{{ .Site.BaseURL }}",
+  "genre": ["Balkan", "Gypsy Jazz", "World Music"],
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Barcelona, Spain"
+  },
+  "image": "{{ $ogImage }}",
+  "sameAs": [
+    "https://www.instagram.com/bratiamusic/",
+    "https://www.facebook.com/bratiamusic/",
+    "https://www.youtube.com/@bratiamusic"
+  ]
+}
+</script>
+{{ end }}
