@@ -23,6 +23,7 @@ else
     FTP_USER=""
     FTP_HOST=""
     FTP_PATH="/www"
+    FTP_PASS=""
 fi
 
 # Missatges
@@ -106,7 +107,17 @@ do_publish() {
         print_error "  FTP_USER=\"bratiamusic\""
         print_error "  FTP_HOST=\"bratiamusic-com.espacioseguro.com\""
         print_error "  FTP_PATH=\"/www\""
+        print_error "  FTP_PASS=\"la_teva_contrasenya\""
         exit 1
+    fi
+
+    # Demana contrasenya només si no està al fitxer de conf
+    if [ -z "$FTP_PASS" ]; then
+        print_warning "Contrasenya FTP de Dinahosting:"
+        read -s FTP_PASS
+        echo ""
+    else
+        print_message "Usant credencials de ~/.bratiamusic-deploy.conf"
     fi
 
     do_push
@@ -114,13 +125,9 @@ do_publish() {
     print_message "Build Hugo producció..."
     hugo --config hugo.toml,hugo.prod.toml || exit 1
 
-    print_warning "Contrasenya FTP de Dinahosting:"
-    read -s FTP_PASS
-    echo ""
-
-print_message "Enviant fitxers via FTPS..."
-LFTP_CONF=$(mktemp)
-cat > "$LFTP_CONF" << EOF
+    print_message "Enviant fitxers via FTPS..."
+    LFTP_CONF=$(mktemp)
+    cat > "$LFTP_CONF" << EOF
 set ftp:ssl-force true
 set ftp:ssl-auth TLS
 set ssl:verify-certificate no
@@ -129,10 +136,11 @@ user ${FTP_USER} ${FTP_PASS}
 mirror --reverse --delete --verbose --parallel=4 ${BUILD_DIR}/ ${FTP_PATH}/
 bye
 EOF
-lftp -f "$LFTP_CONF"
-rm -f "$LFTP_CONF"
+    lftp -f "$LFTP_CONF"
+    RESULT=$?
+    rm -f "$LFTP_CONF"
 
-    if [ $? -eq 0 ]; then
+    if [ $RESULT -eq 0 ]; then
         print_success "Web publicada a https://bratiamusic.com"
     else
         print_error "Error en la pujada. Comprova credencials i connexió."
