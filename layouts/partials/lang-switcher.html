@@ -1,22 +1,20 @@
 <div class="lang-switcher {{ .class }}">
-  <a href="#" data-lang="ca" onclick="switchLang('ca'); return false;">CA</a>
-  <a href="#" data-lang="es" onclick="switchLang('es'); return false;">ES</a>
-  <a href="#" data-lang="en" onclick="switchLang('en'); return false;">EN</a>
+  {{ $currentPage := . }}
+  {{ range $.Site.Languages }}
+    {{ $lang := .Lang }}
+    {{ $url := "" }}
+    {{ range $currentPage.Page.Translations }}
+      {{ if eq .Lang $lang }}
+        {{ $url = .Permalink }}
+      {{ end }}
+    {{ end }}
+    {{ if eq $url "" }}
+      {{ $url = printf "%s%s/" $.Site.BaseURL $lang }}
+    {{ end }}
+    <a href="{{ $url }}"
+       data-lang="{{ $lang }}"
+       class="{{ if eq $lang $.Page.Lang }}active{{ end }}">
+      {{ upper $lang }}
+    </a>
+  {{ end }}
 </div>
-
-<script>
-function switchLang(lang) {
-  window.location.href = '/bratiamusic/' + lang + '/';
-}
-
-// Marca l'idioma actiu
-(function() {
-  const path = window.location.pathname;
-  const match = path.match(/\/(ca|es|en)\//);
-  if (match) {
-    document.querySelectorAll('.lang-switcher [data-lang]').forEach(a => {
-      a.classList.toggle('active', a.dataset.lang === match[1]);
-    });
-  }
-})();
-</script>
