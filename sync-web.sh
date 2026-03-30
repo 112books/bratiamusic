@@ -118,14 +118,15 @@ do_publish() {
     read -s FTP_PASS
     echo ""
 
-    print_message "Enviant fitxers via FTPS..."
-    lftp -c "
-        set ftp:ssl-force true;
-        set ftp:ssl-protect-data true;
-        set ssl:verify-certificate no;
-        open ftps://${FTP_USER}:${FTP_PASS}@${FTP_HOST}:21;
-        mirror --reverse --delete --verbose --parallel=4 ${BUILD_DIR}/ ${FTP_PATH}/;
-        bye
+print_message "Enviant fitxers via FTPS..."
+lftp -c "
+    set ftp:ssl-force true;
+    set ftp:ssl-protect-data true;
+    set ssl:verify-certificate no;
+    set ftp:ssl-auth TLS;
+    open ftp://${FTP_USER}:${FTP_PASS}@${FTP_HOST}:21;
+    mirror --reverse --delete --verbose --parallel=4 ${BUILD_DIR}/ ${FTP_PATH}/;
+    bye
     "
 
     if [ $? -eq 0 ]; then
