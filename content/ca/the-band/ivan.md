@@ -2,7 +2,7 @@
 title: "Ivan Kovačević"
 name:  "Ivan Kovačević"
 role:  "Líder, veu i contrabaix"
-photo: "images/ivan.jpg"
+photo: "images/band/ivan.jpg"
 weight: 1
 leader: true
 instagram: "https://www.instagram.com/kovacevic_doublebass/"

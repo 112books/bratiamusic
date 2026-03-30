@@ -2,7 +2,7 @@
 title: "Pere Nolasc Plana Turu"
 name:  "Pere Nolasc Plana Turu"
 role:  "Violin"
-photo: "images/pere.jpg"
+photo: "images/band/pere.jpg"
 weight: 2
 instagram: "https://instagram.com/pere_nolasc"
 sponsor_img: "images/sponsor/d_addario.png"

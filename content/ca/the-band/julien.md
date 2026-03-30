@@ -2,7 +2,7 @@
 title: "Julien Chanal"
 name:  "Julien Chanal"
 role:  "Guitarra"
-photo: "images/julien.jpg"
+photo: "images/band/julien.jpg"
 weight: 4
 instagram: "https://www.instagram.com/julienchanalguitar/"
 ---

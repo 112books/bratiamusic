@@ -2,7 +2,7 @@
 title: "Victor Paradis"
 name:  "Victor Paradis"
 role:  "Guitarra"
-photo: "images/victor.jpg"
+photo: "images/band/victor.jpg"
 weight: 3
 instagram: "https://instagram.com/vparadisv"
 ---

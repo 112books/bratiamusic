@@ -2,7 +2,7 @@
 title: "Stelios Togias"
 name:  "Stelios Togias"
 role:  "Percusión"
-photo: "images/stelios.jpg"
+photo: "images/band/stelios.jpg"
 weight: 5
 facebook: "https://www.facebook.com/stelios.togias.1"
 ---
