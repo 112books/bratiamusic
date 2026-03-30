@@ -53,14 +53,12 @@ show_header() {
 show_status() {
     print_message "Estat del repositori"
     echo ""
-
     if [[ -n $(git status -s) ]]; then
         print_warning "Canvis locals:"
         git status -s
     else
         print_success "Repositori net"
     fi
-
     echo ""
 }
 
@@ -74,7 +72,6 @@ do_pull() {
 # Push
 do_push() {
     print_message "Push..."
-
     if [[ -n $(git status -s) ]]; then
         print_warning "Canvis detectats:"
         git status -s
@@ -83,7 +80,6 @@ do_push() {
         git add .
         git commit -m "$msg"
     fi
-
     git push $REMOTE $BRANCH || exit 1
     print_success "Push correcte"
 }
@@ -91,15 +87,11 @@ do_push() {
 # Deploy GitHub Pages
 do_deploy() {
     print_message "Deploy GitHub Pages"
-
     do_push
-
     print_message "Build Hugo..."
     hugo || exit 1
-
     print_message "Publicant a gh-pages..."
     git subtree push --prefix $BUILD_DIR $REMOTE $PAGES_BRANCH || exit 1
-
     print_success "Deploy GitHub completat"
 }
 
@@ -107,7 +99,6 @@ do_deploy() {
 do_publish() {
     print_message "Publicant al servidor via FTPS"
 
-    # Verificar credencials
     if [ -z "$FTP_USER" ] || [ -z "$FTP_HOST" ]; then
         print_error "Credencials FTP no trobades."
         print_error "Crea el fitxer: ~/.bratiamusic-deploy.conf"
@@ -185,4 +176,42 @@ interactive_menu() {
             fi
             ;;
         6)
-            print_war
+            print_warning "Això pot trencar el repositori remot"
+            read -p "Segur? (s/N): " confirm
+            if [[ "$confirm" =~ ^[Ss]$ ]]; then
+                do_force
+            else
+                print_message "Cancel·lat"
+            fi
+            ;;
+        0)
+            print_message "Sortint..."
+            exit 0
+            ;;
+        *)
+            print_error "Opció no vàlida"
+            ;;
+    esac
+}
+
+# Main
+check_git_repo
+
+if [ -z "$1" ]; then
+    interactive_menu
+else
+    case $1 in
+        status)  show_status ;;
+        pull)    do_pull ;;
+        push)    do_push ;;
+        deploy)  do_deploy ;;
+        publish) do_publish ;;
+        force)   do_force ;;
+        *)
+            print_error "Opció no vàlida"
+            echo "Ús: ./sync-web.sh {status|pull|push|deploy|publish|force}"
+            ;;
+    esac
+fi
+
+print_message "Fi del procés"
