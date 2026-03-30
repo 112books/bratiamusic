@@ -1,10 +1,10 @@
 ---
 title: "Julien Chanal"
 name:  "Julien Chanal"
-role:  "Guitar"
+role:  "Guitarra"
 photo: "images/julien.jpg"
 weight: 4
 instagram: "https://www.instagram.com/julienchanalguitar/"
 ---
-
-Julien Chanal is a French musician of unparalleled talent on the guitar. He has joined Bratia as a rhythm guitarist, bringing his passion for manouche guitar to this fascinating project. His rhythmic prowess and knowledge of traditional melodies – also explored in the **Barcelona Gipsy Balkan Orchestra** – add a distinctive touch to the fusion of Balkan music and jazz manouche.
+ 
+Julien Chanal es un músico francés de talento incomparable a la guitarra. Se ha incorporado a Bratia como guitarrista rítmico, aportando su pasión por la guitarra manouche a este fascinante proyecto. Su destreza rítmica y el conocimiento de las melodías tradicionales —exploradas también en la **Barcelona Gipsy Balkan Orchestra**— aportan un toque distintivo a la fusión de música balcánica y jazz manouche.

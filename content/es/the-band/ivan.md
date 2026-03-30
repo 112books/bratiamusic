@@ -1,7 +1,7 @@
 ---
 title: "Ivan Kovačević"
 name:  "Ivan Kovačević"
-role:  "Leader, vocals & double bass"
+role:  "Líder, voz y contrabajo"
 photo: "images/ivan.jpg"
 weight: 1
 leader: true
@@ -11,7 +11,7 @@ web:       "https://ivankovacevic.com/"
 sponsor_img: "images/sponsor/d_addario.png"
 sponsor_url: "https://ivankovacevic.com/ivan-kovacevic-sobre-daddario/"
 ---
-
-Serbian double bass player Ivan Kovacevic is one of the leading musicians of the Spanish blues, jazz and rock'n'roll scene. Based in Barcelona for the last 20 years, he has played in renowned bands such as Los Mambo Jambo, Nu Niles, Down Home, Bernat Font Trio or Lazy Jumpers, among other collaborations in over 50 record albums.
-
-He now leads the largest rhythm 'n' blues band in Europe, the **Barcelona Big Blues Band**, and is one of the founding members of the **Barcelona Gipsy Balkan Orchestra** – performing in over 35 countries worldwide.
+ 
+El contrabajista serbio Ivan Kovačević es uno de los músicos de referencia de la escena del blues, jazz y rock'n'roll en España. Afincado en Barcelona desde hace más de 20 años, ha tocado en bandas de renombre como Los Mambo Jambo, Nu Niles, Down Home, Bernat Font Trio o Lazy Jumpers, entre muchas otras colaboraciones en más de 50 álbumes.
+ 
+Actualmente lidera la banda de rhythm 'n' blues más grande de Europa, la **Barcelona Big Blues Band**, y es uno de los miembros fundadores de la **Barcelona Gipsy Balkan Orchestra**, con actuaciones en más de 35 países.
