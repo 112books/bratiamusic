@@ -1,6 +1,6 @@
 <div class="lang-switcher {{ .class }}">
   {{ $currentPage := . }}
-  {{ range $.Site.Languages }}
+  {{ range site.Languages }}
     {{ $lang := .Lang }}
     {{ $url := "" }}
     {{ range $currentPage.Page.Translations }}
@@ -9,11 +9,11 @@
       {{ end }}
     {{ end }}
     {{ if eq $url "" }}
-      {{ $url = printf "%s%s/" $.Site.BaseURL $lang }}
+      {{ $url = printf "%s%s/" site.BaseURL $lang }}
     {{ end }}
     <a href="{{ $url }}"
        data-lang="{{ $lang }}"
-       class="{{ if eq $lang $.Page.Lang }}active{{ end }}">
+       class="{{ if eq $lang $currentPage.Page.Lang }}active{{ end }}">
       {{ upper $lang }}
     </a>
   {{ end }}
