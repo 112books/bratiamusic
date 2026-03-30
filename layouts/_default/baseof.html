@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="{{ .Site.Language.Lang }}">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-</head>
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
   <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
   {{ partial "analytics/goatcounter.html" . }}
   <script src="{{ "js/track.js" | relURL }}"></script>
 </head>
-<body>
+<body class="{{ if .IsHome }}is-home{{ else }}is-subpage{{ end }}">
 
   {{ partial "head.html" . }}
 
@@ -23,6 +23,16 @@
   <script src="{{ "js/hero-intro.js" | relURL }}" defer></script>
   {{ end }}
 
-<body class="{{ if .IsHome }}is-home{{ else }}is-subpage{{ end }}">
+  <script>
+    // Protecció accés — només activa a GitHub Pages
+    (function() {
+      if (window.location.hostname !== '112books.github.io') return;
+      const hash = '385e7a9d95f499fbd9bb8b666b8c014e1463b2bb3fd94f884a26a53fc65b8a05';
+      if (sessionStorage.getItem('bratia_access') !== hash) {
+        window.location.replace('/bratiamusic/access.html');
+      }
+    })();
+  </script>
 
+</body>
 </html>

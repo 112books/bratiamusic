@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accés restringit · Bratia Music</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'DM Sans', system-ui, sans-serif; background: #0e0d0b; color: #f5f1ea; display: flex; align-items: center; justify-content: center; }
+    .login { width: 100%; max-width: 360px; padding: 2rem; display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+    .login__logo { opacity: .7; width: 160px; }
+    .login__box { width: 100%; display: flex; flex-direction: column; gap: 1rem; }
+    .login__label { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.3); text-align: center; }
+    .login__input-wrap { display: flex; gap: 0; }
+    .login__input { flex: 1; background: #1a1814; border: 1px solid rgba(255,255,255,.12); border-right: none; color: #f5f1ea; font-family: inherit; font-size: .9rem; padding: .65rem 1rem; outline: none; border-radius: 2px 0 0 2px; }
+    .login__input:focus { border-color: #c8a84b; }
+    .login__btn { background: #1a1814; border: 1px solid rgba(255,255,255,.12); color: #c8a84b; font-family: inherit; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: .65rem 1.25rem; cursor: pointer; border-radius: 0 2px 2px 0; transition: background .2s, border-color .2s; }
+    .login__btn:hover { background: #2e2b26; border-color: #c8a84b; }
+    .login__error { font-size: .75rem; color: #b83030; text-align: center; min-height: 1.2em; display: none; }
+    .login__error.is-visible { display: block; }
+    .login__note { font-size: .65rem; color: rgba(255,255,255,.2); text-align: center; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="login">
+    <img class="login__logo" src="/bratiamusic/images/logo.png" alt="Bratia Music">
+    <div class="login__box">
+      <p class="login__label">Accés restringit · Versió de desenvolupament</p>
+      <div class="login__input-wrap">
+        <input class="login__input" type="password" id="pwd" placeholder="Contrasenya" autocomplete="current-password">
+        <button class="login__btn" onclick="checkPwd()">Entrar</button>
+      </div>
+      <p class="login__error" id="error">Contrasenya incorrecta</p>
+    </div>
+    <p class="login__note">
+      Aquest és un entorn de previsualització privat.<br>
+      Per accedir al web oficial visita <a href="https://bratiamusic.com" style="color:#c8a84b">bratiamusic.com</a>
+    </p>
+  </div>
+  <script>
+    const HASH = '385e7a9d95f499fbd9bb8b666b8c014e1463b2bb3fd94f884a26a53fc65b8a05';
+    async function sha256(str) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    async function checkPwd() {
+      const val = document.getElementById('pwd').value;
+      const hash = await sha256(val);
+      if (hash === HASH) {
+        sessionStorage.setItem('bratia_access', hash);
+        window.location.href = '/bratiamusic/';
+      } else {
+        document.getElementById('error').classList.add('is-visible');
+      }
+    }
+    document.getElementById('pwd').addEventListener('keydown', e => {
+      if (e.key === 'Enter') checkPwd();
+    });
+  </script>
+</body>
+</html>
