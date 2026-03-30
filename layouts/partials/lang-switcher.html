@@ -1,20 +1,20 @@
 <div class="lang-switcher {{ .class }}">
-  {{ $currentPage := . }}
-  {{ range site.Languages }}
-    {{ $lang := .Lang }}
-    {{ $url := "" }}
-    {{ range $currentPage.Page.Translations }}
-      {{ if eq .Lang $lang }}
-        {{ $url = .Permalink }}
-      {{ end }}
-    {{ end }}
-    {{ if eq $url "" }}
-      {{ $url = printf "%s%s/" site.BaseURL $lang }}
-    {{ end }}
-    <a href="{{ $url }}"
-       data-lang="{{ $lang }}"
-       class="{{ if eq $lang $currentPage.Page.Lang }}active{{ end }}">
-      {{ upper $lang }}
-    </a>
-  {{ end }}
+  <a href="#" data-lang="ca">CA</a>
+  <a href="#" data-lang="es">ES</a>
+  <a href="#" data-lang="en">EN</a>
 </div>
+
+<script>
+(function() {
+  var path = window.location.pathname;
+  var match = path.match(/^\/(ca|es|en)(\/.*)?$/);
+  var currentLang = match ? match[1] : 'ca';
+  var restOfPath = match ? (match[2] || '/') : '/';
+
+  document.querySelectorAll('.lang-switcher [data-lang]').forEach(function(a) {
+    var lang = a.dataset.lang;
+    a.href = '/' + lang + restOfPath;
+    if (lang === currentLang) a.classList.add('active');
+  });
+})();
+</script>
