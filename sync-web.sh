@@ -16,9 +16,9 @@ PAGES_BRANCH="gh-pages"
 BUILD_DIR="public"
 
 # 🚀 CONFIGURA AIXÒ
-SSH_USER="usuari"
-SSH_HOST="teudomini.com"
-REMOTE_PATH="/var/www/vhosts/teudomini.com/httpdocs"
+FTP_USER="bratiamusic"
+FTP_HOST="ftp.bratiamusic.com"
+FTP_PATH="/www"
 
 # Missatges
 print_message() { echo -e "${BLUE}[sync-web]${NC} $1"; }
@@ -100,15 +100,25 @@ do_deploy() {
 
 # Deploy servidor real
 do_publish() {
-    print_message "Publicant al servidor"
+    print_message "Publicant al servidor via FTP"
 
-    print_message "Build Hugo..."
-    hugo || exit 1
+    print_message "Build Hugo producció..."
+    hugo --config hugo.toml,hugo.prod.toml || exit 1
+
+    print_warning "Introdueix la contrasenya FTP de Dinahosting:"
+    read -s FTP_PASS
+    echo ""
 
     print_message "Enviant fitxers..."
-    rsync -avz --delete $BUILD_DIR/ ${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}
+    lftp -c "
+        set ftp:ssl-allow yes;
+        set ssl:verify-certificate no;
+        open ftp://${FTP_USER}:${FTP_PASS}@${FTP_HOST};
+        mirror --reverse --delete --verbose ${BUILD_DIR}/ ${FTP_PATH}/;
+        bye
+    "
 
-    print_success "Web publicada al servidor"
+    print_success "Web publicada a bratiamusic.com"
 }
 
 # Force push

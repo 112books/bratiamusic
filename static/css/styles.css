@@ -24,6 +24,15 @@
 
 
 /* ── 1. VARIABLES ────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Dancing Script';
+  src: url('/bratiamusic/fonts/DancingScript-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --c-dark:        #0e0d0b;
   --c-dark-2:      #1a1814;

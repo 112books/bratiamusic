@@ -1,53 +1,90 @@
 ---
 title: "Política de privacitat"
+type: legal
+layout: single
 ---
 
 ## Responsable del tractament
 
-- **Identitat:** Ivan Kovacevic
-- **NIF:** x3687997q
-- **Domicili:** Alegre de dalt 11, Barcelona - Espanya
+- **Identitat:** Ivan Kovačević
+- **NIF:** X3687997Q
+- **Domicili:** Alegre de Dalt 11, Barcelona, Espanya
 - **Correu electrònic:** ivandoublebass@gmail.com
 - **Lloc web:** https://bratiamusic.com
 
+---
+
 ## Finalitats del tractament
 
-Recollim i tractem les teves dades personals amb les següents finalitats:
+Tractem les teves dades únicament quan tu ens les facilites de manera voluntària, amb les següents finalitats:
 
-- Gestionar les consultes realitzades a través del formulari de contacte
-- Enviar informació sobre concerts, novetats i activitats de l'artista
-- Gestionar la contractació de serveis
-- Complir amb les obligacions legals
+- Respondre consultes enviades per correu electrònic
+- Gestionar sol·licituds de contractació d'actuacions
+- Complir amb les obligacions legals aplicables
+
+**Aquest web no disposa de formulari de contacte.** La única via de contacte directe és el correu electrònic indicat.
+
+---
 
 ## Legitimació
 
-El tractament de les teves dades es basa en:
+El tractament es basa en el teu consentiment exprés en contactar-nos, o en l'execució d'una relació precontractual o contractual quan sol·licites informació sobre actuacions.
 
-- El teu consentiment exprés (per a l'enviament de comunicacions comercials)
-- L'execució d'una relació contractual (per a la gestió de contractacions)
-- L'interès legítim del responsable (per a respondre consultes)
+---
 
 ## Destinataris
 
-Les teves dades no seran cedides a tercers, excepte per obligació legal o amb el teu consentiment exprés.
+Les teves dades no es cedeixen a tercers, excepte per obligació legal.
+
+---
 
 ## Drets dels usuaris
 
-Com a usuari, tens dret a:
+Pots exercir els drets d'accés, rectificació, supressió, limitació, oposició i portabilitat enviant un correu a ivandoublebass@gmail.com adjuntant còpia del teu document d'identitat.
 
-- Accedir a les teves dades personals
-- Sol·licitar la rectificació de dades inexactes
-- Sol·licitar la supressió de les teves dades
-- Sol·licitar la limitació del tractament
-- Oposar-te al tractament
-- Sol·licitar la portabilitat de les dades
-
-Per exercir aquests drets, pots enviar un escrit a l'adreça postal indicada o un correu electrònic a ivandoublebass@gmail.com, adjuntant còpia del teu DNI o document equivalent.
+---
 
 ## Conservació de les dades
 
-Les dades es conservaran mentre es mantingui la relació contractual o durant el temps necessari per complir amb les obligacions legals.
+Les dades es conserven mentre es mantingui la relació o durant el temps necessari per complir obligacions legals.
 
-## Procedència de les dades
+---
 
-Les dades personals que tractem procedeixen del propi interessat o del seu representant legal.
+## Tecnologia i serveis de tercers
+
+Aquest web és una **pàgina estàtica** generada amb [Hugo SSG](https://gohugo.io). No utilitza base de dades, WordPress ni cap sistema de gestió de continguts amb backend propi.
+
+### Analítiques — GoatCounter
+
+Fem servir [GoatCounter](https://www.goatcounter.com) per a estadístiques d'ús anònim. GoatCounter:
+
+- **No utilitza cookies**
+- No rastreja dades personals
+- No comparteix dades amb tercers
+- És exempt de les obligacions de consentiment del RGPD per a cookies analítiques
+- Les dades es processen a servidors europeus
+
+### Continguts de tercers embeguts
+
+Aquest web carrega continguts externs de les plataformes següents. En visualitzar-los, el teu navegador estableix connexió directa amb els seus servidors, que poden processar la teva adreça IP i, en alguns casos, establir les seves pròpies cookies:
+
+| Servei | Finalitat | Política de privacitat |
+|--------|-----------|----------------------|
+| YouTube (Google) | Vídeos embeguts | [policies.google.com](https://policies.google.com/privacy) |
+| Spotify | Reproductors de música | [spotify.com/privacy](https://www.spotify.com/privacy) |
+| Apple Music | Reproductor de música | [apple.com/privacy](https://www.apple.com/privacy/) |
+| Tidal | Reproductor de música | [tidal.com/privacy](https://tidal.com/privacy) |
+| Deezer | Reproductor de música | [deezer.com/legal/privacy](https://www.deezer.com/legal/privacy) |
+| Amazon Music | Reproductor de música | [amazon.com/privacy](https://www.amazon.com/privacy) |
+| Google Photos | Galeries fotogràfiques | [policies.google.com](https://policies.google.com/privacy) |
+| Google Calendar | Agenda de concerts | [policies.google.com](https://policies.google.com/privacy) |
+
+### Xarxes socials
+
+El web inclou enllaços a Instagram, Facebook i YouTube de Bratia Music. Aquests enllaços no carreguen cap contingut extern fins que no hi fas clic.
+
+---
+
+## Cookies
+
+Aquest web **no utilitza cookies pròpies**. Les plataformes de tercers embegudes (YouTube, Spotify, etc.) poden establir les seves pròpies cookies quan interactues amb el seu contingut. Consulta les polítiques de privacitat de cada plataforma per a més informació.

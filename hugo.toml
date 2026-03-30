@@ -138,7 +138,22 @@ google_calendar_ical = "https://calendar.google.com/calendar/ical/7713a217c6e963
 [[params.sponsors]]
   name = "Broken Glasses"
   logo = "images/sponsor/broken-glasses-logo.jpg"
-  url  = "https://brokengls.com"
+  url  = "http://brokenglassesdesign.com/"
+
+[[params.socials]]
+  name = "Instagram"
+  icon = "instagram"
+  url  = "https://www.instagram.com/bratiamusic/"
+
+[[params.socials]]
+  name = "Facebook"
+  icon = "facebook"
+  url  = "https://www.facebook.com/bratiamusic/"
+
+[[params.socials]]
+  name = "YouTube"
+  icon = "youtube"
+  url  = "https://www.youtube.com/@bratiamusic"
 
 [params.analytics]
 goatcounter = "bratia-music"

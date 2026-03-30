@@ -1,41 +1,47 @@
 ---
 title: "Política de cookies"
+type: legal
+layout: single
 ---
 
-## Què són les cookies
+## Resum
 
-Les cookies són petits fitxers de text que els llocs web col·loquen al teu dispositiu (ordinador, telèfon mòbil, tauleta) mentre el navegues. Són eines essencials per al funcionament d'Internet i aporten nombrosos avantatges en la prestació de serveis interactius.
+Aquest web **no utilitza cookies pròpies**. No necessites acceptar ni rebutjar res per navegar-hi.
 
-## Tipus de cookies que utilitzem
+---
 
-Segons la seva finalitat, utilitzem els següents tipus de cookies:
+## Analítiques — sense cookies
 
-- **Cookies tècniques:** Són necessàries per a la navegació i el correcte funcionament del lloc web. Permeten, per exemple, controlar el trànsit i la comunicació de dades, accedir a parts d'accés restringit, etc.
+Per mesurar el tràfic del web fem servir [GoatCounter](https://www.goatcounter.com), una eina d'analítiques respectuosa amb la privacitat que **no utilitza cookies** i no recull dades personals identificables. No cal cap consentiment per a aquest sistema.
 
-- **Cookies analítiques:** Ens permeten quantificar el nombre de visitants i analitzar estadísticament la utilització que fan els usuaris del nostre servei. Gràcies a això, podem millorar el contingut del lloc web.
+---
 
-## Cookies utilitzades en aquest lloc web
+## Cookies de tercers
 
-| Nom | Tipus | Finalitat | Durada |
-|-----|-------|-----------|--------|
-| `_ga` | Analítica | Identificar usuaris únics (Google Analytics) | 2 anys |
-| `_gid` | Analítica | Distingir usuaris (Google Analytics) | 24 hores |
+Alguns continguts externs embeguts al web (vídeos de YouTube, reproductors de Spotify, galeries de Google Photos) poden establir les seves pròpies cookies quan interactues amb ells. Aquestes cookies estan fora del control del Titular i es gestionen per les polítiques de cada plataforma:
 
-## Gestionar les cookies
+| Plataforma | Política de cookies |
+|------------|-------------------|
+| YouTube (Google) | [policies.google.com](https://policies.google.com/technologies/cookies) |
+| Spotify | [spotify.com/privacy](https://www.spotify.com/privacy) |
+| Apple Music | [apple.com/privacy](https://www.apple.com/privacy/) |
+| Tidal | [tidal.com/privacy](https://tidal.com/privacy) |
+| Deezer | [deezer.com/legal/privacy](https://www.deezer.com/legal/privacy) |
+| Google Photos | [policies.google.com](https://policies.google.com/technologies/cookies) |
 
-Pots permetre, bloquejar o eliminar les cookies instal·lades al teu dispositiu mitjançant la configuració de les opcions del navegador:
+---
+
+## Com gestionar les cookies del navegador
+
+Si vols bloquejar o eliminar cookies de tercers, pots fer-ho des de la configuració del teu navegador:
 
 - [Chrome](https://support.google.com/chrome/answer/95647)
 - [Firefox](https://support.mozilla.org/ca/kb/esborrar-galetes)
 - [Safari](https://support.apple.com/ca-es/guide/safari/sfri11471/mac)
 - [Edge](https://support.microsoft.com/ca-es/microsoft-edge/eliminar-les-galetes-al-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09)
 
-Si bloqueja les cookies, alguns serveis o funcionalitats del lloc web poden no estar disponibles.
-
-## Consentiment
-
-En accedir al nostre lloc web, es mostrarà un avís indicant que utilitzem cookies pròpies i de tercers amb finalitats analítiques. Si continua navegant, s'entendrà que accepta la seva instal·lació.
+---
 
 ## Actualitzacions
 
-És possible que actualitzem la Política de cookies del nostre lloc web. Per això, recomanem revisar aquesta política cada vegada que accedeixi al nostre lloc web.
+Aquesta política pot actualitzar-se si s'introdueixen nous serveis al web. La data de la darrera revisió és: **març 2026**.

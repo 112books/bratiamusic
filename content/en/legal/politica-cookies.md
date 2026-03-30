@@ -1,41 +1,47 @@
 ---
-title: "Cookie policy"
+title: "Cookie Policy"
+type: legal
+layout: single
 ---
 
-## What are cookies?
+## Summary
 
-Cookies are small text files that websites place on your device (computer, mobile phone, tablet) while you browse. They are essential tools for the functioning of the Internet and provide numerous advantages in the provision of interactive services.
+This website **does not use its own cookies**. You do not need to accept or reject anything to browse it.
 
-## Types of cookies we use
+---
 
-According to their purpose, we use the following types of cookies:
+## Analytics — no cookies
 
-- **Technical cookies:** They are necessary for navigation and the correct functioning of the website. They allow, for example, controlling traffic and data communication, accessing restricted access parts, etc.
+To measure website traffic we use [GoatCounter](https://www.goatcounter.com), a privacy-friendly analytics tool that **does not use cookies** and does not collect personally identifiable data. No consent is required for this system.
 
-- **Analytical cookies:** They allow us to quantify the number of visitors and statistically analyze the use made by users of our service. Thanks to this, we can improve the content of the website.
+---
 
-## Cookies used on this website
+## Third-Party Cookies
 
-| Name | Type | Purpose | Duration |
-|------|------|---------|----------|
-| `_ga` | Analytical | Identify unique users (Google Analytics) | 2 years |
-| `_gid` | Analytical | Distinguish users (Google Analytics) | 24 hours |
+Some external content embedded in the site (YouTube videos, Spotify players, Google Photos galleries) may set their own cookies when you interact with them. These cookies are outside the Owner's control and are governed by each platform's own policies:
 
-## Manage cookies
+| Platform | Cookie Policy |
+|----------|--------------|
+| YouTube (Google) | [policies.google.com](https://policies.google.com/technologies/cookies) |
+| Spotify | [spotify.com/privacy](https://www.spotify.com/privacy) |
+| Apple Music | [apple.com/privacy](https://www.apple.com/privacy/) |
+| Tidal | [tidal.com/privacy](https://tidal.com/privacy) |
+| Deezer | [deezer.com/legal/privacy](https://www.deezer.com/legal/privacy) |
+| Google Photos | [policies.google.com](https://policies.google.com/technologies/cookies) |
 
-You can allow, block or delete cookies installed on your device through your browser settings:
+---
+
+## Managing Browser Cookies
+
+If you wish to block or delete third-party cookies, you can do so through your browser settings:
 
 - [Chrome](https://support.google.com/chrome/answer/95647)
-- [Firefox](https://support.mozilla.org/en-US/kb/clear-cookies-and-site-data-firefox)
-- [Safari](https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac)
+- [Firefox](https://support.mozilla.org/en-US/kb/delete-cookies-remove-info-websites-stored)
+- [Safari](https://support.apple.com/guide/safari/sfri11471/mac)
 - [Edge](https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09)
 
-If you block cookies, some services or functionalities of the website may not be available.
-
-## Consent
-
-When accessing our website, a notice will be displayed indicating that we use own and third-party cookies for analytical purposes. If you continue browsing, it will be understood that you accept their installation.
+---
 
 ## Updates
 
-It is possible that we update the Cookie Policy of our website. For this reason, we recommend reviewing this policy each time you access our website.
+This policy may be updated if new services are introduced to the site. Last revised: **March 2026**.

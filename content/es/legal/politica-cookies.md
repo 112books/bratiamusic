@@ -1,41 +1,47 @@
 ---
 title: "Política de cookies"
+type: legal
+layout: single
 ---
 
-## ¿Qué son las cookies?
+## Resumen
 
-Las cookies son pequeños ficheros de texto que los sitios web colocan en tu dispositivo (ordenador, teléfono móvil, tableta) mientras lo navegas. Son herramientas esenciales para el funcionamiento de Internet y aportan numerosas ventajas en la prestación de servicios interactivos.
+Este sitio web **no utiliza cookies propias**. No necesitas aceptar ni rechazar nada para navegar por él.
 
-## Tipos de cookies que utilizamos
+---
 
-Según su finalidad, utilizamos los siguientes tipos de cookies:
+## Analíticas — sin cookies
 
-- **Cookies técnicas:** Son necesarias para la navegación y el correcto funcionamiento del sitio web. Permiten, por ejemplo, controlar el tráfico y la comunicación de datos, acceder a partes de acceso restringido, etc.
+Para medir el tráfico del sitio utilizamos [GoatCounter](https://www.goatcounter.com), una herramienta de analíticas respetuosa con la privacidad que **no utiliza cookies** y no recopila datos personales identificables. No se requiere ningún consentimiento para este sistema.
 
-- **Cookies analíticas:** Nos permiten cuantificar el número de visitantes y analizar estadísticamente la utilización que hacen los usuarios de nuestro servicio. Gracias a ello, podemos mejorar el contenido del sitio web.
+---
 
-## Cookies utilizadas en este sitio web
+## Cookies de terceros
 
-| Nombre | Tipo | Finalidad | Duración |
-|--------|------|-----------|----------|
-| `_ga` | Analítica | Identificar usuarios únicos (Google Analytics) | 2 años |
-| `_gid` | Analítica | Distinguir usuarios (Google Analytics) | 24 horas |
+Algunos contenidos externos embebidos en el sitio (vídeos de YouTube, reproductores de Spotify, galerías de Google Photos) pueden establecer sus propias cookies cuando interactúas con ellos. Estas cookies están fuera del control del Titular y se gestionan por las políticas de cada plataforma:
 
-## Gestionar las cookies
+| Plataforma | Política de cookies |
+|------------|-------------------|
+| YouTube (Google) | [policies.google.com](https://policies.google.com/technologies/cookies) |
+| Spotify | [spotify.com/privacy](https://www.spotify.com/privacy) |
+| Apple Music | [apple.com/privacy](https://www.apple.com/privacy/) |
+| Tidal | [tidal.com/privacy](https://tidal.com/privacy) |
+| Deezer | [deezer.com/legal/privacy](https://www.deezer.com/legal/privacy) |
+| Google Photos | [policies.google.com](https://policies.google.com/technologies/cookies) |
 
-Puedes permitir, bloquear o eliminar las cookies instaladas en tu dispositivo mediante la configuración de las opciones del navegador:
+---
+
+## Cómo gestionar las cookies del navegador
+
+Si deseas bloquear o eliminar cookies de terceros, puedes hacerlo desde la configuración de tu navegador:
 
 - [Chrome](https://support.google.com/chrome/answer/95647)
-- [Firefox](https://support.mozilla.org/es/kb/eliminar-cookies)
+- [Firefox](https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias)
 - [Safari](https://support.apple.com/es-es/guide/safari/sfri11471/mac)
 - [Edge](https://support.microsoft.com/es-es/microsoft-edge/eliminar-las-cookies-en-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09)
 
-Si bloqueas las cookies, algunos servicios o funcionalidades del sitio web pueden no estar disponibles.
-
-## Consentimiento
-
-Al acceder a nuestro sitio web, se mostrará un aviso indicando que utilizamos cookies propias y de terceros con fines analíticos. Si continúa navegando, se entenderá que acepta su instalación.
+---
 
 ## Actualizaciones
 
-Es posible que actualicemos la Política de cookies de nuestro sitio web. Por ello, recomendamos revisar esta política cada vez que acceda a nuestro sitio web.
+Esta política puede actualizarse si se introducen nuevos servicios en el sitio. La fecha de la última revisión es: **marzo 2026**.
