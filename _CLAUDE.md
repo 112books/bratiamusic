@@ -309,3 +309,50 @@ Newsletter
 Línia del temps de la banda
 
 Per on vols començar avui?
+
+
+# CLAUDE.md — Bratia Music
+Context del projecte per a sessions de treball amb IA.
+Enganxa aquest fitxer al principi de cada sessió nova.
+
+## URLs
+| Entorn | URL |
+|--------|-----|
+| Producció | https://bratiamusic.com/ |
+| Desenvolupament | https://112books.github.io/bratiamusic/ (password: Linux2026) |
+| Repositori | https://github.com/112books/bratiamusic |
+
+## Stack
+Hugo SSG v0.159 local / v0.124 CI · Obsidian · GitHub + Actions · Vite · sync-web.sh
+
+## Estat seccions
+✅ Header shrinking · Hero animació · About · The Band · Discografia · Concerts · Vídeos · Galeries · Contacte · Footer (socials+legal) · 404 · Admin dashboard+index · SEO partial · Legals CA/ES/EN
+
+⚠️ Menú multilingüe — .Site.Menus.main retorna sempre CA. hugo.toml ja en format singular [[languages.ca.menu.main]]. **No tocar sense MCP actiu.**
+⚠️ Pipeline Dinahosting — FTP configurat al sync-web.sh (user: bratiamusic, host: ftp.bratiamusic.com, path: /www) però pendent de fer el primer deploy.
+⚠️ Manual admin `/admin/manual/` — pendent de crear.
+⚠️ GoatCounter — compte: bratia-music.goatcounter.com. Token API generat (sessionStorage). Pendent verificar events a producció.
+
+🔲 Pagefind (cercador) · Accessibilitat · Newsletter · Línia del temps
+
+## Notes tècniques crítiques
+- Hugo v0.159 local / v0.124 CI → usar `site.Data` (no `hugo.Data`)
+- Lang switcher: `printf "%s%s/" $.Site.BaseURL .Lang` (NO relLangURL)
+- Logo: `printf "%s%s/" .Site.BaseURL .Site.Language.Lang`
+- Fotos músics: `images/band/ivan.jpg` etc.
+- Font Dancing Script: local a `static/fonts/` (no Google Fonts)
+- GoatCounter: NOMÉS al baseof.html
+- 404: `layouts/404.html` standalone, multilingüe inline
+- Protecció GitHub Pages: JS al baseof.html, hash SHA-256
+- Galeries: `data/galleries.yaml` · autor link: `author_url`
+- Concerts: Google Calendar → `static/data/concerts.txt` via GitHub Action
+- Menú multilingüe BUG: necessita MCP per depurar en viu
+
+## Fitxers clau
+layouts/partials/head.html · footer.html · seo.html · icons/
+layouts/admin/baseof.html · list.html · single.html (dashboard)
+layouts/404.html · layouts/_default/baseof.html
+static/css/styles.css (seccions 1-19) · static/fonts/DancingScript-SemiBold.woff2
+static/js/hero-intro.js · track.js · concerts.js
+data/galleries.yaml · band.yaml
+hugo.toml · hugo.prod.toml · sync-web.sh
