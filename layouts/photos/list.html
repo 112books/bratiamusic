@@ -40,7 +40,7 @@
           <h3 class="gallery-card__title">{{ index .title $.Lang }}</h3>
           <p class="gallery-card__date">{{ .date }}</p>
           {{ if .author }}
-          <p class="gallery-card__author">{{ .author }}</p>
+          {{ if .author_url }}<p class="gallery-card__author"><a href="{{ .author_url }}" target="_blank" rel="noopener">{{ .author }}</a></p>{{ else }}<p class="gallery-card__author">{{ .author }}</p>{{ end }}
           {{ end }}
           <p class="gallery-card__cta">
             {{ if eq $.Lang "ca" }}Veure a Google Photos ↗
