@@ -1,3 +1,5 @@
 ---
-title: "Bratia Music"
+title: Bratia Music
+type: home
+layout: home
 ---
