@@ -15,10 +15,15 @@ REMOTE="origin"
 PAGES_BRANCH="gh-pages"
 BUILD_DIR="public"
 
-# 🚀 CONFIGURA AIXÒ
-FTP_USER="bratiamusic"
-FTP_HOST="ftp.bratiamusic.com"
-FTP_PATH="/www"
+# Credencials FTP — carregades des de fitxer local (mai al repo)
+CONF_FILE="$HOME/.bratiamusic-deploy.conf"
+if [ -f "$CONF_FILE" ]; then
+    source "$CONF_FILE"
+else
+    FTP_USER=""
+    FTP_HOST=""
+    FTP_PATH="/www"
+fi
 
 # Missatges
 print_message() { echo -e "${BLUE}[sync-web]${NC} $1"; }
@@ -100,25 +105,44 @@ do_deploy() {
 
 # Deploy servidor real
 do_publish() {
-    print_message "Publicant al servidor via FTP"
+    print_message "Publicant al servidor via FTPS"
+
+    # Verificar credencials
+    if [ -z "$FTP_USER" ] || [ -z "$FTP_HOST" ]; then
+        print_error "Credencials FTP no trobades."
+        print_error "Crea el fitxer: ~/.bratiamusic-deploy.conf"
+        print_error "Contingut mínim:"
+        print_error "  FTP_USER=\"bratiamusic\""
+        print_error "  FTP_HOST=\"bratiamusic-com.espacioseguro.com\""
+        print_error "  FTP_PATH=\"/www\""
+        exit 1
+    fi
+
+    do_push
 
     print_message "Build Hugo producció..."
     hugo --config hugo.toml,hugo.prod.toml || exit 1
 
-    print_warning "Introdueix la contrasenya FTP de Dinahosting:"
+    print_warning "Contrasenya FTP de Dinahosting:"
     read -s FTP_PASS
     echo ""
 
-    print_message "Enviant fitxers..."
+    print_message "Enviant fitxers via FTPS..."
     lftp -c "
-        set ftp:ssl-allow yes;
+        set ftp:ssl-force true;
+        set ftp:ssl-protect-data true;
         set ssl:verify-certificate no;
-        open ftp://${FTP_USER}:${FTP_PASS}@${FTP_HOST};
-        mirror --reverse --delete --verbose ${BUILD_DIR}/ ${FTP_PATH}/;
+        open ftps://${FTP_USER}:${FTP_PASS}@${FTP_HOST}:21;
+        mirror --reverse --delete --verbose --parallel=4 ${BUILD_DIR}/ ${FTP_PATH}/;
         bye
     "
 
-    print_success "Web publicada a bratiamusic.com"
+    if [ $? -eq 0 ]; then
+        print_success "Web publicada a https://bratiamusic.com"
+    else
+        print_error "Error en la pujada. Comprova credencials i connexió."
+        exit 1
+    fi
 }
 
 # Force push
@@ -137,8 +161,8 @@ interactive_menu() {
     echo "1) Status    → Veure estat del repositori"
     echo "2) Pull      → Descarregar canvis de GitHub"
     echo "3) Push      → Pujar canvis locals a GitHub"
-    echo "4) Deploy    → Publicar a GitHub Pages (test/client)"
-    echo "5) Publish   → Publicar al servidor real"
+    echo "4) Deploy    → Publicar a GitHub Pages (previsualització)"
+    echo "5) Publish   → Publicar al servidor real (bratiamusic.com)"
     echo "6) Force     → Forçar push (perillós)"
     echo "0) Sortir"
     echo ""
@@ -147,20 +171,12 @@ interactive_menu() {
     echo ""
 
     case $opt in
-        1)
-            show_status
-            ;;
-        2)
-            do_pull
-            ;;
-        3)
-            do_push
-            ;;
-        4)
-            do_deploy
-            ;;
+        1) show_status ;;
+        2) do_pull ;;
+        3) do_push ;;
+        4) do_deploy ;;
         5)
-            print_warning "Això SOBREESCRIURÀ el servidor"
+            print_warning "Això SOBREESCRIURÀ el servidor de producció (bratiamusic.com)"
             read -p "Segur? (s/N): " confirm
             if [[ "$confirm" =~ ^[Ss]$ ]]; then
                 do_publish
@@ -169,42 +185,4 @@ interactive_menu() {
             fi
             ;;
         6)
-            print_warning "Això pot trencar el repositori remot"
-            read -p "Segur? (s/N): " confirm
-            if [[ "$confirm" =~ ^[Ss]$ ]]; then
-                do_force
-            else
-                print_message "Cancel·lat"
-            fi
-            ;;
-        0)
-            print_message "Sortint..."
-            exit 0
-            ;;
-        *)
-            print_error "Opció no vàlida"
-            ;;
-    esac
-}
-
-# Main
-check_git_repo
-
-if [ -z "$1" ]; then
-    interactive_menu
-else
-    case $1 in
-        status) show_status ;;
-        pull) do_pull ;;
-        push) do_push ;;
-        deploy) do_deploy ;;
-        publish) do_publish ;;
-        force) do_force ;;
-        *)
-            print_error "Opció no vàlida"
-            echo "Ús: ./sync-web.sh {status|pull|push|deploy|publish|force}"
-            ;;
-    esac
-fi
-
-print_message "Fi del procés"
+            print_war

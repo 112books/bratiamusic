@@ -1,1 +1,2 @@
-baseURL = "https://112books.github.io/bratiamusic/"
+baseURL = "https://bratiamusic.com/"
+canonifyURLs = true
