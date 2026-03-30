@@ -119,15 +119,18 @@ do_publish() {
     echo ""
 
 print_message "Enviant fitxers via FTPS..."
-lftp -c "
-    set ftp:ssl-force true;
-    set ftp:ssl-protect-data true;
-    set ssl:verify-certificate no;
-    set ftp:ssl-auth TLS;
-    open ftp://${FTP_USER}:${FTP_PASS}@${FTP_HOST}:21;
-    mirror --reverse --delete --verbose --parallel=4 ${BUILD_DIR}/ ${FTP_PATH}/;
-    bye
-    "
+LFTP_CONF=$(mktemp)
+cat > "$LFTP_CONF" << EOF
+set ftp:ssl-force true
+set ftp:ssl-auth TLS
+set ssl:verify-certificate no
+open ftp://${FTP_HOST}
+user ${FTP_USER} ${FTP_PASS}
+mirror --reverse --delete --verbose --parallel=4 ${BUILD_DIR}/ ${FTP_PATH}/
+bye
+EOF
+lftp -f "$LFTP_CONF"
+rm -f "$LFTP_CONF"
 
     if [ $? -eq 0 ]; then
         print_success "Web publicada a https://bratiamusic.com"
