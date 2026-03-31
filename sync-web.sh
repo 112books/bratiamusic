@@ -14,16 +14,15 @@ BRANCH="main"
 REMOTE="origin"
 PAGES_BRANCH="gh-pages"
 BUILD_DIR="public"
+SSH_KEY="$HOME/.ssh/bratiamusic_deploy"
+SSH_USER="bratiamusic"
+SSH_HOST="vl28359.dinaserver.com"
+SSH_PATH="www"
 
-# Credencials FTP — carregades des de fitxer local (mai al repo)
+# Credencials FTP — mantingudes per compatibilitat però ja no s'usen
 CONF_FILE="$HOME/.bratiamusic-deploy.conf"
 if [ -f "$CONF_FILE" ]; then
     source "$CONF_FILE"
-else
-    FTP_USER=""
-    FTP_HOST=""
-    FTP_PATH="/www"
-    FTP_PASS=""
 fi
 
 # Missatges
@@ -96,28 +95,14 @@ do_deploy() {
     print_success "Deploy GitHub completat"
 }
 
-# Deploy servidor real
+# Deploy servidor real via rsync SSH
 do_publish() {
-    print_message "Publicant al servidor via FTPS"
+    print_message "Publicant al servidor via rsync SSH..."
 
-    if [ -z "$FTP_USER" ] || [ -z "$FTP_HOST" ]; then
-        print_error "Credencials FTP no trobades."
-        print_error "Crea el fitxer: ~/.bratiamusic-deploy.conf"
-        print_error "Contingut mínim:"
-        print_error "  FTP_USER=\"bratiamusic\""
-        print_error "  FTP_HOST=\"bratiamusic-com.espacioseguro.com\""
-        print_error "  FTP_PATH=\"/www\""
-        print_error "  FTP_PASS=\"la_teva_contrasenya\""
+    if [ ! -f "$SSH_KEY" ]; then
+        print_error "Clau SSH no trobada: $SSH_KEY"
+        print_error "Executa: ssh-keygen -t ed25519 -f ~/.ssh/bratiamusic_deploy"
         exit 1
-    fi
-
-    # Demana contrasenya només si no està al fitxer de conf
-    if [ -z "$FTP_PASS" ]; then
-        print_warning "Contrasenya FTP de Dinahosting:"
-        read -s FTP_PASS
-        echo ""
-    else
-        print_message "Usant credencials de ~/.bratiamusic-deploy.conf"
     fi
 
     do_push
@@ -125,25 +110,19 @@ do_publish() {
     print_message "Build Hugo producció..."
     hugo --minify --environment production || exit 1
 
-    print_message "Enviant fitxers via FTPS..."
-    LFTP_CONF=$(mktemp)
-    cat > "$LFTP_CONF" << EOF
-set ftp:ssl-force true
-set ftp:ssl-auth TLS
-set ssl:verify-certificate no
-open ftp://${FTP_HOST}
-user ${FTP_USER} ${FTP_PASS}
-mirror --reverse --delete --verbose --parallel=4 ${BUILD_DIR}/ ${FTP_PATH}/
-bye
-EOF
-    lftp -f "$LFTP_CONF"
+    print_message "Enviant fitxers via rsync..."
+    rsync -avz --delete \
+        --exclude='.DS_Store' \
+        --exclude='.DS_Store?' \
+        --exclude='*.map' \
+        -e "ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no" \
+        ${BUILD_DIR}/ ${SSH_USER}@${SSH_HOST}:${SSH_PATH}/
     RESULT=$?
-    rm -f "$LFTP_CONF"
 
     if [ $RESULT -eq 0 ]; then
         print_success "Web publicada a https://bratiamusic.com"
     else
-        print_error "Error en la pujada. Comprova credencials i connexió."
+        print_error "Error en la pujada. Comprova la connexió SSH."
         exit 1
     fi
 }
