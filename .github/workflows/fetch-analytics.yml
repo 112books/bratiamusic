@@ -18,10 +18,18 @@ jobs:
         run: |
           END=$(date +%Y-%m-%d)
           START=$(date -d '30 days ago' +%Y-%m-%d)
-          curl -s -H "Authorization: Bearer ${GC_TOKEN}" \
-            "https://${GC_ACCOUNT}.goatcounter.com/api/v0/stats/hits?start=${START}&end=${END}&limit=100" \
-            > /tmp/raw_hits.json
-          python3 scripts/process-analytics.py /tmp/raw_hits.json static/data/analytics.json "${START}" "${END}"
+          BASE="https://${GC_ACCOUNT}.goatcounter.com/api/v0"
+          AUTH="Authorization: Bearer ${GC_TOKEN}"
+
+          HITS=$(curl -s -H "${AUTH}" "${BASE}/stats/hits?start=${START}&end=${END}&limit=100")
+          BROWSERS=$(curl -s -H "${AUTH}" "${BASE}/stats/browsers?start=${START}&end=${END}&limit=10")
+          SYSTEMS=$(curl -s -H "${AUTH}" "${BASE}/stats/systems?start=${START}&end=${END}&limit=10")
+          SIZES=$(curl -s -H "${AUTH}" "${BASE}/stats/sizes?start=${START}&end=${END}&limit=10")
+          LOCATIONS=$(curl -s -H "${AUTH}" "${BASE}/stats/locations?start=${START}&end=${END}&limit=10")
+
+          echo "{\"hits_data\":${HITS},\"browsers\":${BROWSERS},\"systems\":${SYSTEMS},\"sizes\":${SIZES},\"locations\":${LOCATIONS}}" > /tmp/raw_all.json
+
+          python3 scripts/process-analytics.py /tmp/raw_all.json static/data/analytics.json "${START}" "${END}"
 
       - name: Commit analytics data
         run: |
