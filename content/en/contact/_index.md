@@ -1,5 +1,5 @@
 ---
-title: "Contacte / Contractació"
+title: "Contact / Booking"
 type: contact
 layout: list
 ---

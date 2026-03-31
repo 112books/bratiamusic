@@ -18,9 +18,9 @@
         
         <!-- DEBUG: {{ .Site.Language.Lang }} -->
 <!-- LANG: {{ .Site.Language.Lang }} | MENU COUNT: {{ len .Site.Menus.main }} -->
-        {{ range .Site.Menus.main }}
+        {{ range site.Menus.main }}
         <li>
-          <a href="{{ .URL | relURL }}">{{ .Name }}</a>
+          <a href="{{ .URL }}">{{ .Name }}</a>
         </li>
         {{ end }}
       </ul>
@@ -39,17 +39,15 @@
 <!-- Nav compacte (apareix en scroll) -->
 <nav class="nav-compact" id="nav-compact">
   <div class="nav-compact__logo">
-    <a href="{{ printf "%s%s/" .Site.BaseURL .Site.Language.Lang }}">
+    <a href="{{ "/" | relLangURL }}">
       <img src="{{ "images/logo.png" | relURL }}" alt="{{ .Site.Title }}">
     </a>
   </div>
   <ul class="nav-compact__list">
-    {{ range .Site.Menus.main }}
-    <li>
-      <a href="{{ .URL | relURL }}" data-tip="{{ .Name }}">
-        {{ partial "icons/nav-icon.html" .URL }}
-      </a>
-    </li>
+{{ range site.Menus.main }}
+        <li>
+          <a href="{{ .URL }}">{{ .Name }}</a>
+        </li>
     {{ end }}
   </ul>
   {{ partial "lang-switcher.html" (dict "Site" .Site "Translations" .Translations "class" "lang-switcher--compact") }}

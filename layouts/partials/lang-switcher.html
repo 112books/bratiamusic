@@ -1,4 +1,5 @@
 <div class="lang-switcher {{ .class }}">
+<<<<<<< HEAD
   <a href="#" data-lang="ca">CA</a>
   <a href="#" data-lang="es">ES</a>
   <a href="#" data-lang="en">EN</a>
@@ -18,3 +19,22 @@
   });
 })();
 </script>
+=======
+  {{- $currentLang := .Site.Language.Lang -}}
+  {{- $baseURL := .Site.BaseURL -}}
+  {{- $translations := .Translations -}}
+  {{- range .Site.Languages -}}
+    {{- $lang := .Lang -}}
+    {{- $url := printf "%s%s/" $baseURL $lang -}}
+    {{- range $translations -}}
+      {{- if eq .Language.Lang $lang -}}
+        {{- $url = .Permalink -}}
+      {{- end -}}
+    {{- end -}}
+    <a href="{{ $url }}"
+       class="{{ if eq $lang $currentLang }}active{{ end }}">
+      {{ $lang | upper }}
+    </a>
+  {{- end -}}
+</div>
+>>>>>>> d792bf6 (fix: menú multilingüe funcional — site.Menus.main, lang-switcher per entorn, config/ per entorns)

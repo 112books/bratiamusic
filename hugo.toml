@@ -1,9 +1,10 @@
-baseURL = "https://112books.github.io/bratiamusic/"
 languageCode = "en-us"
 title = "Bratia Music"
 defaultContentLanguage = "ca"
+defaultContentLanguageInSubdir = true
 
 [languages.ca]
+  contentDir = "content/ca"
   title = "Bratia Music"
   languageName = "Català"
   weight = 1
@@ -44,6 +45,7 @@ defaultContentLanguage = "ca"
   weight = 7
 
 [languages.es]
+  contentDir = "content/es"
   title = "Bratia Music"
   languageName = "Español"
   weight = 2
@@ -84,6 +86,7 @@ defaultContentLanguage = "ca"
   weight = 7
 
 [languages.en]
+  contentDir = "content/en"
   title = "Bratia Music"
   languageName = "English"
   weight = 3

@@ -1,10 +1,5 @@
 {{ define "main" }}
 
-<!-- DEBUG -->
-{{ range .Translations }}
-  <p style="color:red">TRADUCCIÓ: {{ .Lang }} → {{ .Permalink }}</p>
-{{ end }}
-<!-- /DEBUG -->
 
 <section class="concerts-section"
   style="--concerts-bg: url('{{ "images/concerts/bratia-concerts-IMG_3091.jpg" | absURL }}')"
