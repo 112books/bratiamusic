@@ -175,13 +175,13 @@ function renderDashboard(data) {
     'music': 'Música / Disc', 'concerts': 'Concerts',
     'videos': 'Vídeos', 'photos': 'Galeries', 'contact': 'Contacte'
   // Animació barres
-  requestAnimationFrame(() => {
-    document.querySelectorAll('.chart-bar').forEach(bar => {
+  setTimeout(() => {
+    document.querySelectorAll('.chart-bar').forEach(function(bar) {
       const w = bar.dataset.width;
       bar.classList.add('animate');
-      setTimeout(() => { bar.style.width = w + '%'; }, 50);
+      setTimeout(function() { bar.style.width = w + '%'; }, 50);
     });
-  });};
+  }, 100);};
 
   const langRows = Object.entries(byLang)
     .sort((a,b) => b[1]-a[1])
