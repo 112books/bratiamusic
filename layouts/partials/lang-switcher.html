@@ -1,25 +1,4 @@
 <div class="lang-switcher {{ .class }}">
-<<<<<<< HEAD
-  <a href="#" data-lang="ca">CA</a>
-  <a href="#" data-lang="es">ES</a>
-  <a href="#" data-lang="en">EN</a>
-</div>
-
-<script>
-(function() {
-  var path = window.location.pathname;
-  var match = path.match(/^\/(ca|es|en)(\/.*)?$/);
-  var currentLang = match ? match[1] : 'ca';
-  var restOfPath = match ? (match[2] || '/') : '/';
-
-  document.querySelectorAll('.lang-switcher [data-lang]').forEach(function(a) {
-    var lang = a.dataset.lang;
-    a.href = '/' + lang + restOfPath;
-    if (lang === currentLang) a.classList.add('active');
-  });
-})();
-</script>
-=======
   {{- $currentLang := .Site.Language.Lang -}}
   {{- $baseURL := .Site.BaseURL -}}
   {{- $translations := .Translations -}}
@@ -37,4 +16,3 @@
     </a>
   {{- end -}}
 </div>
->>>>>>> d792bf6 (fix: menú multilingüe funcional — site.Menus.main, lang-switcher per entorn, config/ per entorns)
