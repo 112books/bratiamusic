@@ -64,15 +64,42 @@ var SIZE_ICONS = {
   'larger':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="22" height="14" rx="2"/><line x1="7" y1="21" x2="17" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>'
 };
 
-function iconRow(item, max, cls, icons) {
-  var p = max > 0 ? Math.round((item.count / max) * 100) : 0;
-  var iconSize = Math.max(16, Math.min(40, Math.round(p * 0.4)));
-  var icon = icons[item.id] || icons[item.name] ||
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/></svg>';
+var SIZE_LABELS = {
+  'phone': 'Mòbil', 'tablet': 'Tauleta',
+  'desktop': 'Escriptori', 'desktophd': 'Escriptori HD', 'larger': 'Pantalla gran'
+};
+
+/* Fila d'icones proporcionals */
+function iconRowVisual(items, icons, cls) {
+  if (!items || items.length === 0) return '';
+  var total = items.reduce(function(s, i){ return s + i.count; }, 0);
+  var MAX_SIZE = 72;
+  var MIN_SIZE = 20;
+  var maxCount = Math.max.apply(null, items.map(function(i){return i.count;}));
+
+  var html = '<div class="icon-row">';
+  items.forEach(function(item) {
+    var pct = total > 0 ? Math.round((item.count / total) * 100) : 0;
+    var size = Math.max(MIN_SIZE, Math.round((item.count / maxCount) * MAX_SIZE));
+    var icon = icons[item.id] || icons[item.name] ||
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/></svg>';
+    var label = SIZE_LABELS[item.id] || item.name;
+    html += '<div class="icon-item icon-item--' + cls + '">' +
+      '<div style="width:' + MAX_SIZE + 'px;display:flex;align-items:flex-end;justify-content:center">' +
+      '<span style="width:' + size + 'px;height:' + size + 'px;display:block;color:inherit">' + icon + '</span>' +
+      '</div>' +
+      '<div class="icon-item__pct">' + pct + '%</div>' +
+      '<div class="icon-item__name">' + label + '</div>' +
+      '<div style="font-size:.8rem;color:var(--text-dim)">' + item.count + '</div>' +
+      '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function barRow(item, max, cls) {
   return '<div class="chart-row">' +
-    '<div class="chart-label chart-label--icon">' +
-    '<span class="chart-icon" style="width:' + iconSize + 'px;height:' + iconSize + 'px;display:inline-flex;align-items:center;vertical-align:middle;margin-right:6px">' + icon + '</span>' +
-    item.name + '</div>' +
+    '<div class="chart-label">' + (SIZE_LABELS[item.id] || item.name) + '</div>' +
     bar(item.count, max, cls) +
     '<div class="chart-value">' + item.count + '</div></div>';
 }
@@ -80,15 +107,14 @@ function iconRow(item, max, cls, icons) {
 function statSection(title, items, cls, icons) {
   if (!items || items.length === 0) return '';
   var max = Math.max.apply(null, items.map(function(i){return i.count;}));
+  var visual = icons ? iconRowVisual(items, icons, cls.replace('chart-bar--','')) : '';
   var rows = items.map(function(item) {
-    return icons ? iconRow(item, max, cls, icons) : (
-      '<div class="chart-row">' +
-      '<div class="chart-label">' + item.name + '</div>' +
+    return '<div class="chart-row">' +
+      '<div class="chart-label">' + (SIZE_LABELS[item.id] || item.name) + '</div>' +
       bar(item.count, max, cls) +
-      '<div class="chart-value">' + item.count + '</div></div>'
-    );
+      '<div class="chart-value">' + item.count + '</div></div>';
   }).join('');
-  return '<div class="section-title">' + title + '</div><div class="chart">' + rows + '</div>';
+  return '<div class="section-title">' + title + '</div>' + visual + '<div class="chart">' + rows + '</div>';
 }
 
 function renderDashboard(data) {
@@ -154,7 +180,7 @@ function renderDashboard(data) {
     insights.map(function(i){return '<div class="insight-item">'+i+'</div>';}).join('') +
     '</div>' +
 
-    '<div class="dash-meta" style="margin-top:1.5rem">dades actualitzades: ' + generated + ' · font: GoatCounter</div>';
+    '<div style="margin-top:1.5rem;font-size:.8rem;color:var(--text-dim)">dades actualitzades: ' + generated + ' · font: GoatCounter</div>';
 
   setTimeout(function() {
     document.querySelectorAll('.chart-bar').forEach(function(b) {
