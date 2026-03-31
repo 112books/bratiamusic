@@ -48,17 +48,24 @@
   .section-title::before { content:'▸'; color:var(--green); }
 
   /* Gràfics de barres horitzontals */
-  .chart { display:flex; flex-direction:column; gap:.6rem; }
-  .chart-row { display:grid; grid-template-columns: 130px 1fr 50px; align-items:center; gap:.8rem; }
-  .chart-label { font-size:.75rem; color:var(--text-dim); text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .chart-bar-wrap { background:var(--bg3); height:22px; position:relative; border:1px solid var(--border); }
-  .chart-bar { height:100%; transition:width 1s ease; position:relative; display:flex; align-items:center; }
+ .chart { display:flex; flex-direction:column; gap:.8rem; }
+  .chart-row { display:grid; grid-template-columns: 150px 1fr 60px; align-items:center; gap:1rem; }
+  .chart-label { font-size:.95rem; color:var(--text-dim); text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .chart-bar-wrap { background:var(--bg3); height:28px; position:relative; border:1px solid var(--border); overflow:hidden; }
+  .chart-bar { height:100%; position:relative; display:flex; align-items:center; width:0; }
+  .chart-bar.animate { transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
   .chart-bar--lang-ca { background:linear-gradient(90deg, #004d15, var(--green-dim)); }
   .chart-bar--lang-es { background:linear-gradient(90deg, #4d3800, var(--amber)); }
   .chart-bar--lang-en { background:linear-gradient(90deg, #003d4d, var(--blue)); }
   .chart-bar--section { background:linear-gradient(90deg, #1a3320, var(--green)); }
-  .chart-value { font-size:.75rem; color:var(--text-dim); text-align:right; }
-  .chart-pct { font-size:.6rem; color:var(--text-dim); position:absolute; right:6px; }
+  .chart-value { font-size:.95rem; color:var(--text); text-align:right; font-weight:600; }
+  .chart-pct { font-size:.65rem; color:rgba(255,255,255,.5); position:absolute; right:6px; }
+
+  .stats-total { font-size:.85rem; color:var(--text-dim); margin-bottom:2rem; }
+  .stats-total strong { color:var(--green); font-size:3.5rem; display:block; font-weight:900; letter-spacing:-.02em; }
+
+  .section-title { font-size:.8rem; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); padding:.4rem 0; border-bottom:1px solid var(--border); margin:2.5rem 0 1.5rem; display:flex; align-items:center; gap:.5rem; }
+  .section-title::before { content:'▸'; color:var(--green); }
 
   /* Insight */
   .insight-box { background:var(--bg2); border:1px solid var(--border); border-left:3px solid var(--green); padding:1rem 1.5rem; margin-top:2rem; font-size:.75rem; color:var(--text-dim); line-height:1.8; }
@@ -143,11 +150,11 @@ async function loadData() {
   }
 }
 
-function bar(value, max, cls, showPct) {
-  const pct = max > 0 ? Math.round((value / max) * 100) : 0;
+function bar(value, max, cls, pct) {
+  const p = max > 0 ? Math.round((value / max) * 100) : 0;
   return `<div class="chart-bar-wrap">
-    <div class="chart-bar ${cls}" style="width:${pct}%">
-      ${showPct ? `<span class="chart-pct">${pct}%</span>` : ''}
+    <div class="chart-bar ${cls}" data-width="${p}" style="width:0%">
+      ${pct ? `<span class="chart-pct">${p}%</span>` : ''}
     </div>
   </div>`;
 }
@@ -167,7 +174,14 @@ function renderDashboard(data) {
     'about': 'Sobre nosaltres', 'the-band': 'La Banda',
     'music': 'Música / Disc', 'concerts': 'Concerts',
     'videos': 'Vídeos', 'photos': 'Galeries', 'contact': 'Contacte'
-  };
+  // Animació barres
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.chart-bar').forEach(bar => {
+      const w = bar.dataset.width;
+      bar.classList.add('animate');
+      setTimeout(() => { bar.style.width = w + '%'; }, 50);
+    });
+  });};
 
   const langRows = Object.entries(byLang)
     .sort((a,b) => b[1]-a[1])
