@@ -1,0 +1,43 @@
+name: Fetch GoatCounter Analytics
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch analytics data
+        env:
+          GC_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+          GC_ACCOUNT: bratia-music
+        run: |
+          BASE="https://${GC_ACCOUNT}.goatcounter.com/api/v0"
+          END=$(date +%Y-%m-%d)
+          START=$(date -d '30 days ago' +%Y-%m-%d)
+
+          HITS=$(curl -s -H "Authorization: Bearer ${GC_TOKEN}" \
+            "${BASE}/stats/hits?start=${START}&end=${END}&limit=20")
+
+          CA=$(curl -s -H "Authorization: Bearer ${GC_TOKEN}" \
+            "${BASE}/stats/hits?start=${START}&end=${END}&filter=%2Fca%2F&limit=10")
+
+          ES=$(curl -s -H "Authorization: Bearer ${GC_TOKEN}" \
+            "${BASE}/stats/hits?start=${START}&end=${END}&filter=%2Fes%2F&limit=10")
+
+          EN=$(curl -s -H "Authorization: Bearer ${GC_TOKEN}" \
+            "${BASE}/stats/hits?start=${START}&end=${END}&filter=%2Fen%2F&limit=10")
+
+          echo "{\"generated\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",\"period\":{\"start\":\"${START}\",\"end\":\"${END}\"},\"hits\":${HITS},\"by_lang\":{\"ca\":${CA},\"es\":${ES},\"en\":${EN}}}" > data/analytics.json
+
+      - name: Commit analytics data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/analytics.json
+          git diff --staged --quiet || git commit -m "chore: actualitzar analytics [skip ci]"
+          git push
