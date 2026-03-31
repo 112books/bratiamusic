@@ -40,26 +40,34 @@ hugo --minify --environment production   # build producció
 
 ### sync-web.sh
 - Opció 4 → Deploy GitHub Pages (staging)
-- Opció 5 → Publish Dinahosting (producció)
-- Producció: lftp via FTPS (lent) → **pendent migrar a rsync SSH**
-- Credencials: `~/.bratiamusic-deploy.conf`
+- Opció 5 → Publish Dinahosting (producció) via rsync SSH
 
-### SSH Dinahosting (configurat, pendent usar per rsync)
-- Host: `vl28359.dinaserver.com`
-- Usuari: `bratiamusic`
-- Clau: `~/.ssh/bratiamusic_deploy`
-- Dir web: `www/`
-- Comanda: `ssh -i ~/.ssh/bratiamusic_deploy bratiamusic@vl28359.dinaserver.com`
+### Deploy producció — rsync SSH (configurat i funcionant)
+```bash
+rsync -avz --delete --ignore-errors \
+  --exclude='.DS_Store' --exclude='*.map' \
+  -e "ssh -i ~/.ssh/bratiamusic_deploy -o StrictHostKeyChecking=no" \
+  public/ bratiamusic@vl28359.dinaserver.com:www/
+```
+- Clau SSH: ~/.ssh/bratiamusic_deploy
+- Velocitat: ~15MB/s
+- Error 23 rsync = fitxers amb caràcters especials (ignorat, no crític)
+
+### Fitxers amb noms problemàtics (pendent renombrar)
+```
+static/images/home-banner/FOTO CON DISEN...
+static/images/per colocar/...
+```
 
 ### GitHub Actions
-- `deploy.yml` → build amb `--environment staging` → publica a gh-pages
-- `fetch-concerts.yml` · `fetch-galleries.yml` · `fetch-videos.yml` → accions nocturnes
+- deploy.yml → build staging → publica a gh-pages automàticament
+- fetch-concerts.yml · fetch-galleries.yml · fetch-videos.yml → nocturns
 
 ---
 
 ## Multilingüe — RESOLT (31/03/2026)
 
-### Configuració hugo.toml
+### hugo.toml
 ```toml
 defaultContentLanguage = "ca"
 defaultContentLanguageInSubdir = true
@@ -67,36 +75,25 @@ defaultContentLanguageInSubdir = true
 [languages.ca]
   contentDir = "content/ca"
   weight = 1
-
 [languages.es]
   contentDir = "content/es"
   weight = 2
-
 [languages.en]
   contentDir = "content/en"
   weight = 3
 ```
 
-### Estructura de contingut
-```
-content/
-  ca/    ← català (per defecte)
-  es/    ← castellà
-  en/    ← anglès
-```
-
-### Menús — definits per idioma al hugo.toml
+### Menús per idioma
 ```toml
 [[languages.ca.menu.main]]
   name = "Qui som"
   url  = "/ca/about/"
   weight = 1
-# ... etc per ca, es, en
 ```
 
-### Template nav.html — LA CLAU
-```html
-{{ range site.Menus.main }}   ← CORRECTE (context-aware per idioma)
+### Template nav — LA CLAU
+```
+{{ range site.Menus.main }}   ← CORRECTE
 {{ range .Site.Menus.main }}  ← INCORRECTE (sempre retorna CA)
 ```
 
@@ -120,40 +117,35 @@ content/
   {{- end -}}
 </div>
 ```
-**Nota:** Usa `$.Site.BaseURL` + `$lang` per construir URLs. NO usar `absURL` ni `relLangURL` — no respecten el baseURL en mode servidor local.
+Usa Site.BaseURL + $lang. NO usar absURL ni relLangURL en local.
 
 ### is-home — layouts/_default/baseof.html
 ```html
 {{ $isHome := or .IsHome (eq .RelPermalink (printf "/%s/" .Language.Lang)) }}
 <body class="{{ if $isHome }}is-home{{ else }}is-subpage{{ end }}">
 ```
-Necessari perquè amb `defaultContentLanguageInSubdir=true` el home de CA és `/ca/` i `.IsHome` retorna false.
 
 ---
 
 ## Header i navegació
 
 ### Dos estats
-- **Repòs (per defecte):** `site-header` visible → logo + `main-nav` amb TEXT
-- **En scroll (>80px):** `site-header` s'amaga, `nav-compact` apareix → logo + icones SVG
-
-### Fitxers
-- `layouts/partials/head.html` → header + nav + JS scroll + lang-switcher
-- `layouts/partials/icons/nav-icon.html` → icones SVG per cada secció
+- Repòs: site-header visible → logo + main-nav amb TEXT
+- En scroll >80px: nav-compact apareix → logo + icones SVG
 
 ### nav-icon.html — segments a ignorar
 ```
-ca, es, en, bratiamusic  ← tots han d'estar a la llista de (ne . "...")
+ca, es, en, bratiamusic
 ```
 
 ### CSS clau
 ```css
-.nav-compact { transform: translateY(-100%); }        /* amagat per defecte */
-.nav-compact.is-visible { transform: translateY(0); } /* visible en scroll */
-.lang-switcher--mobile { display: none; }             /* fora de media queries */
+.nav-compact { transform: translateY(-100%); }
+.nav-compact.is-visible { transform: translateY(0); }
+.lang-switcher--mobile { display: none; }
 ```
 
-### JS (inline al head.html)
+### JS scroll (head.html)
 ```javascript
 function updateNav() {
   const scrolled = window.scrollY > 80;
@@ -170,84 +162,90 @@ window.addEventListener('load', updateNav);
 
 | Secció | Estat | Notes |
 |--------|-------|-------|
-| Home | ✅ | Hero animació logo (hero-intro.js, sessionStorage) |
-| About | ✅ | Split imatge+text. type:about layout:single |
-| The Band | ✅ | Fotos rodones, jerarquia 1+2+2. images/band/ |
-| Discografia | ✅ | 2 discs multiidioma, Spotify embed |
-| Concerts | ✅ | Google Calendar → GitHub Action → concerts.txt |
-| Vídeos | ✅ | RSS YouTube → GitHub Action → JSON, facade pattern |
-| Galeries | ✅ | Google Photos, portades automàtiques via GitHub Action |
-| Contacte | ✅ | Immersiu amb imatge, email + xarxes |
-| Footer | ✅ | Socials + legal links compactes |
-| 404 | ✅ | Standalone multilingüe inline |
-| Admin dashboard | ✅ | /admin/insights/ protegit per token API |
-| SEO partial | ✅ | OpenGraph, metadades |
-| Legals CA/ES/EN | ✅ | Avís legal, privacitat, cookies |
+| Home | OK | Hero animació logo (hero-intro.js, sessionStorage) |
+| About | OK | Split imatge+text. type:about layout:single |
+| The Band | OK | Fotos rodones, jerarquia 1+2+2. images/band/ |
+| Discografia | OK | 2 discs multiidioma, Spotify embed |
+| Concerts | OK | Google Calendar → GitHub Action → concerts.txt |
+| Videos | OK | RSS YouTube → GitHub Action → JSON, facade pattern |
+| Galeries | OK | Google Photos, portades via GitHub Action |
+| Contacte | OK | Immersiu amb imatge, email + xarxes |
+| Footer | OK | Socials + legal links compactes |
+| 404 | OK | Standalone multilingüe inline |
+| Admin dashboard | OK | /admin/insights/ GoatCounter 3 capes |
+| SEO | OK | OpenGraph, metadades |
+| Legals CA/ES/EN | OK | Avís legal, privacitat, cookies |
+
+---
+
+## Admin dashboard /admin/insights/
+
+Terminal aesthetic (negre, monospace, verd). Tres capes:
+- attraction_layer — visites per secció
+- intention_layer — clics sortida (spotify, youtube...)
+- conversion_layer — accions reals (email, booking...)
+
+Login via token GoatCounter (sessionStorage).
+Pendent: URL /admin/ hardcoded al layouts/admin/baseof.html → absURL.
 
 ---
 
 ## Notes tècniques crítiques
 
-- Hugo v0.159 local / v0.124 CI → usar `site.Data` (no `hugo.Data`)
-- **Mai** `hugo.Data` al CI — falla amb v0.124
-- Font Dancing Script: local a `static/fonts/` (no Google Fonts)
-- GoatCounter: compte `bratia-music.goatcounter.com` · NOMÉS al baseof.html
-- Protecció GitHub Pages: JS al baseof.html, hash SHA-256 (Linux2026)
-- Galeries: `data/galleries.yaml` · Concerts: `static/data/concerts.txt`
-- Dos servidors Hugo simultanis → errors CORS al calendari. `pkill -f "hugo server"` primer
-- Reiniciar `hugo server` en crear fitxers nous a `layouts/`
-- `type:` + `layout:` al frontmatter dels `_index.md` per activar layouts custom
+- Hugo v0.159 local / v0.124 CI → usar site.Data (no hugo.Data)
+- Font Dancing Script: local a static/fonts/ (no Google Fonts)
+- GoatCounter: bratia-music.goatcounter.com · NOMÉS al baseof.html
+- Protecció GitHub Pages: JS baseof.html, hash SHA-256 (Linux2026)
+- Galeries: data/galleries.yaml · Concerts: static/data/concerts.txt
+- Dos servidors Hugo → errors CORS. pkill -f "hugo server" primer
+- Reiniciar hugo server en crear fitxers nous a layouts/
+- type: + layout: al frontmatter _index.md per activar layouts custom
 
 ---
 
 ## Fitxers clau
 
 ```
-hugo.toml                              ← config principal (sense baseURL)
-config/local|staging|production/       ← baseURL per entorn
-sync-web.sh                            ← deploy script
-layouts/_default/baseof.html           ← base HTML, is-home logic
-layouts/partials/head.html             ← header + nav + JS
-layouts/partials/lang-switcher.html    ← selector idioma
-layouts/partials/icons/nav-icon.html   ← icones nav-compact
-layouts/partials/footer.html
-layouts/partials/seo.html
-layouts/admin/                         ← dashboard analytics
-static/css/styles.css                  ← (seccions 1-19)
+hugo.toml                         ← config principal (sense baseURL)
+config/local|staging|production/  ← baseURL per entorn
+sync-web.sh                       ← deploy (rsync SSH)
+layouts/_default/baseof.html      ← base HTML, is-home logic
+layouts/partials/head.html        ← header + nav + JS
+layouts/partials/lang-switcher.html
+layouts/partials/icons/nav-icon.html
+layouts/admin/baseof.html · list.html · single.html
+static/css/styles.css
 static/fonts/DancingScript-SemiBold.woff2
 static/js/hero-intro.js · track.js · concerts.js
-data/galleries.yaml · band.yaml
+data/galleries.yaml
 i18n/ca.yaml · es.yaml · en.yaml
-.github/workflows/deploy.yml           ← build staging automàtic
+.github/workflows/deploy.yml
 ```
 
 ---
 
-## Pendents actius
+## Pendents
 
-### Prioritat alta
-- **Migrar deploy FTP → rsync SSH** (SSH ja configurat, clau instal·lada)
-  ```bash
-  rsync -avz --delete -e "ssh -i ~/.ssh/bratiamusic_deploy" public/ bratiamusic@vl28359.dinaserver.com:www/
-  ```
-- **ca/ca/ paths duplicats a producció** — artefacte del deploy FTP d'avui, verificar i netejar
-- **Manual admin** `/admin/manual/` — pendent de crear
+### Alta prioritat
+- Renombrar imatges amb espais/accents a images/home-banner/ i images/per colocar/
+- Admin baseof.html: /admin/ hardcoded → absURL
+- Manual admin /admin/manual/ — pendent crear
 
-### Prioritat mitjana
-- GoatCounter events — partial existent, events no verificats a producció
-- Legal — contingut a revisar (reflectir GoatCounter, no Google Analytics)
-- Botons portada hover amb icones de navegació
+### Mitjana
+- GoatCounter events — verificar a producció
+- Legal — contingut a revisar
+- Botons portada hover amb icones
 
 ### Futur
-- Pagefind (cercador estàtic)
-- Accessibilitat (ARIA, contrast)
+- Pagefind (cercador)
+- Accessibilitat
 - Newsletter
-- Línia del temps de la banda
-- SEO avançat (Schema.org MusicGroup/MusicEvent, hreflang)
+- Línia del temps
+- SEO avançat (Schema.org, hreflang)
 
 ---
 
 ## Objectiu estratègic
 
-Web base per a una **plantilla reutilitzable per a músics i bandes**:
-estàtica · ràpida · segura · editable via Markdown+Obsidian · multilingüe nativa · desplegable a qualsevol hosting estàtic.
+Plantilla reutilitzable per a músics i bandes: estàtica · ràpida · segura ·
+editable via Markdown+Obsidian · multilingüe nativa · qualsevol hosting estàtic.
