@@ -21,8 +21,8 @@
   #login-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:70vh; gap:2rem; }
   .login-ascii { color:var(--green-dim); font-size:.65rem; line-height:1.2; text-align:center; opacity:.6; }
   .login-box { border:1px solid var(--border); background:var(--bg2); padding:2rem 2.5rem; width:100%; max-width:420px; }
-  .login-box h2 { color:var(--green); font-size:.75rem; letter-spacing:.2em; text-transform:uppercase; margin:0 0 .5rem; }
-  .login-box p { color:var(--text-dim); font-size:.75rem; margin:0 0 1.5rem; }
+  .login-box h2 { color:var(--green); font-size:.9rem; letter-spacing:.2em; text-transform:uppercase; margin:0 0 .5rem; }
+  .login-box p { color:var(--text-dim); font-size:.9rem; margin:0 0 1.5rem; }
   .token-input-wrap { display:flex; }
   .token-input-wrap input { flex:1; background:var(--bg); border:1px solid var(--border); border-right:none; color:var(--green); font-family:inherit; font-size:.85rem; padding:.6rem .8rem; outline:none; }
   .token-input-wrap input:focus { border-color:var(--green-dim); }
@@ -35,7 +35,7 @@
 
   .dash-header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid var(--border); }
   .dash-title { font-size:.7rem; color:var(--text-dim); letter-spacing:.2em; text-transform:uppercase; }
-  .dash-title span { color:var(--green); display:block; font-size:1.1rem; margin-top:.2rem; }
+  .dash-title span { color:var(--green); display:block; font-size:1.3rem; margin-top:.2rem; }
   .dash-meta { font-size:.65rem; color:var(--text-dim); }
 
   .btn-logout { background:none; border:1px solid var(--border); color:var(--text-dim); font-family:inherit; font-size:.7rem; padding:.3rem .8rem; cursor:pointer; }
@@ -44,13 +44,13 @@
   .stats-total { font-size:.7rem; color:var(--text-dim); margin-bottom:2rem; }
   .stats-total strong { color:var(--green); font-size:2rem; display:block; }
 
-  .section-title { font-size:.65rem; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); padding:.4rem 0; border-bottom:1px solid var(--border); margin:2rem 0 1.2rem; display:flex; align-items:center; gap:.5rem; }
+  .section-title { font-size:.95rem; letter-spacing:.25em; text-transform:uppercase; color:var(--text-dim); padding:.4rem 0; border-bottom:1px solid var(--border); margin:2rem 0 1.2rem; display:flex; align-items:center; gap:.5rem; }
   .section-title::before { content:'▸'; color:var(--green); }
 
   /* Gràfics de barres horitzontals */
  .chart { display:flex; flex-direction:column; gap:.8rem; }
   .chart-row { display:grid; grid-template-columns: 150px 1fr 60px; align-items:center; gap:1rem; }
-  .chart-label { font-size:.95rem; color:var(--text-dim); text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .chart-label { font-size:1.1rem; color:var(--text-dim); text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .chart-bar-wrap { background:var(--bg3); height:28px; position:relative; border:1px solid var(--border); overflow:hidden; }
   .chart-bar { height:100%; position:relative; display:flex; align-items:center; width:0; }
   .chart-bar.animate { transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -58,7 +58,7 @@
   .chart-bar--lang-es { background:linear-gradient(90deg, #4d3800, var(--amber)); }
   .chart-bar--lang-en { background:linear-gradient(90deg, #003d4d, var(--blue)); }
   .chart-bar--section { background:linear-gradient(90deg, #1a3320, var(--green)); }
-  .chart-value { font-size:.95rem; color:var(--text); text-align:right; font-weight:600; }
+  .chart-value { font-size:1.1rem; color:var(--text); text-align:right; font-weight:600; }
   .chart-pct { font-size:.65rem; color:rgba(255,255,255,.5); position:absolute; right:6px; }
 
   .stats-total { font-size:.85rem; color:var(--text-dim); margin-bottom:2rem; }
@@ -68,15 +68,14 @@
   .section-title::before { content:'▸'; color:var(--green); }
 
   /* Insight */
-  .insight-box { background:var(--bg2); border:1px solid var(--border); border-left:3px solid var(--green); padding:1rem 1.5rem; margin-top:2rem; font-size:.75rem; color:var(--text-dim); line-height:1.8; }
+  .insight-box { background:var(--bg2); border:1px solid var(--border); border-left:3px solid var(--green); padding:1rem 1.5rem; margin-top:2rem; font-size:.9rem; color:var(--text-dim); line-height:1.8; }
   .insight-box .label { color:var(--green); font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; display:block; margin-bottom:.5rem; }
   .insight-item { display:flex; gap:.5rem; align-items:baseline; margin-bottom:.3rem; }
   .insight-item::before { content:'→'; color:var(--green); flex-shrink:0; }
 
   .dash-error { background:#1a0000; border:1px solid #3a0000; color:var(--red); padding:.8rem 1.2rem; font-size:.8rem; margin-bottom:1rem; display:none; }
 
-  .loading { color:var(--text-dim); font-size:.8rem; animation:blink 1s infinite; }
-  @keyframes blink { 0%,100%{opacity:1}50%{opacity:.2} }
+  .loading { color:var(--text-dim); font-size:.9rem; }
 </style>
 
 <div id="login-screen">
