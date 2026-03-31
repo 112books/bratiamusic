@@ -24,7 +24,7 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --minify --baseURL "https://112books.github.io/bratiamusic/"
+        run: hugo --minify --environment staging
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
