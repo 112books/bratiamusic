@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-31T17:29:58Z",
+  "generated": "2026-03-31T18:23:39Z",
   "period": {
     "start": "2026-03-01",
     "end": "2026-03-31"
@@ -18,5 +18,83 @@
     "videos": 16,
     "photos": 12,
     "contact": 12
-  }
+  },
+  "browsers": [
+    {
+      "id": "Safari",
+      "name": "Safari",
+      "count": 112
+    },
+    {
+      "id": "Chrome",
+      "name": "Chrome",
+      "count": 106
+    },
+    {
+      "id": "Firefox",
+      "name": "Firefox",
+      "count": 6
+    }
+  ],
+  "systems": [
+    {
+      "id": "macOS",
+      "name": "macOS",
+      "count": 154
+    },
+    {
+      "id": "iOS",
+      "name": "iOS",
+      "count": 56
+    },
+    {
+      "id": "Windows",
+      "name": "Windows",
+      "count": 11
+    },
+    {
+      "id": "Android",
+      "name": "Android",
+      "count": 3
+    }
+  ],
+  "sizes": [
+    {
+      "id": "phone",
+      "name": "M\u00f2bil",
+      "count": 59
+    },
+    {
+      "id": "tablet",
+      "name": "Tauleta",
+      "count": 1
+    },
+    {
+      "id": "desktop",
+      "name": "Escriptori",
+      "count": 20
+    },
+    {
+      "id": "desktophd",
+      "name": "Escriptori HD",
+      "count": 144
+    },
+    {
+      "id": "unknown",
+      "name": "unknown",
+      "count": 0
+    }
+  ],
+  "locations": [
+    {
+      "id": "ES",
+      "name": "Spain",
+      "count": 223
+    },
+    {
+      "id": "US",
+      "name": "United States",
+      "count": 1
+    }
+  ]
 }
