@@ -30,3 +30,4 @@ jobs:
           git add data/analytics.json
           git diff --staged --quiet || git commit -m "chore: actualitzar analytics [skip ci]"
           git push
+# fetch analytics
