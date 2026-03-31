@@ -21,13 +21,13 @@ jobs:
           curl -s -H "Authorization: Bearer ${GC_TOKEN}" \
             "https://${GC_ACCOUNT}.goatcounter.com/api/v0/stats/hits?start=${START}&end=${END}&limit=100" \
             > /tmp/raw_hits.json
-          python3 scripts/process-analytics.py /tmp/raw_hits.json data/analytics.json "${START}" "${END}"
+          python3 scripts/process-analytics.py /tmp/raw_hits.json static/data/analytics.json "${START}" "${END}"
 
       - name: Commit analytics data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/analytics.json
+          git add static/data/analytics.json
           git diff --staged --quiet || git commit -m "chore: actualitzar analytics [skip ci]"
           git push
 # fetch analytics
