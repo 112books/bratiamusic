@@ -18,7 +18,7 @@
         
         <!-- DEBUG: {{ .Site.Language.Lang }} -->
 <!-- LANG: {{ .Site.Language.Lang }} | MENU COUNT: {{ len .Site.Menus.main }} -->
-        {{ range site.Menus.main }}
+{{ range site.Menus.main }}
         <li>
           <a href="{{ .URL }}">{{ .Name }}</a>
         </li>
@@ -46,7 +46,9 @@
   <ul class="nav-compact__list">
 {{ range site.Menus.main }}
         <li>
-          <a href="{{ .URL }}">{{ .Name }}</a>
+          <a href="{{ .URL }}" data-tip="{{ .Name }}">
+        {{ partial "icons/nav-icon.html" .URL }}
+      </a>
         </li>
     {{ end }}
   </ul>
@@ -71,11 +73,14 @@
   const overlay       = document.getElementById('nav-overlay');
   const mainNav       = document.querySelector('.main-nav');
 
-  window.addEventListener('scroll', function() {
+  function updateNav() {
     const scrolled = window.scrollY > 80;
     compact.classList.toggle('is-visible', scrolled);
     header.classList.toggle('is-hidden', scrolled);
-  }, { passive: true });
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  window.addEventListener('load', updateNav);
 
   function closeMenu() {
     mainNav.classList.remove('is-open');

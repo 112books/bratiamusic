@@ -2,7 +2,7 @@
 {{ $parts := split . "/" }}
 {{ $id := "" }}
 {{ range $parts }}
-  {{ if and (ne . "") (ne . "ca") (ne . "es") (ne . "en") }}
+  {{ if and (ne . "") (ne . "ca") (ne . "es") (ne . "en") (ne . "bratiamusic") }}
     {{ $id = . }}
   {{ end }}
 {{ end }}
