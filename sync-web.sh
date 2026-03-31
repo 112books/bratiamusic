@@ -90,7 +90,7 @@ do_deploy() {
     print_message "Deploy GitHub Pages"
     do_push
     print_message "Build Hugo..."
-    hugo || exit 1
+    hugo --environment staging || exit 1
     print_message "Publicant a gh-pages..."
     git subtree push --prefix $BUILD_DIR $REMOTE $PAGES_BRANCH || exit 1
     print_success "Deploy GitHub completat"
@@ -123,7 +123,7 @@ do_publish() {
     do_push
 
     print_message "Build Hugo producció..."
-    hugo --config hugo.toml,hugo.prod.toml || exit 1
+    hugo --minify --environment production || exit 1
 
     print_message "Enviant fitxers via FTPS..."
     LFTP_CONF=$(mktemp)
