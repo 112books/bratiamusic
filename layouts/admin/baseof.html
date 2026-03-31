@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ .Title }}</title>
-  <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/styles.css" | absURL }}">
   <style>
     body.terminal.admin { font-size: 15px; }
     .admin-header { font-size: 0.9rem; }
@@ -28,8 +28,8 @@
     <a href="https://linuxbcn.com" target="_blank">LinuxBCN.com</a>
     · <strong>Admin · Bratia Music</strong>
     <nav>
-      <a href="/admin/">← Admin home</a>
-      <a href="https://bratiamusic.com">Go to site</a>
+      <a href="{{ "admin/" | absURL }}">← Admin home</a>
+      <a href="{{ .Site.BaseURL }}">Go to site</a>
     </nav>
   </header>
 
