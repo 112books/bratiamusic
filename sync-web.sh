@@ -115,6 +115,7 @@ do_publish() {
         --exclude='.DS_Store' \
         --exclude='.DS_Store?' \
         --exclude='*.map' \
+        --ignore-errors \
         -e "ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no" \
         ${BUILD_DIR}/ ${SSH_USER}@${SSH_HOST}:${SSH_PATH}/
     RESULT=$?
