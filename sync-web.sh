@@ -69,9 +69,11 @@ do_pull() {
     print_success "Pull correcte"
 }
 
-# Push
-do_push() {
-    print_message "Push..."
+# Sync: pull --rebase + push (evita rebuig per canvis remots dels GitHub Actions)
+do_sync() {
+    print_message "Sincronitzant amb el remot..."
+
+    # Si hi ha canvis locals, fem commit primer
     if [[ -n $(git status -s) ]]; then
         print_warning "Canvis detectats:"
         git status -s
@@ -80,14 +82,33 @@ do_push() {
         git add .
         git commit -m "$msg"
     fi
-    git push $REMOTE $BRANCH || exit 1
+
+    # Pull --rebase per integrar canvis remots (GitHub Actions nocturns)
+    print_message "Pull --rebase per integrar canvis remots..."
+    if ! git pull $REMOTE $BRANCH --rebase; then
+        print_error "Error en el pull --rebase. Resol els conflictes i torna a intentar-ho."
+        exit 1
+    fi
+
+    # Push
+    print_message "Push..."
+    if ! git push $REMOTE $BRANCH; then
+        print_error "Error en el push."
+        exit 1
+    fi
+
     print_success "Push correcte"
+}
+
+# Push (manté compatibilitat amb cridades directes)
+do_push() {
+    do_sync
 }
 
 # Deploy GitHub Pages
 do_deploy() {
     print_message "Deploy GitHub Pages"
-    do_push
+    do_sync
     print_message "Build Hugo..."
     hugo --environment staging || exit 1
     print_message "Publicant a gh-pages..."
@@ -105,13 +126,13 @@ do_publish() {
         exit 1
     fi
 
-    do_push
+    do_sync
 
     print_message "Build Hugo producció..."
     hugo --minify --environment production || exit 1
 
     print_message "Enviant fitxers via rsync..."
-    rsync -avz --delete \
+    rsync -avz --delete --checksum \
         --exclude='.DS_Store' \
         --exclude='.DS_Store?' \
         --exclude='*.map' \
