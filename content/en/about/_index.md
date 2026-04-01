@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "About Bratia Music – Balkan Gypsy Jazz Band from Barcelona"
 type: about
 layout: single
 ---

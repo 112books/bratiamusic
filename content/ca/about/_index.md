@@ -1,5 +1,5 @@
 ---
-title: "Qui som"
+title: "Qui som · Bratia Music, la banda de Balkan Gypsy Jazz"
 type: about
 layout: single
 ---

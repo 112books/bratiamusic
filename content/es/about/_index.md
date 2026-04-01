@@ -1,5 +1,5 @@
 ---
-title: "Quiénes somos"
+title: "Quiénes somos · Bratia Music, la banda de Balkan Gypsy Jazz"
 type: about
 layout: single
 ---
