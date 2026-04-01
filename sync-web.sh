@@ -105,12 +105,25 @@ do_push() {
     do_sync
 }
 
+# Genera índex Pagefind
+do_pagefind() {
+    local env=$1
+    print_message "Generant índex Pagefind ($env)..."
+    npx -y pagefind \
+        --site ${BUILD_DIR} \
+        --root-selector "main#main-content" \
+        --exclude-selectors ".nav-compact,.site-header,footer,.concerts-past-section" \
+        --output-subdir pagefind || exit 1
+    print_success "Índex Pagefind generat"
+}
+
 # Deploy GitHub Pages
 do_deploy() {
     print_message "Deploy GitHub Pages"
     do_sync
     print_message "Build Hugo..."
     hugo --environment staging || exit 1
+    do_pagefind staging
     print_message "Publicant a gh-pages..."
     git subtree push --prefix $BUILD_DIR $REMOTE $PAGES_BRANCH || exit 1
     print_success "Deploy GitHub completat"
@@ -130,6 +143,7 @@ do_publish() {
 
     print_message "Build Hugo producció..."
     hugo --minify --environment production || exit 1
+    do_pagefind production
 
     print_message "Enviant fitxers via rsync..."
     rsync -avz --delete --checksum \
