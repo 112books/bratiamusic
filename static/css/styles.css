@@ -1225,3 +1225,40 @@ footer {
     font-size: 0.95rem;
   }
 }
+/* Nav compacte iPhone — cabre les 8 icones */
+@media (max-width: 430px) {
+  .nav-compact {
+    padding: 0 0.4rem;
+    gap: 0.1rem;
+  }
+  .nav-compact__logo img {
+    height: 36px;
+  }
+  .nav-compact__list a {
+    width: 28px;
+    height: 28px;
+  }
+  .nav-compact__list a svg {
+    width: 14px;
+    height: 14px;
+  }
+  .lang-switcher--compact {
+    display: none !important;
+  }
+  .nav-toggle--compact {
+    display: none !important;
+  }
+}
+
+/* Fix skip-to-content Safari iOS */
+.skip-to-content:not(:focus) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
