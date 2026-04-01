@@ -12,41 +12,49 @@ defaultContentLanguageInSubdir = true
 [[languages.ca.menu.main]]
   name = "Qui som"
   url = "/ca/about/"
+  identifier = "about"
   weight = 1
 
 [[languages.ca.menu.main]]
   name = "El grup"
   url = "/ca/the-band/"
+  identifier = "band"
   weight = 2
 
 [[languages.ca.menu.main]]
   name = "Música / Discografia"
   url = "/ca/music/"
+  identifier = "music"
   weight = 3
 
 [[languages.ca.menu.main]]
   name = "Propers concerts"
   url = "/ca/concerts/"
+  identifier = "calendar"
   weight = 4
 
 [[languages.ca.menu.main]]
   name = "Vídeos"
   url = "/ca/videos/"
+  identifier = "video"
   weight = 5
 
 [[languages.ca.menu.main]]
   name = "Fotografies"
   url = "/ca/photos/"
+  identifier = "photo"
   weight = 6
 
 [[languages.ca.menu.main]]
   name = "Contacte / Contractació"
   url = "/ca/contact/"
+  identifier = "contact"
   weight = 7
 
 [[languages.ca.menu.main]]
   name = "Cerca"
   url = "/ca/search/"
+  identifier = "search"
   weight = 8
 
 [languages.es]
@@ -58,41 +66,49 @@ defaultContentLanguageInSubdir = true
 [[languages.es.menu.main]]
   name = "Quiénes somos"
   url = "/es/about/"
+  identifier = "about"
   weight = 1
 
 [[languages.es.menu.main]]
   name = "El grupo"
   url = "/es/the-band/"
+  identifier = "band"
   weight = 2
 
 [[languages.es.menu.main]]
   name = "Música / Discografía"
   url = "/es/music/"
+  identifier = "music"
   weight = 3
 
 [[languages.es.menu.main]]
   name = "Próximos conciertos"
   url = "/es/concerts/"
+  identifier = "calendar"
   weight = 4
 
 [[languages.es.menu.main]]
   name = "Vídeos"
   url = "/es/videos/"
+  identifier = "video"
   weight = 5
 
 [[languages.es.menu.main]]
   name = "Fotografías"
   url = "/es/photos/"
+  identifier = "photo"
   weight = 6
 
 [[languages.es.menu.main]]
   name = "Contacto / Contratación"
   url = "/es/contact/"
+  identifier = "contact"
   weight = 7
 
 [[languages.es.menu.main]]
   name = "Buscar"
   url = "/es/search/"
+  identifier = "search"
   weight = 8
 
 [languages.en]
@@ -104,41 +120,49 @@ defaultContentLanguageInSubdir = true
 [[languages.en.menu.main]]
   name = "About"
   url = "/en/about/"
+  identifier = "about"
   weight = 1
 
 [[languages.en.menu.main]]
   name = "The band"
   url = "/en/the-band/"
+  identifier = "band"
   weight = 2
 
 [[languages.en.menu.main]]
   name = "Music / Discography"
   url = "/en/music/"
+  identifier = "music"
   weight = 3
 
 [[languages.en.menu.main]]
   name = "Upcoming concerts"
   url = "/en/concerts/"
+  identifier = "calendar"
   weight = 4
 
 [[languages.en.menu.main]]
   name = "Videos"
   url = "/en/videos/"
+  identifier = "video"
   weight = 5
 
 [[languages.en.menu.main]]
   name = "Photos"
   url = "/en/photos/"
+  identifier = "photo"
   weight = 6
 
 [[languages.en.menu.main]]
   name = "Contact / Booking"
   url = "/en/contact/"
+  identifier = "contact"
   weight = 7
 
 [[languages.en.menu.main]]
   name = "Search"
   url = "/en/search/"
+  identifier = "search"
   weight = 8
 
 [params]
@@ -190,17 +214,3 @@ enabled     = true
   [outputFormats.Calendar]
     mediaType = "text/calendar"
     isPlainText = true
-[[languages.ca.menu.main]]
-  name = "Cerca"
-  url = "/ca/search/"
-  weight = 8
-
-[[languages.es.menu.main]]
-  name = "Buscar"
-  url = "/es/search/"
-  weight = 8
-
-[[languages.en.menu.main]]
-  name = "Search"
-  url = "/en/search/"
-  weight = 8
