@@ -44,6 +44,11 @@ defaultContentLanguageInSubdir = true
   url = "/ca/contact/"
   weight = 7
 
+[[languages.ca.menu.main]]
+  name = "Cerca"
+  url = "/ca/search/"
+  weight = 8
+
 [languages.es]
   contentDir = "content/es"
   title = "Bratia Music"
@@ -85,6 +90,11 @@ defaultContentLanguageInSubdir = true
   url = "/es/contact/"
   weight = 7
 
+[[languages.es.menu.main]]
+  name = "Buscar"
+  url = "/es/search/"
+  weight = 8
+
 [languages.en]
   contentDir = "content/en"
   title = "Bratia Music"
@@ -125,6 +135,11 @@ defaultContentLanguageInSubdir = true
   name = "Contact / Booking"
   url = "/en/contact/"
   weight = 7
+
+[[languages.en.menu.main]]
+  name = "Search"
+  url = "/en/search/"
+  weight = 8
 
 [params]
 description = "Web oficial de Bratia Music – Balkan, Gypsy Jazz i World Music des de Barcelona."
@@ -175,3 +190,17 @@ enabled     = true
   [outputFormats.Calendar]
     mediaType = "text/calendar"
     isPlainText = true
+[[languages.ca.menu.main]]
+  name = "Cerca"
+  url = "/ca/search/"
+  weight = 8
+
+[[languages.es.menu.main]]
+  name = "Buscar"
+  url = "/es/search/"
+  weight = 8
+
+[[languages.en.menu.main]]
+  name = "Search"
+  url = "/en/search/"
+  weight = 8

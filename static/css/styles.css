@@ -27,13 +27,6 @@
 
 /* ── 1. VARIABLES ────────────────────────────────────────── */
 
-@font-face {
-  font-family: 'Dancing Script';
-  src: url('/fonts/DancingScript-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
 
 :root {
   --c-dark:        #0e0d0b;
@@ -808,6 +801,31 @@ footer {
   .disc-platform__icon { width: 44px; height: 44px; }
   .disc-platform__icon svg { width: 24px; height: 24px; }
   .contact-email { font-size: 0.88rem; padding: 0.85rem 1.1rem; word-break: break-all; }
+}
+
+/* Nav compacte mòbil — cabre totes les icones */
+@media (max-width: 480px) {
+  .nav-compact {
+    padding: 0 0.5rem;
+    gap: 0.25rem;
+  }
+  .nav-compact__logo img {
+    height: 40px;
+  }
+  .nav-compact__list {
+    gap: 0;
+  }
+  .nav-compact__list a {
+    width: 30px;
+    height: 30px;
+  }
+  .nav-compact__list a svg {
+    width: 15px;
+    height: 15px;
+  }
+  .lang-switcher--compact {
+    display: none;
+  }
 }
 
 

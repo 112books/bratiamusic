@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
   {{ partial "seo.html" . }}
+  <style>
+    @font-face {
+      font-family: 'Dancing Script';
+      src: url('{{ "fonts/DancingScript-SemiBold.woff2" | relURL }}') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+</style>
   <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
   {{ partial "analytics/goatcounter.html" . }}
   <script src="{{ "js/track.js" | relURL }}"></script>
