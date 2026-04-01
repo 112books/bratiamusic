@@ -1,6 +1,6 @@
 {{- $id := .Get "id" -}}
 {{- $gallery := "" -}}
-{{- range .Site.Data.galleries -}}
+{{- range hugo.Data.galleries -}}
   {{- if eq .id $id -}}{{- $gallery = . -}}{{- end -}}
 {{- end -}}
 

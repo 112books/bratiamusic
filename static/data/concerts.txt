@@ -1,9 +1,11 @@
 BEGIN:VCALENDAR
-PRODID:-//Google Inc//Google Calendar 70.9054//EN
 VERSION:2.0
-CALSCALE:GREGORIAN
-METHOD:PUBLISH
-X-WR-CALNAME:Bratia Music - calendar
-X-WR-TIMEZONE:Europe/Madrid
-X-WR-CALDESC:The next shows for this band
+BEGIN:VEVENT
+DTSTART:20260415
+DTEND:20260416
+SUMMARY:Bratia Music al Jamboree Jazz Club
+LOCATION:Placa Reial 17 Barcelona
+DESCRIPTION:Concert especial de Balkan Gypsy Jazz
+URL:https://bratiamusic.com
+END:VEVENT
 END:VCALENDAR

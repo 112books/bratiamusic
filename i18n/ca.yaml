@@ -19,3 +19,14 @@ contact: "Contacte / Contractació"
 
 slogan: "Jugant amb les tradicions des de 2020: Balkan Pompe Ignition!"
 follow_us: "Segueix-nos"
+
+# Accessibilitat i navegació
+skip_to_content: "Salta al contingut principal"
+nav_main: "Navegació principal"
+nav_compact: "Navegació ràpida"
+nav_toggle: "Obrir menú"
+cal_prev: "Mes anterior"
+cal_next: "Mes següent"
+upcoming_concerts: "Propers concerts"
+past_concerts: "Concerts passats"
+loading: "Carregant..."

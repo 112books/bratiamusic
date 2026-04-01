@@ -1,5 +1,5 @@
 <div class="galleries-grid">
-  {{- range .Site.Data.galleries -}}
+  {{- range hugo.Data.galleries -}}
   <a class="gallery-card" href="#gallery-{{ .id }}" data-open-gallery="{{ .id }}">
     <div class="gallery-card__thumb">
       <img src="{{ .cover | relURL }}"
@@ -16,7 +16,7 @@
 </div>
 
 {{/* Galeries ocultes (s'obren en clic) */}}
-{{- range .Site.Data.galleries -}}
+{{- range hugo.Data.galleries -}}
 <div class="gallery-section" id="gallery-{{ .id }}" hidden>
   <div class="gallery-section__header">
     <h3>{{ .title }}</h3>

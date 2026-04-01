@@ -19,3 +19,9 @@ contact: "Contact / Booking"
 
 slogan: "Messing with Traditions since 2020: Balkan Pompe Ignition!"
 follow_us: "Follow us"
+
+# Accessibility and navigation
+skip_to_content: "Skip to main content"
+nav_main: "Main navigation"
+nav_compact: "Quick navigation"
+nav_toggle: "Open menu"

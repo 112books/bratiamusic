@@ -1,6 +1,5 @@
 {{ define "main" }}
 
-
 <section class="concerts-section"
   style="--concerts-bg: url('{{ "images/concerts/bratia-concerts-IMG_3091.jpg" | absURL }}')"
   data-ical="{{ "data/concerts.txt" | absURL }}"
@@ -14,26 +13,19 @@
   <div class="concerts-top">
     <div class="cal-wrapper">
       <div class="cal-nav">
-        <button class="cal-prev" aria-label="Mes anterior">&#8592;</button>
+        <button class="cal-prev" aria-label="{{ i18n "cal_prev" | default "Mes anterior" }}">&#8592;</button>
         <h2 class="cal-month-label"></h2>
-        <button class="cal-next" aria-label="Mes següent">&#8594;</button>
+        <button class="cal-next" aria-label="{{ i18n "cal_next" | default "Mes següent" }}">&#8594;</button>
       </div>
-      <div class="cal-grid-header">
-        {{ if eq .Lang "ca" }}
-          <span>Dl</span><span>Dt</span><span>Dc</span><span>Dj</span><span>Dv</span><span>Ds</span><span>Dg</span>
-        {{ else if eq .Lang "es" }}
-          <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sá</span><span>Do</span>
-        {{ else }}
-          <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
-        {{ end }}
-      </div>
+      {{/* Els dies de la setmana els injecta concerts.js des de I18N */}}
+      <div class="cal-grid-header" aria-hidden="true"></div>
       <div class="cal-grid" id="cal-grid"></div>
     </div>
 
     <div class="concerts-list-col">
-      <ul class="concerts-upcoming-list" id="concerts-upcoming">
-        <li class="concerts-loading">
-          <span class="music-notes">
+      <ul class="concerts-upcoming-list" id="concerts-upcoming" aria-live="polite" aria-label="{{ i18n "upcoming_concerts" | default "Propers concerts" }}">
+        <li class="concerts-loading" aria-label="{{ i18n "loading" | default "Carregant..." }}">
+          <span class="music-notes" aria-hidden="true">
             <span>♩</span><span>♪</span><span>♫</span><span>♬</span><span>♪</span>
           </span>
         </li>
@@ -41,20 +33,16 @@
     </div>
   </div>
 
-  <div class="concert-detail" id="concert-detail" hidden></div>
+  <div class="concert-detail" id="concert-detail" hidden aria-live="polite"></div>
 
   <div class="concerts-subscribe-wrap">
     {{ partial "calendar-subscribe.html" . }}
   </div>
 
   <div class="concerts-past-section">
-    <h3 class="concerts-past-title">
-      {{ if eq .Lang "ca" }}Concerts passats
-      {{ else if eq .Lang "es" }}Conciertos pasados
-      {{ else }}Past concerts
-      {{ end }}
-    </h3>
-    <ul class="concerts-past-list" id="concerts-past"></ul>
+    {{/* El títol "Concerts passats" l'injecta concerts.js des de I18N */}}
+    <h3 class="concerts-past-title"></h3>
+    <ul class="concerts-past-list" id="concerts-past" aria-label="{{ i18n "past_concerts" | default "Concerts passats" }}"></ul>
   </div>
 
 </section>

@@ -981,4 +981,41 @@ footer {
 
 @media (max-width: 560px) {
   .galleries-grid { grid-template-columns: 1fr; }
+}/* ============================================================
+   ACCESSIBILITAT — afegir a la secció corresponent de styles.css
+   (preferiblement a la secció 1 - Base / Reset)
+   ============================================================ */
+
+/* Skip to content — visible només en focus teclat */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-primary, #c0392b);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 0 0 4px 4px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Focus visible per a navegació per teclat */
+:focus-visible {
+  outline: 3px solid var(--color-primary, #c0392b);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Elimina outline per a clics de ratolí, manté per a teclat */
+:focus:not(:focus-visible) {
+  outline: none;
 }

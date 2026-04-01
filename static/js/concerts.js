@@ -1,39 +1,46 @@
 /**
- * concerts.js — Bratia Music v3
- * Llegeix /data/concerts.ics (fitxer local, sense CORS)
+ * concerts.js — Bratia Music v4
+ * Llegeix /data/concerts.txt (fitxer local, sense CORS)
  * generat cada nit per GitHub Actions.
+ * v4: afegit Schema.org MusicEvent dinàmic
  */
 
 (function () {
   "use strict";
 
-const I18N = {
+  const I18N = {
     ca: {
       months: ["Gener","Febrer","Març","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"],
       shortMonths: ["gen","feb","mar","abr","mai","jun","jul","ago","set","oct","nov","des"],
+      weekdays: ["Dl","Dt","Dc","Dj","Dv","Ds","Dg"],
       noUpcoming: "No hi ha propers concerts programats.",
       noUpcomingNewsletter: "Subscriu-te al newsletter per rebre novetats.",
       noPast: "Sense concerts recents.",
       tickets: "Entrades",
       addToCalendar: "Afegir al calendari",
+      pastConcerts: "Concerts passats",
     },
     es: {
       months: ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
       shortMonths: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
+      weekdays: ["Lu","Ma","Mi","Ju","Vi","Sá","Do"],
       noUpcoming: "No hay próximos conciertos programados.",
       noUpcomingNewsletter: "Suscríbete al newsletter para recibir novedades.",
       noPast: "Sin conciertos recientes.",
       tickets: "Entradas",
       addToCalendar: "Añadir al calendario",
+      pastConcerts: "Conciertos pasados",
     },
     en: {
       months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
       shortMonths: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+      weekdays: ["Mo","Tu","We","Th","Fr","Sa","Su"],
       noUpcoming: "No upcoming concerts scheduled.",
       noUpcomingNewsletter: "Subscribe to our newsletter to stay updated.",
       noPast: "No recent concerts.",
       tickets: "Tickets",
       addToCalendar: "Add to calendar",
+      pastConcerts: "Past concerts",
     },
   };
 
@@ -44,10 +51,21 @@ const I18N = {
   const newsletterUrl = section.dataset.newsletter || "#newsletter";
   const t             = I18N[lang] || I18N.ca;
 
+  // Injecta les etiquetes dels dies de la setmana des del JS (elimina hardcode del template)
+  const gridHeader = document.querySelector(".cal-grid-header");
+  if (gridHeader) {
+    gridHeader.innerHTML = t.weekdays.map(d => `<span>${d}</span>`).join("");
+  }
+
+  // Injecta el títol "Concerts passats" des del JS
+  const pastTitle = document.querySelector(".concerts-past-title");
+  if (pastTitle) {
+    pastTitle.textContent = t.pastConcerts;
+  }
+
   let calDate   = new Date();
   let allEvents = [];
 
-  // Fitxer local — sense CORS, sense proxy
   fetch(section.dataset.ical)
     .then((r) => {
       if (!r.ok) throw new Error("HTTP " + r.status);
@@ -58,8 +76,64 @@ const I18N = {
       renderCalendar(calDate);
       renderUpcoming();
       renderPast();
+      injectMusicEventSchema(allEvents);
     })
     .catch((err) => renderError(err.message));
+
+  // ─── Schema.org MusicEvent ────────────────────────────────────────────────
+  function injectMusicEventSchema(events) {
+    const now      = new Date();
+    const upcoming = events.filter(e => e.start && e.start >= now);
+    if (upcoming.length === 0) return;
+
+    const pageUrl = window.location.href;
+
+    const schemaEvents = upcoming.map(e => {
+      const obj = {
+        "@type": "MusicEvent",
+        "name": e.title,
+        "startDate": toISOLocal(e.start),
+        "performer": {
+          "@type": "MusicGroup",
+          "name": "Bratia Music",
+          "url": window.location.origin
+        }
+      };
+      if (e.end)      obj.endDate  = toISOLocal(e.end);
+      if (e.url)      obj.url      = e.url;
+      if (e.location) obj.location = {
+        "@type": "Place",
+        "name": e.location
+      };
+      if (e.desc) obj.description = e.desc.substring(0, 300);
+      return obj;
+    });
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@graph": schemaEvents
+    };
+
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify(schema, null, 2);
+    document.head.appendChild(script);
+  }
+
+  function toISOLocal(d) {
+    if (!d) return "";
+    // Si és allday (hora 0:0:0), retorna només la data
+    if (d.getHours() === 0 && d.getMinutes() === 0 && d.getSeconds() === 0) {
+      return d.getFullYear() + "-" +
+        String(d.getMonth()+1).padStart(2,"0") + "-" +
+        String(d.getDate()).padStart(2,"0");
+    }
+    return d.getFullYear() + "-" +
+      String(d.getMonth()+1).padStart(2,"0") + "-" +
+      String(d.getDate()).padStart(2,"0") + "T" +
+      String(d.getHours()).padStart(2,"0") + ":" +
+      String(d.getMinutes()).padStart(2,"0") + ":00";
+  }
 
   // ─── Parser iCal ─────────────────────────────────────────────────────────
   function parseICal(raw) {
@@ -162,7 +236,7 @@ const I18N = {
 
   // ─── Llista propers concerts ──────────────────────────────────────────────
   function renderUpcoming() {
-    const now     = new Date();
+    const now      = new Date();
     const upcoming = allEvents.map((e,i) => ({e,i})).filter(({e}) => e.start && e.start >= now);
     const ul = document.getElementById("concerts-upcoming");
     if (!ul) return;
@@ -242,14 +316,14 @@ const I18N = {
     const detail = document.getElementById("concert-detail");
     if (!detail) return;
 
- const dateStr = event.start
-  ? event.start.toLocaleDateString(langLocale(), {weekday:"long", day:"numeric", month:"long", year:"numeric"}).toUpperCase()
-  : "";
-const timeStr = event.start && event.start.getHours() > 0
-  ? " · " + event.start.toLocaleTimeString(langLocale(), {hour:"2-digit", minute:"2-digit"})
-  : "";
+    const dateStr = event.start
+      ? event.start.toLocaleDateString(langLocale(), {weekday:"long", day:"numeric", month:"long", year:"numeric"}).toUpperCase()
+      : "";
+    const timeStr = event.start && event.start.getHours() > 0
+      ? " · " + event.start.toLocaleTimeString(langLocale(), {hour:"2-digit", minute:"2-digit"})
+      : "";
 
-  const icalUrl = section.dataset.ical || "";
+    const icalUrl = section.dataset.ical || "";
 
     detail.removeAttribute("hidden");
     detail.innerHTML = `
