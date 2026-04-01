@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-01T19:04:10Z",
+  "generated": "2026-04-01T20:45:30Z",
   "period": {
     "start": "2026-03-02",
     "end": "2026-04-01"
@@ -23,7 +23,7 @@
     {
       "id": "Safari",
       "name": "Safari",
-      "count": 137
+      "count": 139
     },
     {
       "id": "Chrome",
@@ -40,7 +40,7 @@
     {
       "id": "macOS",
       "name": "macOS",
-      "count": 178
+      "count": 180
     },
     {
       "id": "iOS",
@@ -72,7 +72,7 @@
     {
       "id": "desktop",
       "name": "Escriptori",
-      "count": 33
+      "count": 35
     },
     {
       "id": "desktophd",
@@ -89,7 +89,7 @@
     {
       "id": "ES",
       "name": "Spain",
-      "count": 274
+      "count": 276
     },
     {
       "id": "TR",
