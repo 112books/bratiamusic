@@ -21,6 +21,7 @@
    17. Contacte
    18. Vídeos
    19. Galeries (portades)
+   20. CERCA (Pagefind) 
    ============================================================ */
 
 
@@ -1018,4 +1019,191 @@ footer {
 /* Elimina outline per a clics de ratolí, manté per a teclat */
 :focus:not(:focus-visible) {
   outline: none;
+}
+
+/* ── 20. CERCA (Pagefind) ─────────────────────────────────────────────────── */
+
+.search-wrap {
+  min-height: calc(100vh - var(--compact-h));
+}
+
+.search-container {
+  max-width: 720px;
+  margin-top: 2rem;
+}
+
+/* Input */
+.search-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  width: 20px;
+  height: 20px;
+  color: var(--c-gold);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 3rem 1rem 3rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  color: var(--c-light);
+  font-family: var(--f-body);
+  font-size: 1rem;
+  transition: border-color 0.2s, background 0.2s;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--c-text-muted);
+}
+
+.search-input:focus {
+  border-color: var(--c-gold);
+  background: rgba(255,255,255,0.08);
+}
+
+.search-clear {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.search-clear svg {
+  width: 16px;
+  height: 16px;
+}
+
+.search-clear:hover {
+  color: var(--c-gold);
+}
+
+/* Estat */
+.search-status {
+  font-size: 0.82rem;
+  color: var(--c-text-muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
+  min-height: 1.2em;
+}
+
+/* Resultats */
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.search-result {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.search-result__link {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1.25rem 0;
+  text-decoration: none;
+  color: inherit;
+  transition: padding-left 0.2s;
+}
+
+.search-result__link:hover {
+  padding-left: 0.5rem;
+}
+
+.search-result__link:hover .search-result__title {
+  color: var(--c-gold);
+}
+
+/* Imatge miniatura */
+.search-result__img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 3px;
+  flex-shrink: 0;
+  background: var(--c-mid);
+}
+
+.search-result__img--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.2);
+}
+
+.search-result__img--placeholder svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Text */
+.search-result__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.search-result__section {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-gold);
+}
+
+.search-result__title {
+  font-family: var(--f-display);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--c-light);
+  transition: color 0.2s;
+  margin: 0;
+}
+
+.search-result__excerpt {
+  font-size: 0.82rem;
+  color: rgba(245,241,234,0.55);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Highlight del terme cercat */
+.search-result__excerpt mark,
+.search-result__title mark {
+  background: rgba(200,168,75,0.25);
+  color: var(--c-gold-light);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* Responsive */
+@media (max-width: 560px) {
+  .search-result__img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .search-result__title {
+    font-size: 0.95rem;
+  }
 }
