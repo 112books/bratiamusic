@@ -14,7 +14,7 @@
       font-display: swap;
     }
 </style>
-  <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}?v={{ now.Unix }}">
   {{ partial "analytics/goatcounter.html" . }}
   <script src="{{ "js/track.js" | relURL }}"></script>
   <link rel="author" href="/humans.txt">
