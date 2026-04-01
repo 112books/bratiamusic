@@ -47,7 +47,7 @@
     {{ range site.Menus.main }}
     <li>
       <a href="{{ .URL }}" aria-label="{{ .Name }}" data-tip="{{ .Name }}">
-        {{ partial "icons/nav-icon.html" .Identifier }}
+        {{ partial "icons/nav-icon.html" .URL }}
       </a>
     </li>
     {{ end }}
