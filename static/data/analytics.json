@@ -1,21 +1,21 @@
 {
-  "generated": "2026-04-02T23:36:01Z",
+  "generated": "2026-04-03T02:29:18Z",
   "period": {
-    "start": "2026-03-03",
-    "end": "2026-04-02"
+    "start": "2026-03-04",
+    "end": "2026-04-03"
   },
-  "total": 286,
+  "total": 294,
   "by_lang": {
-    "ca": 159,
+    "ca": 167,
     "es": 41,
     "en": 59
   },
   "by_section": {
-    "about": 27,
-    "the-band": 29,
-    "music": 23,
+    "about": 28,
+    "the-band": 30,
+    "music": 24,
     "concerts": 33,
-    "videos": 28,
+    "videos": 29,
     "photos": 28,
     "contact": 27
   },
