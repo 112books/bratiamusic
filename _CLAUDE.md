@@ -231,3 +231,17 @@ i18n/ca.yaml · es.yaml · en.yaml
 
 Plantilla reutilitzable per a músics i bandes: estàtica · ràpida · segura ·
 editable via Markdown+Obsidian · multilingüe nativa · qualsevol hosting estàtic.
+
+
+## Control de recursos claude:
+
+Respon de forma extrema-ment concisa.
+
+- No expliquis res si no ho demano
+- No repeteixis el context
+- Dona només la resposta operativa
+- Evita llistes llargues
+- Evita exemples si no es demanen
+- Limita la resposta a màxim 5 línies
+
+Si cal més detall, ja t’ho demanaré.
