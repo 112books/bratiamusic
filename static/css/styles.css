@@ -625,7 +625,7 @@ footer {
 .legal-links { list-style: none; display: flex; flex-direction: column; gap: 0; text-align: right; }
 .legal-links li { line-height: 1.2; }
 .legal-links li::before { content: '– '; color: rgba(255,255,255,.2); }
-.legal-links a { font-size: .62rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color var(--dur); display: inline-block; min-height: 44px; line-height: 44px; }
+.legal-links a { font-size: .62rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color var(--dur); display: inline-block; padding: 12px 0; }
 .legal-links a:hover { color: var(--c-gold); }
 
 .footer-bottom {
