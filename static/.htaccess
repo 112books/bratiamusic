@@ -2,7 +2,7 @@
 ErrorDocument 404 /404.html
 
 # ── Redireccions ──────────────────────────────────────────
-Redirect 301 /admin/ /ca/admin/
+RedirectMatch 301 ^/admin/$ /ca/admin/
 
 # ── Seguretat: Headers HTTP ───────────────────────────────
 <IfModule mod_headers.c>
