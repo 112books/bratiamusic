@@ -22,14 +22,14 @@ jobs:
           START=$(date -d '30 days ago' +%Y-%m-%d)
           BASE="https://${GC_ACCOUNT}.goatcounter.com/api/v0"
           AUTH="Authorization: Bearer ${GC_TOKEN}"
+          echo "=== TOKEN (primers 8 chars) ==="
+          echo "${GC_TOKEN:0:8}..."
           echo "=== HITS ==="
           curl -s --max-time 15 -H "${AUTH}" "${BASE}/stats/hits?start=${START}&end=${END}&limit=100" | head -c 200
           echo ""
           echo "=== BROWSERS ==="
           curl -s --max-time 15 -H "${AUTH}" "${BASE}/stats/browsers?start=${START}&end=${END}&limit=10" | head -c 200
           echo ""
-          echo "=== TOKEN (primers 8 chars) ==="
-          echo "${GC_TOKEN:0:8}..."
 
       - name: Fetch analytics data
         env:
@@ -49,56 +49,20 @@ jobs:
               echo "${result}"
             else
               echo "WARN: Resposta invalida per: ${url}" >&2
-              echo "      Contingut rebut: ${result:0:100}" >&2
+              echo "      Contingut: ${result:0:100}" >&2
               echo "null"
             fi
           }
 
-          echo "Obtenint dades GoatCounter del ${START} al ${END}..."
+          echo "Obtenint dades del ${START} al ${END}..."
 
-          HITS=$(fetch_json "${BASE}/stats/hits?start=${START}&end=${END}&limit=100")
-          BROWSERS=$(fetch_json "${BASE}/stats/browsers?start=${START}&end=${END}&limit=10")
-          SYSTEMS=$(fetch_json "${BASE}/stats/systems?start=${START}&end=${END}&limit=10")
-          SIZES=$(fetch_json "${BASE}/stats/sizes?start=${START}&end=${END}&limit=10")
-          LOCATIONS=$(fetch_json "${BASE}/stats/locations?start=${START}&end=${END}&limit=10")
+          echo "$(fetch_json "${BASE}/stats/hits?start=${START}&end=${END}&limit=100")"      > /tmp/hits.json
+          echo "$(fetch_json "${BASE}/stats/browsers?start=${START}&end=${END}&limit=10")"   > /tmp/browsers.json
+          echo "$(fetch_json "${BASE}/stats/systems?start=${START}&end=${END}&limit=10")"    > /tmp/systems.json
+          echo "$(fetch_json "${BASE}/stats/sizes?start=${START}&end=${END}&limit=10")"      > /tmp/sizes.json
+          echo "$(fetch_json "${BASE}/stats/locations?start=${START}&end=${END}&limit=10")"  > /tmp/locations.json
 
-          echo "${HITS}"       > /tmp/hits.json
-          echo "${BROWSERS}"   > /tmp/browsers.json
-          echo "${SYSTEMS}"    > /tmp/systems.json
-          echo "${SIZES}"      > /tmp/sizes.json
-          echo "${LOCATIONS}"  > /tmp/locations.json
-
-          python3 - <<'PYEOF'
-import json
-from datetime import datetime, timezone
-import os, sys
-
-def load(path):
-    with open(path) as f:
-        try:
-            return json.load(f)
-        except json.JSONDecodeError as e:
-            print(f"WARN: JSON invalid a {path}: {e}", file=sys.stderr)
-            return None
-
-start = os.environ.get("START", "")
-end   = os.environ.get("END", "")
-
-data = {
-    "generated_at": datetime.now(timezone.utc).isoformat(),
-    "period": {"start": start, "end": end},
-    "hits_data":  load("/tmp/hits.json"),
-    "browsers":   load("/tmp/browsers.json"),
-    "systems":    load("/tmp/systems.json"),
-    "sizes":      load("/tmp/sizes.json"),
-    "locations":  load("/tmp/locations.json"),
-}
-
-with open("/tmp/raw_all.json", "w") as f:
-    json.dump(data, f, indent=2)
-
-print("JSON generat correctament")
-PYEOF
+          python3 scripts/build-analytics-json.py "${START}" "${END}"
 
       - name: Process analytics
         run: |
