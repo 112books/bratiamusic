@@ -20,3 +20,4 @@ node_modules/
 # Credencials locals
 *.conf
 .env
+netlify-cms-github-oauth-provider/
