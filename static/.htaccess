@@ -1,2 +1,41 @@
+# ── Errors ────────────────────────────────────────────────
 ErrorDocument 404 /404.html
+
+# ── Redireccions ──────────────────────────────────────────
 Redirect 301 /admin/ /ca/admin/
+
+# ── Seguretat: Headers HTTP ───────────────────────────────
+<IfModule mod_headers.c>
+    # HSTS: força HTTPS durant 1 any
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+    # Evita clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Evita MIME sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Referrer policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Permissions policy
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+    # COOP
+    Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+
+    # CSP — permet GoatCounter i fonts locals
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' gc.zgo.at; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' gc.zgo.at; frame-src 'none'"
+</IfModule>
+
+# ── Caché estàtica ─────────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp        "access plus 1 year"
+    ExpiresByType image/jpeg        "access plus 1 year"
+    ExpiresByType image/png         "access plus 1 year"
+    ExpiresByType image/svg+xml     "access plus 1 year"
+    ExpiresByType text/css          "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType font/woff2        "access plus 1 year"
+</IfModule>
