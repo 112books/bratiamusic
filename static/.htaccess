@@ -25,7 +25,7 @@ RedirectMatch 301 ^/admin/$ /ca/admin/
     Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
 
     # CSP — permet GoatCounter i fonts locals
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' gc.zgo.at unpkg.com; style-src 'self' 'unsafe-inline' unpkg.com; font-src 'self' unpkg.com; img-src 'self' data: https:; connect-src 'self' gc.zgo.at bratia-music.goatcounter.com api.github.com; frame-src 'none'"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' gc.zgo.at unpkg.com; style-src 'self' 'unsafe-inline' unpkg.com; font-src 'self' unpkg.com; img-src 'self' data: https:; connect-src 'self' gc.zgo.at bratia-music.goatcounter.com api.github.com; frame-src open.spotify.com www.youtube.com www.youtube-nocookie.com player.vimeo.com"
 </IfModule>
 
 # ── Caché estàtica ─────────────────────────────────────────
