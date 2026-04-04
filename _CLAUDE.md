@@ -43,8 +43,9 @@ hugo --minify --environment production
 ### sync-web.sh
 - Opció 4 → Deploy GitHub Pages (staging)
 - Opció 5 → Publish Dinahosting via rsync SSH
-- `--omit-dir-times` afegit al rsync → elimina fals error de permisos
+- `--omit-dir-times` al rsync → elimina fals error de permisos
 - Exit code 23 tolerat → no marca error fals
+- `git pull --rebase` + `git push` integrat per evitar rebuig
 
 ### Deploy producció — rsync SSH
 ```bash
@@ -54,14 +55,16 @@ rsync -avz --delete --checksum --omit-dir-times \
   public/ bratiamusic@vl28359.dinaserver.com:www/
 ```
 - Clau SSH: ~/.ssh/bratiamusic_deploy
-- Warning "post-quantum key exchange" = cosmètic, no afecta deploy
+- ⚠️ .htaccess pot no detectar-se com a canviat per rsync --checksum
+  → Forçar: `rsync -avz -e "ssh -i ~/.ssh/bratiamusic_deploy" static/.htaccess bratiamusic@vl28359.dinaserver.com:www/`
 
 ### GitHub Actions
 - deploy.yml → build staging → gh-pages automàtic
 - fetch-concerts.yml · fetch-galleries.yml · fetch-videos.yml → nocturns
 - fetch-analytics.yml → cada hora → static/data/analytics.json
 - fetch-videos.yml → script extern scripts/process-youtube.py (NO heredoc inline)
-- Tots els workflows tenen `workflow_dispatch` per executar manualment
+- fetch-concerts.yml → genera concerts-schema.json per Schema.org
+- Tots els workflows tenen `workflow_dispatch`
 
 ### .htaccess
 ```apache
@@ -69,14 +72,15 @@ ErrorDocument 404 /404.html
 Redirect 301 /admin/ /ca/admin/
 
 # Headers de seguretat (mod_headers)
-Strict-Transport-Security · X-Frame-Options · X-Content-Type-Options
-Referrer-Policy · Permissions-Policy · COOP · CSP (GoatCounter allowlist)
+HSTS · X-Frame-Options · X-Content-Type-Options
+Referrer-Policy · Permissions-Policy · COOP
+CSP: connect-src inclou gc.zgo.at I bratia-music.goatcounter.com
 
 # Caché estàtica (mod_expires)
 imatges/fonts: 1 any · CSS/JS: 1 mes
 ```
-⚠️ PageSpeed pot mostrar fals negatiu de CSP/HSTS — verificar amb:
-`curl -sI https://bratiamusic.com/ca/ | grep -i "strict\|csp\|x-frame"`
+⚠️ PageSpeed mostra fals negatiu de CSP/HSTS — verificar amb:
+`curl -sI https://bratiamusic.com/ca/ | grep -i "strict\|csp\|content-security"`
 
 ---
 
@@ -136,6 +140,7 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 | Admin index | ✅ /ca/admin/ |
 | Admin dashboard | ✅ /ca/admin/insights/ |
 | SEO | ✅ OpenGraph + hreflang + canonical |
+| Schema.org | ✅ MusicGroup + MusicEvent + BreadcrumbList + WebSite |
 | Legals CA/ES/EN | ✅ |
 | Favicon | ✅ SVG + PNG + ICO + apple-touch + manifest |
 
@@ -149,14 +154,13 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 - JS extern: `static/js/admin-dashboard.js`
 - CSS + HTML: `layouts/admin/single.html`
 - Base: `layouts/admin/baseof.html`
-- Contingut: `content/ca/admin/`
 
 ### Funcionalitats (04/04/2026)
 - Selector de període: 7 dies / 30 dies / 3 mesos / 1 any / Total
-- Dates llegibles: "5 de març de 2026 → 4 d'abril de 2026"
-- Filtre proporcional sobre el JSON existent (sense nova crida API)
+- Dates llegibles en català
+- Filtre proporcional sobre el JSON existent
 - Icones proporcionals per navegadors, sistemes i dispositius
-- Interpretació automàtica (insights) · Responsive mòbil
+- Interpretació automàtica · Responsive mòbil
 
 ### Cache-busting JS
 ```html
@@ -165,22 +169,27 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 
 ### GoatCounter
 - Compte: bratia-music.goatcounter.com
-- Secret GitHub: GOATCOUNTER_TOKEN (Read statistics)
+- Secret GitHub: GOATCOUNTER_TOKEN
 - Script: scripts/process-analytics.py
-- ⚠️ parse_stats és defensiu: s.get('id') or s.get('code') or s.get('name')
+- ⚠️ parse_stats defensiu: s.get('id') or s.get('code') or s.get('name')
 
 ---
 
 ## Scripts Python
 
 ### scripts/process-analytics.py
-- parse_stats() defensiu: camps variables per endpoint GoatCounter
+- parse_stats() defensiu per camps variables per endpoint
 - Ús: `python3 scripts/process-analytics.py raw.json out.json START END`
 
 ### scripts/process-youtube.py
-- Externalitzat (NO heredoc inline al workflow — trenca indentació YAML)
-- Filtra Shorts per #Shorts al títol/descripció i per URL /shorts/
+- NO heredoc inline al workflow
+- Filtra Shorts per #Shorts i per URL /shorts/
 - Ús: `python3 scripts/process-youtube.py /tmp/yt-feed.xml static/data/videos.json`
+
+### scripts/process-concerts.py
+- Converteix concerts.txt (iCal) → data/concerts-schema.json
+- Hugo llegeix data/ com site.Data.concerts_schema
+- Ús: `python3 scripts/process-concerts.py concerts.txt output.json https://bratiamusic.com`
 
 ---
 
@@ -192,6 +201,10 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 | bratia-portada-fondo.jpg (3,6MB) | .webp (190KB) | 95% |
 | bratia-about.jpg (742KB) | .webp (104KB) | 86% |
 | band/*.jpg (~70KB) | .webp (~27KB) | ~62% |
+
+### Logo: PNG → SVG
+- `logo.png` substituït per `logo.svg` a tots els templates
+- SVG escala perfectament, més lleuger que PNG
 
 ### Comandes de conversió
 ```bash
@@ -210,18 +223,30 @@ for f in static/images/band/*.jpg; do cwebp -q 82 "$f" -o "${f%.jpg}.webp"; done
 
 ---
 
-## PageSpeed Insights — Resultats (04/04/2026)
+## PageSpeed Insights — Resultats finals (04/04/2026)
 
-| Mètrica | Inici | Final |
-|---------|-------|-------|
-| Rendiment | 73 | **100** |
-| Accessibilitat | 93 | **93** (footer) |
-| Pràctiques | 100 | **100** |
+| Mètrica | Inici sessió | Final sessió |
+|---------|-------------|--------------|
+| Rendiment | 73 | **99-100** |
+| Accessibilitat | 93 | **100** |
+| Pràctiques | 100 | **92** * |
 | SEO | 100 | **100** |
 | LCP | 20,9s | **1,1s** |
 | Speed Index | 3,8s | **0,9s** |
 
-Problemes restants (93): contrast i touch targets del footer — elements secundaris de disseny.
+*92 Pràctiques és el màxim assolible: `unsafe-inline` requerit per Hugo/GoatCounter,
+Trusted Types incompatible amb l'arquitectura actual, HSTS preload opcionals.
+
+---
+
+## Schema.org — RESOLT (04/04/2026)
+
+- **MusicGroup** → totes les pàgines
+- **BreadcrumbList** → subpàgines
+- **WebSite** + SearchAction → home
+- **MusicEvent** → pàgina concerts (llegit de `data/concerts-schema.json`)
+
+Validat a https://validator.schema.org → 0 errors, 0 advertiments
 
 ---
 
@@ -238,13 +263,15 @@ URLs absolutes hardcoded. Detecta idioma via `navigator.language`.
 - Font Dancing Script: local a `static/fonts/`
 - GoatCounter: NOMÉS al baseof.html
 - Analytics JSON: `static/data/` (no `data/` — Hugo no el serveix)
-- JS complex al admin → fitxer extern `static/js/` (Hugo processa JS inline)
+- Schema JSON: `data/` (Hugo sí el llegeix com site.Data)
+- JS complex al admin → fitxer extern `static/js/`
 - Dos servidors Hugo → errors CORS. `pkill -f "hugo server"` primer
 - Workflow heredoc inline → trenca Python. Sempre fitxer .py extern
-- Re-run d'un job antic a GitHub Actions usa el codi del commit original
+- Re-run antic a GitHub Actions usa codi del commit original
 - Caché navegador: verificar amb ?nocache=1 o finestra incògnit
-- `git pull --rebase` + `git push` quan els workflows han fet commits automàtics
+- `git pull --rebase` + `git push` quan workflows han fet commits automàtics
 - PageSpeed pot mostrar fals negatiu de headers — verificar amb curl
+- .htaccess pot no pujar-se per rsync --checksum → forçar manualment si cal
 
 ---
 
@@ -254,18 +281,19 @@ URLs absolutes hardcoded. Detecta idioma via `navigator.language`.
 hugo.toml · config/local|staging|production/
 sync-web.sh · static/.htaccess · static/404.html
 static/data/analytics.json · static/js/admin-dashboard.js
-scripts/process-analytics.py · scripts/process-youtube.py
+data/concerts-schema.json · static/data/concerts-schema.json
+scripts/process-analytics.py · scripts/process-youtube.py · scripts/process-concerts.py
 layouts/_default/baseof.html · layouts/_default/index.html
-layouts/partials/head.html · layouts/partials/lang-switcher.html
-layouts/partials/band-member.html · layouts/shortcodes/band.html
-layouts/about/single.html
+layouts/partials/head.html · layouts/partials/seo.html
+layouts/partials/lang-switcher.html · layouts/partials/band-member.html
+layouts/shortcodes/band.html · layouts/about/single.html
 layouts/admin/baseof.html · layouts/admin/list.html · layouts/admin/single.html
-content/ca/admin/
 .github/workflows/fetch-analytics.yml · fetch-videos.yml
 .github/workflows/fetch-concerts.yml · fetch-galleries.yml · deploy.yml
 i18n/ca.yaml · es.yaml · en.yaml
 static/images/home-banner/bratia-portada-fondo.webp
 static/images/bratia-about.webp · static/images/band/*.webp
+static/images/logo.svg
 ```
 
 ---
@@ -274,35 +302,36 @@ static/images/bratia-about.webp · static/images/band/*.webp
 
 ### Completades (04/04/2026)
 - ✅ Canvi d'idiomes per entorn (31/03/2026)
-- ✅ Dashboard estadístiques GoatCounter (31/03/2026)
-- ✅ humans.txt i textos legals revisats (31/03/2026)
+- ✅ Dashboard estadístiques GoatCounter
+- ✅ humans.txt i textos legals revisats
 - ✅ Fix parse_stats() GoatCounter
-- ✅ Script YouTube externalitzat a process-youtube.py
+- ✅ Script YouTube externalitzat
 - ✅ Dashboard amb selector de període + dates llegibles
 - ✅ Cache-busting JS admin
-- ✅ Favicon complet
+- ✅ Favicon complet (SVG+PNG+ICO)
 - ✅ Eliminar directori 'per colocar'
 - ✅ site.Languages (deprecated .Site.Languages)
 - ✅ Imatges → WebP + width/height + picture fallback
+- ✅ Logo PNG → SVG
 - ✅ Headers de seguretat + caché estàtica .htaccess
+- ✅ CSP connect-src per GoatCounter
 - ✅ rsync --omit-dir-times
 - ✅ PageSpeed: 73→100 Rendiment, LCP 20,9s→1,1s
+- ✅ Accessibilitat: 93→100
+- ✅ Schema.org MusicGroup + MusicEvent + BreadcrumbList + WebSite
+- ✅ Google Analytics eliminat (no estava al codi)
+- ✅ fetch-concerts.yml genera concerts-schema.json
 
 ### Pròxima sessió
-- 🔲 Schema.org MusicGroup/MusicEvent
-- 🔲 Accessibilitat footer: contrast + touch targets → 100/100
-- 🔲 logo.png → WebP + width/height al nav-compact
-- 🔲 Pagefind — integració cercador al frontend
-- 🔲 GoatCounter events — verificar a producció
-
-### Admin — Manual d'usuari
-- 🔲 Continguts: discs, membres, galeries, vídeos, xarxes socials
+- 🔲 Pagefind — integració cercador al frontend (índex generat, falta el box)
+- 🔲 Manual d'usuari Obsidian per al client
 - 🔲 Press Kit · Rider tècnic · Partitures
 
 ### Funcionalitats futures
 - 🔲 Bandsintown.com · Newsletter · Giscus
 - 🔲 Línia del temps de la banda · EPK
 - 🔲 Estadístiques streaming (Spotify for Artists)
+- 🔲 Decap CMS (blogging)
 
 ---
 
