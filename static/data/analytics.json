@@ -1,19 +1,19 @@
 {
-  "generated": "2026-04-03T18:50:39Z",
+  "generated": "2026-04-04T07:30:36Z",
   "period": {
-    "start": "2026-03-04",
-    "end": "2026-04-03"
+    "start": "2026-03-05",
+    "end": "2026-04-04"
   },
-  "total": 294,
+  "total": 300,
   "by_lang": {
-    "ca": 167,
+    "ca": 172,
     "es": 41,
     "en": 59
   },
   "by_section": {
-    "about": 28,
+    "about": 29,
     "the-band": 30,
-    "music": 24,
+    "music": 25,
     "concerts": 33,
     "videos": 29,
     "photos": 28,
@@ -34,6 +34,11 @@
       "id": "Firefox",
       "name": "Firefox",
       "count": 6
+    },
+    {
+      "id": "unknown",
+      "name": "unknown",
+      "count": 1
     }
   ],
   "systems": [
@@ -56,6 +61,11 @@
       "id": "Android",
       "name": "Android",
       "count": 10
+    },
+    {
+      "id": "Linux",
+      "name": "Linux",
+      "count": 1
     }
   ],
   "sizes": [
@@ -72,7 +82,7 @@
     {
       "id": "desktop",
       "name": "Escriptori",
-      "count": 37
+      "count": 38
     },
     {
       "id": "desktophd",
@@ -89,7 +99,7 @@
     {
       "id": "ES",
       "name": "Spain",
-      "count": 294
+      "count": 295
     },
     {
       "id": "TR",
