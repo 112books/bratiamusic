@@ -1,0 +1,153 @@
+backend:
+  name: github
+  repo: 112books/bratiamusic
+  branch: main
+  base_url: https://cms-oauth-bratia-y855.vercel.app
+  auth_endpoint: /api/auth
+
+publish_mode: editorial_workflow
+
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+locale: "ca"
+
+i18n:
+  structure: multiple_folders
+  locales: [ca, es, en]
+  default_locale: ca
+
+site_url: https://bratiamusic.com
+display_url: https://bratiamusic.com
+
+collections:
+  # ─── Pàgines fixes (per idioma) ──────────────────
+  - name: "pages-ca"
+    label: "Pàgines (CA)"
+    files:
+      - name: "home-ca"
+        label: "Portada"
+        file: "content/ca/_index.md"
+        fields:
+          - { label: "Títol", name: "title", widget: "string" }
+          - { label: "Contingut", name: "body", widget: "markdown" }
+      - name: "about-ca"
+        label: "Sobre nosaltres"
+        file: "content/ca/about/_index.md"
+        fields:
+          - { label: "Títol", name: "title", widget: "string" }
+          - { label: "Contingut", name: "body", widget: "markdown" }
+      - name: "contact-ca"
+        label: "Contacte"
+        file: "content/ca/contact/_index.md"
+        fields:
+          - { label: "Títol", name: "title", widget: "string" }
+          - { label: "Contingut", name: "body", widget: "markdown" }
+
+  - name: "pages-es"
+    label: "Pàgines (ES)"
+    files:
+      - name: "home-es"
+        label: "Portada"
+        file: "content/es/_index.md"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Contenido", name: "body", widget: "markdown" }
+      - name: "about-es"
+        label: "Sobre nosotros"
+        file: "content/es/about/_index.md"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Contenido", name: "body", widget: "markdown" }
+      - name: "contact-es"
+        label: "Contacto"
+        file: "content/es/contact/_index.md"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Contenido", name: "body", widget: "markdown" }
+
+  - name: "pages-en"
+    label: "Pages (EN)"
+    files:
+      - name: "home-en"
+        label: "Home"
+        file: "content/en/_index.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Content", name: "body", widget: "markdown" }
+      - name: "about-en"
+        label: "About us"
+        file: "content/en/about/_index.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Content", name: "body", widget: "markdown" }
+      - name: "contact-en"
+        label: "Contact"
+        file: "content/en/contact/_index.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Content", name: "body", widget: "markdown" }
+
+  # ─── Discografia ──────────────────────────────────
+  - name: "music"
+    label: "Discografia"
+    label_singular: "Disc"
+    folder: "content/ca/music"
+    create: true
+    slug: "{{slug}}"
+    i18n: true
+    summary: "{{year}} — {{title}}"
+    fields:
+      - { label: "Títol", name: "title", widget: "string", i18n: true }
+      - { label: "Tipus", name: "type_release", widget: "select", options: ["album", "single", "ep"], i18n: duplicate }
+      - { label: "Any", name: "year", widget: "number", value_type: "int", i18n: duplicate }
+      - { label: "Portada", name: "cover", widget: "image", required: false, i18n: duplicate }
+      - { label: "Spotify Embed", name: "spotify_embed", widget: "string", required: false, i18n: duplicate }
+      - { label: "Spotify URL", name: "spotify", widget: "string", required: false, i18n: duplicate }
+      - { label: "Apple Music", name: "apple_music", widget: "string", required: false, i18n: duplicate }
+      - { label: "Tidal", name: "tidal", widget: "string", required: false, i18n: duplicate }
+      - { label: "Deezer", name: "deezer", widget: "string", required: false, i18n: duplicate }
+      - { label: "YouTube", name: "youtube", widget: "string", required: false, i18n: duplicate }
+      - { label: "Amazon Music", name: "amazon_music", widget: "string", required: false, i18n: duplicate }
+      - { label: "Bandcamp", name: "bandcamp", widget: "string", required: false, i18n: duplicate }
+      - { label: "Smartlink", name: "smartlink", widget: "string", required: false, i18n: duplicate }
+      - { label: "Ordre", name: "weight", widget: "number", value_type: "int", i18n: duplicate }
+      - { label: "Descripció", name: "body", widget: "markdown", i18n: true, required: false }
+
+  # ─── La Banda ──────────────────────────────────────
+  - name: "the-band"
+    label: "Músics"
+    label_singular: "Músic"
+    folder: "content/ca/the-band"
+    create: true
+    slug: "{{slug}}"
+    i18n: true
+    summary: "{{name}} — {{role}}"
+    fields:
+      - { label: "Títol pàgina", name: "title", widget: "string", i18n: true }
+      - { label: "Nom", name: "name", widget: "string", i18n: duplicate }
+      - { label: "Rol", name: "role", widget: "string", i18n: true }
+      - { label: "Foto", name: "photo", widget: "image", i18n: duplicate }
+      - { label: "Ordre", name: "weight", widget: "number", value_type: "int", i18n: duplicate }
+      - { label: "Líder", name: "leader", widget: "boolean", default: false, required: false, i18n: duplicate }
+      - { label: "Instagram", name: "instagram", widget: "string", required: false, i18n: duplicate }
+      - { label: "Facebook", name: "facebook", widget: "string", required: false, i18n: duplicate }
+      - { label: "Web", name: "web", widget: "string", required: false, i18n: duplicate }
+      - { label: "Sponsor imatge", name: "sponsor_img", widget: "image", required: false, i18n: duplicate }
+      - { label: "Sponsor URL", name: "sponsor_url", widget: "string", required: false, i18n: duplicate }
+      - { label: "Biografia", name: "body", widget: "markdown", i18n: true }
+
+  # ─── Concerts ─────────────────────────────────────
+  - name: "concerts"
+    label: "Concerts"
+    label_singular: "Concert"
+    folder: "content/ca/concerts"
+    create: true
+    slug: "{{slug}}"
+    i18n: true
+    fields:
+      - { label: "Títol", name: "title", widget: "string", i18n: true }
+      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: "HH:mm" }
+      - { label: "Lloc", name: "venue", widget: "string", i18n: true }
+      - { label: "Ciutat", name: "city", widget: "string" }
+      - { label: "Contingut", name: "body", widget: "markdown", i18n: true, required: false }
