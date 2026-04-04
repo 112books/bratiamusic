@@ -610,9 +610,9 @@ footer {
 }
 
 .footer-socials { display: flex; flex-direction: column; gap: .75rem; }
-.footer-socials__label { font-size: .6rem; text-transform: uppercase; letter-spacing: .15em; color: rgba(255,255,255,.3); }
+.footer-socials__label { font-size: .6rem; text-transform: uppercase; letter-spacing: .15em; color: rgba(255,255,255,.5); }
 .footer-socials__links { display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center; }
-.footer-social-link { display: inline-flex; align-items: center; justify-content: center; color: rgba(255,255,255,.5); text-decoration: none; transition: color var(--dur), transform var(--dur); }
+.footer-social-link { display: inline-flex; align-items: center; justify-content: center; color: rgba(255,255,255,.7); text-decoration: none; transition: color var(--dur), transform var(--dur); }
 .footer-social-link svg { width: 20px; height: 20px; }
 .footer-social-link:hover { color: var(--c-gold); transform: translateY(-2px); }
 
@@ -625,7 +625,7 @@ footer {
 .legal-links { list-style: none; display: flex; flex-direction: column; gap: 0; text-align: right; }
 .legal-links li { line-height: 1.2; }
 .legal-links li::before { content: '– '; color: rgba(255,255,255,.2); }
-.legal-links a { font-size: .62rem; color: rgba(255,255,255,.3); text-decoration: none; transition: color var(--dur); display: inline; line-height: 1.2; }
+.legal-links a { font-size: .62rem; color: rgba(255,255,255,.6); text-decoration: none; transition: color var(--dur); display: inline-block; min-height: 44px; line-height: 44px; }
 .legal-links a:hover { color: var(--c-gold); }
 
 .footer-bottom {
@@ -633,9 +633,9 @@ footer {
   display: flex; justify-content: space-between; align-items: center;
   padding-top: 1.25rem; gap: 1rem; flex-wrap: wrap;
 }
-.footer-copy { font-size: .72rem; color: rgba(255,255,255,.3); }
-.footer-signature { font-size: .72rem; color: rgba(255,255,255,.25); line-height: 1.5; text-align: right; }
-.footer-signature a { color: rgba(255,255,255,.4); text-decoration: none; transition: color var(--dur); }
+.footer-copy { font-size: .72rem; color: rgba(255,255,255,.55); }
+.footer-signature { font-size: .72rem; color: rgba(255,255,255,.5); line-height: 1.5; text-align: right; }
+.footer-signature a { color: rgba(255,255,255,.6); text-decoration: none; transition: color var(--dur); }
 .footer-signature a:hover { color: var(--c-gold); }
 
 @media (max-width: 900px) {
