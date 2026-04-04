@@ -2,8 +2,9 @@ backend:
   name: github
   repo: 112books/bratiamusic
   branch: main
-  base_url: https://incomparable-belekoy-27d379.netlify.app
-  auth_endpoint: .netlify/identity/authorize
+  base_url: https://cms-oauth-bratia-y855.vercel.app
+  auth_endpoint: /api/auth
+
 
 # Mode editorial: draft → review → ready → publish
 publish_mode: editorial_workflow
@@ -26,31 +27,60 @@ site_url: https://bratiamusic.com
 display_url: https://bratiamusic.com
 
 collections:
-  # ─── Pàgines principals ───────────────────────────
-  - name: "pages"
-    label: "Pàgines"
-    i18n:
-      structure: multiple_folders
-      locales: [ca, es, en]
-      default_locale: ca
+  # ─── Pàgines (single_file — sense i18n automàtic) ─
+  - name: "pages-ca"
+    label: "Pàgines (CA)"
     files:
-      - name: "home"
-        label: "Pàgina principal"
-        file: "content/{{locale}}/_index.md"
-        i18n: true
+      - name: "home-ca"
+        label: "Portada"
+        file: "content/ca/_index.md"
         fields:
-          - { label: "Títol", name: "title", widget: "string", i18n: true }
-          - { label: "Descripció SEO", name: "description", widget: "text", i18n: true, required: false }
-          - { label: "Contingut", name: "body", widget: "markdown", i18n: true }
-
-      - name: "about"
+          - { label: "Títol", name: "title", widget: "string" }
+          - { label: "Descripció SEO", name: "description", widget: "text", required: false }
+          - { label: "Contingut", name: "body", widget: "markdown" }
+      - name: "about-ca"
         label: "Sobre nosaltres"
-        file: "content/{{locale}}/sobre/_index.md"
-        i18n: true
+        file: "content/ca/sobre/_index.md"
         fields:
-          - { label: "Títol", name: "title", widget: "string", i18n: true }
-          - { label: "Descripció SEO", name: "description", widget: "text", i18n: true, required: false }
-          - { label: "Contingut", name: "body", widget: "markdown", i18n: true }
+          - { label: "Títol", name: "title", widget: "string" }
+          - { label: "Descripció SEO", name: "description", widget: "text", required: false }
+          - { label: "Contingut", name: "body", widget: "markdown" }
+
+  - name: "pages-es"
+    label: "Pàgines (ES)"
+    files:
+      - name: "home-es"
+        label: "Portada"
+        file: "content/es/_index.md"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Descripción SEO", name: "description", widget: "text", required: false }
+          - { label: "Contenido", name: "body", widget: "markdown" }
+      - name: "about-es"
+        label: "Sobre nosotros"
+        file: "content/es/sobre/_index.md"
+        fields:
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Descripción SEO", name: "description", widget: "text", required: false }
+          - { label: "Contenido", name: "body", widget: "markdown" }
+
+  - name: "pages-en"
+    label: "Pages (EN)"
+    files:
+      - name: "home-en"
+        label: "Home"
+        file: "content/en/_index.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "SEO Description", name: "description", widget: "text", required: false }
+          - { label: "Content", name: "body", widget: "markdown" }
+      - name: "about-en"
+        label: "About us"
+        file: "content/en/sobre/_index.md"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "SEO Description", name: "description", widget: "text", required: false }
+          - { label: "Content", name: "body", widget: "markdown" }
 
   # ─── Concerts ─────────────────────────────────────
   - name: "concerts"
