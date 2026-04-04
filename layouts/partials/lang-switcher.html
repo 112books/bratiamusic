@@ -2,7 +2,7 @@
   {{- $currentLang := .Site.Language.Lang -}}
   {{- $baseURL := .Site.BaseURL -}}
   {{- $translations := .Translations -}}
-  {{- range .Site.Languages -}}
+  {{- range site.Languages -}}
     {{- $lang := .Lang -}}
     {{- $url := printf "%s%s/" $baseURL $lang -}}
     {{- range $translations -}}
