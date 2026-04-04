@@ -128,3 +128,14 @@
 }
 </script>
 {{ end }}
+
+{{/* MusicEvent — només a la pàgina de concerts */}}
+{{ if eq .Type "concerts" }}
+  {{ with site.Data.concerts_schema.events }}
+    {{ range . }}
+<script type="application/ld+json">
+{{ dict "@context" "https://schema.org" "@type" "MusicEvent" "name" .name "startDate" .startDate "endDate" (.endDate | default "") "location" .location "performer" .performer "organizer" .organizer "eventStatus" .eventStatus | jsonify (dict "indent" "  ") }}
+</script>
+    {{ end }}
+  {{ end }}
+{{ end }}
