@@ -6,11 +6,6 @@ raw_file, out_file, start, end = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv
 with open(raw_file) as f:
     data = json.load(f)
 
-# DEBUG temporal — esborra després de confirmar els camps
-for key in ['browsers', 'systems', 'sizes', 'locations']:
-    items = data.get(key, {}).get('stats', [])
-    if items:
-        print(f"DEBUG {key} keys:", list(items[0].keys()))
 
 hits = data.get('hits_data', {}).get('hits', [])
 sections = ['about', 'the-band', 'music', 'concerts', 'videos', 'photos', 'contact']
