@@ -9,9 +9,10 @@
 
 backend:
   name: github
-  repo: 112books/bratiamusic        # ← canviar per altre projecte
+  repo: 112books/bratiamusic
   branch: main
-  base_url: https://cms-oauth-bratia.vercel.app/  # ← servidor OAuth (veure docs)
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
 site_url: https://bratiamusic.com   # ← canviar per altre projecte
 display_url: https://bratiamusic.com
