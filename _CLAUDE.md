@@ -52,12 +52,14 @@ rsync -avz --delete --ignore-errors \
   public/ bratiamusic@vl28359.dinaserver.com:www/
 ```
 - Clau SSH: ~/.ssh/bratiamusic_deploy
-- Error 23 rsync = fitxers amb caràcters especials (ignorat)
+- Error 23 rsync = permís sobre directori arrel www/ (ignorable, fitxers OK)
+- Warning "post-quantum key exchange" = cosmètic, no afecta deploy
 
 ### GitHub Actions
 - deploy.yml → build staging → gh-pages automàtic
 - fetch-concerts.yml · fetch-galleries.yml · fetch-videos.yml → nocturns
 - fetch-analytics.yml → cada hora → static/data/analytics.json
+- fetch-videos.yml → script extern scripts/process-youtube.py (NO heredoc inline)
 
 ### .htaccess
 ```
@@ -142,15 +144,29 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 - Base: `layouts/admin/baseof.html`
 - Contingut: `content/ca/admin/`
 
-### Seccions
+### Funcionalitats (04/04/2026)
+- Selector de període: 7 dies / 30 dies / 3 mesos / 1 any / Total
+- Dates llegibles: "5 de març de 2026 → 4 d'abril de 2026"
+- Filtre proporcional sobre el JSON existent (sense nova crida API)
+- Icones proporcionals per navegadors, sistemes i dispositius
+- Interpretació automàtica (insights)
+- Responsive mòbil
+
+### Cache-busting JS
+```html
+<script src="{{ "js/admin-dashboard.js" | absURL }}?v={{ now.Unix }}"></script>
+```
+
+### Seccions del dashboard
 - Visites totals · Per idioma · Per secció
-- Navegadors · Sistemes · Dispositius (icones proporcionals en fila + barres)
+- Navegadors · Sistemes · Dispositius (icones proporcionals + barres)
 - Ubicacions · Interpretació automàtica
 
 ### CSS crític
 ```css
 .icon-row { display:flex; flex-direction:row !important; flex-wrap:nowrap; }
 .icon-item { flex-shrink:0; }
+.period-btn.active { background:var(--green-dark); border-color:var(--green); }
 ```
 
 ### GoatCounter
@@ -158,6 +174,20 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 - Secret GitHub: GOATCOUNTER_TOKEN (Read statistics)
 - Script: scripts/process-analytics.py
 - Endpoints: hits, browsers, systems, sizes, locations
+- ⚠️ parse_stats és defensiu: s.get('id') or s.get('code') or s.get('name')
+
+---
+
+## Scripts Python
+
+### scripts/process-analytics.py
+- parse_stats() defensiu: camps variables per endpoint GoatCounter
+- Ús: `python3 scripts/process-analytics.py raw.json out.json START END`
+
+### scripts/process-youtube.py
+- Externalitzat (NO heredoc inline al workflow — trenca indentació YAML)
+- Filtra Shorts per #Shorts al títol/descripció i per URL /shorts/
+- Ús: `python3 scripts/process-youtube.py /tmp/yt-feed.xml static/data/videos.json`
 
 ---
 
@@ -176,6 +206,9 @@ URLs absolutes hardcoded. Detecta idioma via `navigator.language`.
 - Analytics JSON: `static/data/` (no `data/` — Hugo no el serveix)
 - JS complex al admin → fitxer extern `static/js/` (Hugo processa JS inline)
 - Dos servidors Hugo → errors CORS. `pkill -f "hugo server"` primer
+- Workflow heredoc `<< 'PYEOF'` inline → indentació YAML trenca el Python. Sempre fitxer .py extern
+- Re-run d'un job antic a GitHub Actions usa el codi del commit original, no el nou
+- Caché navegador: obrir URL del JS amb ?nocache=1 o finestra incògnit per verificar
 
 ---
 
@@ -185,12 +218,12 @@ URLs absolutes hardcoded. Detecta idioma via `navigator.language`.
 hugo.toml · config/local|staging|production/
 sync-web.sh · static/.htaccess · static/404.html
 static/data/analytics.json · static/js/admin-dashboard.js
-scripts/process-analytics.py
+scripts/process-analytics.py · scripts/process-youtube.py
 layouts/_default/baseof.html · layouts/partials/head.html
 layouts/partials/lang-switcher.html · layouts/partials/icons/nav-icon.html
 layouts/admin/baseof.html · layouts/admin/list.html · layouts/admin/single.html
 content/ca/admin/
-.github/workflows/fetch-analytics.yml · .github/workflows/deploy.yml
+.github/workflows/fetch-analytics.yml · .github/workflows/fetch-videos.yml · .github/workflows/deploy.yml
 i18n/ca.yaml · es.yaml · en.yaml
 ```
 
@@ -203,11 +236,18 @@ i18n/ca.yaml · es.yaml · en.yaml
 - ✅ Pàgina /admin distribució client (31/03/2026)
 - ✅ Dashboard estadístiques GoatCounter (31/03/2026)
 - ✅ humans.txt i textos legals revisats (31/03/2026)
+- ✅ Fix parse_stats() GoatCounter — camps variables per endpoint (04/04/2026)
+- ✅ Script YouTube externalitzat a process-youtube.py (04/04/2026)
+- ✅ Dashboard amb selector de període 7d/30d/3m/1y/total (04/04/2026)
+- ✅ Dates llegibles al dashboard (04/04/2026)
+- ✅ Cache-busting JS admin amb ?v={{ now.Unix }} (04/04/2026)
 
 ### En curs / Pròxima sessió
 - 🔲 Favicon (logo Bratia)
 - 🔲 Renombrar imatges amb espais: `images/home-banner/` i `images/per colocar/`
 - 🔲 GoatCounter events al track.js — verificar a producció
+- 🔲 rsync SSH deploy — eliminar fals error (--omit-dir-times)
+- 🔲 fetch-videos.yml — afegir workflow_dispatch correcte i verificar run manual
 
 ### Admin — Manual d'usuari (pendent)
 - 🔲 Continguts: discs, membres, galeries, vídeos, xarxes socials
@@ -220,10 +260,13 @@ i18n/ca.yaml · es.yaml · en.yaml
 - 🔲 Bandsintown.com (valorar vs Google Calendar)
 - 🔲 Decap CMS (blogging — més per LinuxBCN)
 - 🔲 Pagefind (cercador estàtic)
-- 🔲 Accessibilitat (ARIA, contrast)
+- 🔲 Accessibilitat WCAG AA — contrast (#7a7670 falla) + touch targets 44px → 100/100 PS
 - 🔲 Newsletter
 - 🔲 Línia del temps de la banda
 - 🔲 SEO avançat (Schema.org MusicGroup/MusicEvent, hreflang)
+- 🔲 Giscus (reviews àlbums/concerts via GitHub Discussions)
+- 🔲 EPK / Press materials
+- 🔲 Estadístiques streaming (Spotify for Artists)
 
 ---
 
@@ -232,10 +275,11 @@ i18n/ca.yaml · es.yaml · en.yaml
 Plantilla reutilitzable per a músics i bandes: estàtica · ràpida · segura ·
 editable via Markdown+Obsidian · multilingüe nativa · qualsevol hosting estàtic.
 
+---
 
-## Control de recursos claude:
+## Control de respostes Claude
 
-Respon de forma extrema-ment concisa.
+Respon de forma extremadament concisa.
 
 - No expliquis res si no ho demano
 - No repeteixis el context
@@ -244,4 +288,4 @@ Respon de forma extrema-ment concisa.
 - Evita exemples si no es demanen
 - Limita la resposta a màxim 5 línies
 
-Si cal més detall, ja t’ho demanaré.
+Si cal més detall, ja t'ho demanaré.
