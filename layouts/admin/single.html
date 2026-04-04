@@ -384,5 +384,5 @@
 </div>
 
 <span id="analytics-data-url" data-url="{{ "data/analytics.json" | absURL }}" style="display:none"></span>
-<script src="{{ "js/admin-dashboard.js" | absURL }}"></script>
+<script src="{{ "js/admin-dashboard.js" | absURL }}?v={{ now.Unix }}"></script>
 {{ end }}
