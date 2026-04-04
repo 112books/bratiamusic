@@ -43,16 +43,17 @@ hugo --minify --environment production
 ### sync-web.sh
 - Opció 4 → Deploy GitHub Pages (staging)
 - Opció 5 → Publish Dinahosting via rsync SSH
+- `--omit-dir-times` afegit al rsync → elimina fals error de permisos
+- Exit code 23 tolerat → no marca error fals
 
 ### Deploy producció — rsync SSH
 ```bash
-rsync -avz --delete --ignore-errors \
+rsync -avz --delete --checksum --omit-dir-times \
   --exclude='.DS_Store' --exclude='*.map' \
   -e "ssh -i ~/.ssh/bratiamusic_deploy -o StrictHostKeyChecking=no" \
   public/ bratiamusic@vl28359.dinaserver.com:www/
 ```
 - Clau SSH: ~/.ssh/bratiamusic_deploy
-- Error 23 rsync = permís sobre directori arrel www/ (ignorable, fitxers OK)
 - Warning "post-quantum key exchange" = cosmètic, no afecta deploy
 
 ### GitHub Actions
@@ -60,12 +61,22 @@ rsync -avz --delete --ignore-errors \
 - fetch-concerts.yml · fetch-galleries.yml · fetch-videos.yml → nocturns
 - fetch-analytics.yml → cada hora → static/data/analytics.json
 - fetch-videos.yml → script extern scripts/process-youtube.py (NO heredoc inline)
+- Tots els workflows tenen `workflow_dispatch` per executar manualment
 
 ### .htaccess
-```
+```apache
 ErrorDocument 404 /404.html
 Redirect 301 /admin/ /ca/admin/
+
+# Headers de seguretat (mod_headers)
+Strict-Transport-Security · X-Frame-Options · X-Content-Type-Options
+Referrer-Policy · Permissions-Policy · COOP · CSP (GoatCounter allowlist)
+
+# Caché estàtica (mod_expires)
+imatges/fonts: 1 any · CSS/JS: 1 mes
 ```
+⚠️ PageSpeed pot mostrar fals negatiu de CSP/HSTS — verificar amb:
+`curl -sI https://bratiamusic.com/ca/ | grep -i "strict\|csp\|x-frame"`
 
 ---
 
@@ -91,16 +102,11 @@ defaultContentLanguageInSubdir = true
 ```
 {{ range site.Menus.main }}   ← CORRECTE
 {{ range .Site.Menus.main }}  ← INCORRECTE (sempre retorna CA)
+{{ range site.Languages }}    ← CORRECTE (no .Site.Languages — deprecated)
 ```
 
 ### Lang-switcher
 Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
-
-### is-home — layouts/_default/baseof.html
-```html
-{{ $isHome := or .IsHome (eq .RelPermalink (printf "/%s/" .Language.Lang)) }}
-<body class="{{ if $isHome }}is-home{{ else }}is-subpage{{ end }}">
-```
 
 ---
 
@@ -129,8 +135,9 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 | 404 | ✅ static/404.html, detecció idioma |
 | Admin index | ✅ /ca/admin/ |
 | Admin dashboard | ✅ /ca/admin/insights/ |
-| SEO | ✅ OpenGraph |
+| SEO | ✅ OpenGraph + hreflang + canonical |
 | Legals CA/ES/EN | ✅ |
+| Favicon | ✅ SVG + PNG + ICO + apple-touch + manifest |
 
 ---
 
@@ -149,31 +156,17 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 - Dates llegibles: "5 de març de 2026 → 4 d'abril de 2026"
 - Filtre proporcional sobre el JSON existent (sense nova crida API)
 - Icones proporcionals per navegadors, sistemes i dispositius
-- Interpretació automàtica (insights)
-- Responsive mòbil
+- Interpretació automàtica (insights) · Responsive mòbil
 
 ### Cache-busting JS
 ```html
 <script src="{{ "js/admin-dashboard.js" | absURL }}?v={{ now.Unix }}"></script>
 ```
 
-### Seccions del dashboard
-- Visites totals · Per idioma · Per secció
-- Navegadors · Sistemes · Dispositius (icones proporcionals + barres)
-- Ubicacions · Interpretació automàtica
-
-### CSS crític
-```css
-.icon-row { display:flex; flex-direction:row !important; flex-wrap:nowrap; }
-.icon-item { flex-shrink:0; }
-.period-btn.active { background:var(--green-dark); border-color:var(--green); }
-```
-
 ### GoatCounter
 - Compte: bratia-music.goatcounter.com
 - Secret GitHub: GOATCOUNTER_TOKEN (Read statistics)
 - Script: scripts/process-analytics.py
-- Endpoints: hits, browsers, systems, sizes, locations
 - ⚠️ parse_stats és defensiu: s.get('id') or s.get('code') or s.get('name')
 
 ---
@@ -188,6 +181,47 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 - Externalitzat (NO heredoc inline al workflow — trenca indentació YAML)
 - Filtra Shorts per #Shorts al títol/descripció i per URL /shorts/
 - Ús: `python3 scripts/process-youtube.py /tmp/yt-feed.xml static/data/videos.json`
+
+---
+
+## Imatges — Optimització (04/04/2026)
+
+### Convertides a WebP
+| Original | WebP | Estalvi |
+|----------|------|---------|
+| bratia-portada-fondo.jpg (3,6MB) | .webp (190KB) | 95% |
+| bratia-about.jpg (742KB) | .webp (104KB) | 86% |
+| band/*.jpg (~70KB) | .webp (~27KB) | ~62% |
+
+### Comandes de conversió
+```bash
+ffmpeg -i input.jpg -vf scale=1920:-1 output-1920.jpg
+cwebp -q 82 output-1920.jpg -o output.webp
+for f in static/images/band/*.jpg; do cwebp -q 82 "$f" -o "${f%.jpg}.webp"; done
+```
+
+### Template picture amb fallback
+```html
+<picture>
+  <source srcset="{{ "images/fitxer.webp" | relURL }}" type="image/webp">
+  <img src="{{ "images/fitxer.jpg" | relURL }}" alt="..." width="W" height="H" loading="lazy">
+</picture>
+```
+
+---
+
+## PageSpeed Insights — Resultats (04/04/2026)
+
+| Mètrica | Inici | Final |
+|---------|-------|-------|
+| Rendiment | 73 | **100** |
+| Accessibilitat | 93 | **93** (footer) |
+| Pràctiques | 100 | **100** |
+| SEO | 100 | **100** |
+| LCP | 20,9s | **1,1s** |
+| Speed Index | 3,8s | **0,9s** |
+
+Problemes restants (93): contrast i touch targets del footer — elements secundaris de disseny.
 
 ---
 
@@ -206,9 +240,11 @@ URLs absolutes hardcoded. Detecta idioma via `navigator.language`.
 - Analytics JSON: `static/data/` (no `data/` — Hugo no el serveix)
 - JS complex al admin → fitxer extern `static/js/` (Hugo processa JS inline)
 - Dos servidors Hugo → errors CORS. `pkill -f "hugo server"` primer
-- Workflow heredoc `<< 'PYEOF'` inline → indentació YAML trenca el Python. Sempre fitxer .py extern
-- Re-run d'un job antic a GitHub Actions usa el codi del commit original, no el nou
-- Caché navegador: obrir URL del JS amb ?nocache=1 o finestra incògnit per verificar
+- Workflow heredoc inline → trenca Python. Sempre fitxer .py extern
+- Re-run d'un job antic a GitHub Actions usa el codi del commit original
+- Caché navegador: verificar amb ?nocache=1 o finestra incògnit
+- `git pull --rebase` + `git push` quan els workflows han fet commits automàtics
+- PageSpeed pot mostrar fals negatiu de headers — verificar amb curl
 
 ---
 
@@ -219,53 +255,53 @@ hugo.toml · config/local|staging|production/
 sync-web.sh · static/.htaccess · static/404.html
 static/data/analytics.json · static/js/admin-dashboard.js
 scripts/process-analytics.py · scripts/process-youtube.py
-layouts/_default/baseof.html · layouts/partials/head.html
-layouts/partials/lang-switcher.html · layouts/partials/icons/nav-icon.html
+layouts/_default/baseof.html · layouts/_default/index.html
+layouts/partials/head.html · layouts/partials/lang-switcher.html
+layouts/partials/band-member.html · layouts/shortcodes/band.html
+layouts/about/single.html
 layouts/admin/baseof.html · layouts/admin/list.html · layouts/admin/single.html
 content/ca/admin/
-.github/workflows/fetch-analytics.yml · .github/workflows/fetch-videos.yml · .github/workflows/deploy.yml
+.github/workflows/fetch-analytics.yml · fetch-videos.yml
+.github/workflows/fetch-concerts.yml · fetch-galleries.yml · deploy.yml
 i18n/ca.yaml · es.yaml · en.yaml
+static/images/home-banner/bratia-portada-fondo.webp
+static/images/bratia-about.webp · static/images/band/*.webp
 ```
 
 ---
 
 ## Tasques pendents
 
-### Completades
+### Completades (04/04/2026)
 - ✅ Canvi d'idiomes per entorn (31/03/2026)
-- ✅ Pàgina /admin distribució client (31/03/2026)
 - ✅ Dashboard estadístiques GoatCounter (31/03/2026)
 - ✅ humans.txt i textos legals revisats (31/03/2026)
-- ✅ Fix parse_stats() GoatCounter — camps variables per endpoint (04/04/2026)
-- ✅ Script YouTube externalitzat a process-youtube.py (04/04/2026)
-- ✅ Dashboard amb selector de període 7d/30d/3m/1y/total (04/04/2026)
-- ✅ Dates llegibles al dashboard (04/04/2026)
-- ✅ Cache-busting JS admin amb ?v={{ now.Unix }} (04/04/2026)
+- ✅ Fix parse_stats() GoatCounter
+- ✅ Script YouTube externalitzat a process-youtube.py
+- ✅ Dashboard amb selector de període + dates llegibles
+- ✅ Cache-busting JS admin
+- ✅ Favicon complet
+- ✅ Eliminar directori 'per colocar'
+- ✅ site.Languages (deprecated .Site.Languages)
+- ✅ Imatges → WebP + width/height + picture fallback
+- ✅ Headers de seguretat + caché estàtica .htaccess
+- ✅ rsync --omit-dir-times
+- ✅ PageSpeed: 73→100 Rendiment, LCP 20,9s→1,1s
 
-### En curs / Pròxima sessió
-- 🔲 Favicon (logo Bratia)
-- 🔲 Renombrar imatges amb espais: `images/home-banner/` i `images/per colocar/`
-- 🔲 GoatCounter events al track.js — verificar a producció
-- 🔲 rsync SSH deploy — eliminar fals error (--omit-dir-times)
-- 🔲 fetch-videos.yml — afegir workflow_dispatch correcte i verificar run manual
+### Pròxima sessió
+- 🔲 Schema.org MusicGroup/MusicEvent
+- 🔲 Accessibilitat footer: contrast + touch targets → 100/100
+- 🔲 logo.png → WebP + width/height al nav-compact
+- 🔲 Pagefind — integració cercador al frontend
+- 🔲 GoatCounter events — verificar a producció
 
-### Admin — Manual d'usuari (pendent)
+### Admin — Manual d'usuari
 - 🔲 Continguts: discs, membres, galeries, vídeos, xarxes socials
-- 🔲 Afegir concerts: Google Calendar i/o Bandsintown.com
-- 🔲 Press Kit (text + PDF)
-- 🔲 Rider tècnic (acústic / banda completa / festival)
-- 🔲 Partitures
+- 🔲 Press Kit · Rider tècnic · Partitures
 
 ### Funcionalitats futures
-- 🔲 Bandsintown.com (valorar vs Google Calendar)
-- 🔲 Decap CMS (blogging — més per LinuxBCN)
-- 🔲 Pagefind (cercador estàtic)
-- 🔲 Accessibilitat WCAG AA — contrast (#7a7670 falla) + touch targets 44px → 100/100 PS
-- 🔲 Newsletter
-- 🔲 Línia del temps de la banda
-- 🔲 SEO avançat (Schema.org MusicGroup/MusicEvent, hreflang)
-- 🔲 Giscus (reviews àlbums/concerts via GitHub Discussions)
-- 🔲 EPK / Press materials
+- 🔲 Bandsintown.com · Newsletter · Giscus
+- 🔲 Línia del temps de la banda · EPK
 - 🔲 Estadístiques streaming (Spotify for Artists)
 
 ---
@@ -284,8 +320,7 @@ Respon de forma extremadament concisa.
 - No expliquis res si no ho demano
 - No repeteixis el context
 - Dona només la resposta operativa
-- Evita llistes llargues
-- Evita exemples si no es demanen
-- Limita la resposta a màxim 5 línies
+- Evita llistes llargues · Evita exemples si no es demanen
+- Màxim 5 línies
 
 Si cal més detall, ja t'ho demanaré.
