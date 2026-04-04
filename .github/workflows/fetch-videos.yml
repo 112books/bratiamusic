@@ -2,8 +2,8 @@ name: Fetch YouTube videos
 
 on:
   schedule:
-    - cron: '0 4 * * *'   # cada nit a les 4:00 UTC
-  workflow_dispatch:        # permet executar manualment
+    - cron: '0 4 * * *'
+  workflow_dispatch:
 
 jobs:
   fetch:
@@ -13,63 +13,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Fetch i processa RSS de YouTube
-run: |
+        run: |
           mkdir -p static/data
           curl -s "https://www.youtube.com/feeds/videos.xml?channel_id=UCXqrXtF9DiXVmfB4X8RX6gA" \
             -o /tmp/yt-feed.xml
           echo "Feed rebut: $(wc -c < /tmp/yt-feed.xml) bytes"
           head -2 /tmp/yt-feed.xml
           python3 scripts/process-youtube.py /tmp/yt-feed.xml static/data/videos.json
-
-          # Processa amb Python: filtra Shorts (< 60s no es pot saber via RSS)
-          # però sí podem filtrar per títol si contenen #Shorts o per durada
-          # El RSS de YouTube no inclou durada — filtrem per títol i descripció
-          python3 << 'PYEOF'
-          import xml.etree.ElementTree as ET
-          import json
-          import re
-
-          tree = ET.parse('/tmp/yt-feed.xml')
-          root = tree.getroot()
-          ns = {
-              'atom': 'http://www.w3.org/2005/Atom',
-              'yt':   'http://www.youtube.com/xml/schemas/2015',
-              'media':'http://search.yahoo.com/mrss/',
-          }
-
-          videos = []
-          for entry in root.findall('atom:entry', ns):
-              title = entry.find('atom:title', ns).text or ''
-              video_id = entry.find('yt:videoId', ns).text or ''
-              published = entry.find('atom:published', ns).text or ''
-              desc_el = entry.find('.//media:description', ns)
-              desc = desc_el.text if desc_el is not None else ''
-
-              # Filtra Shorts: títols amb #Shorts/#shorts o URLs /shorts/
-              if re.search(r'#[Ss]horts?', title + desc):
-                  continue
-              link = entry.find('atom:link', ns)
-              url = link.get('href', '') if link is not None else ''
-              if '/shorts/' in url:
-                  continue
-
-              thumb_el = entry.find('.//media:thumbnail', ns)
-              thumb = thumb_el.get('url', '') if thumb_el is not None else ''
-
-              videos.append({
-                  'id':        video_id,
-                  'title':     title,
-                  'published': published[:10],  # YYYY-MM-DD
-                  'thumb':     thumb,
-                  'url':       f'https://www.youtube.com/watch?v={video_id}',
-                  'embed':     f'https://www.youtube.com/embed/{video_id}?rel=0&modestbranding=1',
-              })
-
-          with open('static/data/videos.json', 'w', encoding='utf-8') as f:
-              json.dump(videos, f, ensure_ascii=False, indent=2)
-
-          print(f"Vídeos guardats: {len(videos)}")
-          PYEOF
 
       - name: Commit si hi ha canvis
         run: |
