@@ -12,7 +12,6 @@ for key in ['browsers', 'systems', 'sizes', 'locations']:
     if items:
         print(f"DEBUG {key} keys:", list(items[0].keys()))
 
-# raw_file conté tot el JSON amb hits + stats secundàries
 hits = data.get('hits_data', {}).get('hits', [])
 sections = ['about', 'the-band', 'music', 'concerts', 'videos', 'photos', 'contact']
 langs = ['ca', 'es', 'en']
@@ -37,30 +36,39 @@ for h in hits:
         by_section[section] += count
 
 def parse_stats(key):
-    return [{'id': s['id'], 'name': s.get('name') or s['id'], 'count': s['count']}
-            for s in data.get(key, {}).get('stats', [])]
+    items = data.get(key, {}).get('stats', [])
+    result = []
+    for s in items:
+        item_id = s.get('id') or s.get('code') or s.get('name') or 'unknown'
+        name    = s.get('name') or s.get('id') or s.get('code') or item_id
+        count   = s.get('count', 0)
+        result.append({'id': item_id, 'name': name, 'count': count})
+    return result
 
 size_names = {
-    'phone': 'Mòbil',
-    'tablet': 'Tauleta',
-    'desktop': 'Escriptori',
+    'phone':     'Mòbil',
+    'tablet':    'Tauleta',
+    'desktop':   'Escriptori',
     'desktophd': 'Escriptori HD',
-    'larger': 'Pantalla gran'
+    'larger':    'Pantalla gran'
 }
 
 sizes_raw = parse_stats('sizes')
-sizes = [{'id': s['id'], 'name': size_names.get(s['id'], s['id']), 'count': s['count']} for s in sizes_raw]
+sizes = [
+    {'id': s['id'], 'name': size_names.get(s['id'], s['id']), 'count': s['count']}
+    for s in sizes_raw
+]
 
 result = {
-    "generated": datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
-    "period": {"start": start, "end": end},
-    "total": total,
-    "by_lang": by_lang,
+    "generated":  datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
+    "period":     {"start": start, "end": end},
+    "total":      total,
+    "by_lang":    by_lang,
     "by_section": by_section,
-    "browsers": parse_stats('browsers'),
-    "systems": parse_stats('systems'),
-    "sizes": sizes,
-    "locations": parse_stats('locations')
+    "browsers":   parse_stats('browsers'),
+    "systems":    parse_stats('systems'),
+    "sizes":      sizes,
+    "locations":  parse_stats('locations')
 }
 
 with open(out_file, 'w') as f:
