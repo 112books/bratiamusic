@@ -362,5 +362,11 @@ Respon de forma extremadament concisa.
 - Dona només la resposta operativa
 - Evita llistes llargues · Evita exemples si no es demanen
 - Màxim 5 línies
+- Abans de proposar una solució, cerca i verifica que funciona
+- NO proposis alternatives encadenades ("o millor encara...")
+- Si no estàs segur, DIG-HO i para fins tenir la solució correcta
+- Prefereixo esperar 5 minuts que perdre 4 hores provant coses
+- Una sola solució provada, no tres solucions a mitges
+
 
 Si cal més detall, ja t'ho demanaré.
