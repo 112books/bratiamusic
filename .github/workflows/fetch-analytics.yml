@@ -8,8 +8,29 @@ on:
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
+
+      - name: DEBUG - Verificar respostes API
+        env:
+          GC_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+          GC_ACCOUNT: bratia-music
+        run: |
+          END=$(date +%Y-%m-%d)
+          START=$(date -d '30 days ago' +%Y-%m-%d)
+          BASE="https://${GC_ACCOUNT}.goatcounter.com/api/v0"
+          AUTH="Authorization: Bearer ${GC_TOKEN}"
+
+          echo "=== HITS ==="
+          curl -s --max-time 15 -H "${AUTH}" "${BASE}/stats/hits?start=${START}&end=${END}&limit=100" | head -c 200
+          echo ""
+          echo "=== BROWSERS ==="
+          curl -s --max-time 15 -H "${AUTH}" "${BASE}/stats/browsers?start=${START}&end=${END}&limit=10" | head -c 200
+          echo ""
+          echo "=== TOKEN (primers 8 chars) ==="
+          echo "${GC_TOKEN:0:8}..."
 
       - name: Fetch analytics data
         env:
@@ -21,15 +42,72 @@ jobs:
           BASE="https://${GC_ACCOUNT}.goatcounter.com/api/v0"
           AUTH="Authorization: Bearer ${GC_TOKEN}"
 
-          HITS=$(curl -s -H "${AUTH}" "${BASE}/stats/hits?start=${START}&end=${END}&limit=100")
-          BROWSERS=$(curl -s -H "${AUTH}" "${BASE}/stats/browsers?start=${START}&end=${END}&limit=10")
-          SYSTEMS=$(curl -s -H "${AUTH}" "${BASE}/stats/systems?start=${START}&end=${END}&limit=10")
-          SIZES=$(curl -s -H "${AUTH}" "${BASE}/stats/sizes?start=${START}&end=${END}&limit=10")
-          LOCATIONS=$(curl -s -H "${AUTH}" "${BASE}/stats/locations?start=${START}&end=${END}&limit=10")
+          fetch_json() {
+            local url="$1"
+            local result
+            result=$(curl -s --max-time 15 -H "${AUTH}" "${url}")
+            if echo "${result}" | python3 -c "import sys,json; json.load(sys.stdin)" 2>/dev/null; then
+              echo "${result}"
+            else
+              echo "⚠️  Resposta invàlida per: ${url}" >&2
+              echo "   Contingut rebut: ${result:0:100}" >&2
+              echo "null"
+            fi
+          }
 
-          echo "{\"hits_data\":${HITS},\"browsers\":${BROWSERS},\"systems\":${SYSTEMS},\"sizes\":${SIZES},\"locations\":${LOCATIONS}}" > /tmp/raw_all.json
+          echo "📊 Obtenint dades GoatCounter del ${START} al ${END}..."
 
-          python3 scripts/process-analytics.py /tmp/raw_all.json static/data/analytics.json "${START}" "${END}"
+          HITS=$(fetch_json "${BASE}/stats/hits?start=${START}&end=${END}&limit=100")
+          BROWSERS=$(fetch_json "${BASE}/stats/browsers?start=${START}&end=${END}&limit=10")
+          SYSTEMS=$(fetch_json "${BASE}/stats/systems?start=${START}&end=${END}&limit=10")
+          SIZES=$(fetch_json "${BASE}/stats/sizes?start=${START}&end=${END}&limit=10")
+          LOCATIONS=$(fetch_json "${BASE}/stats/locations?start=${START}&end=${END}&limit=10")
+
+          echo "${HITS}"      > /tmp/hits.json
+          echo "${BROWSERS}"  > /tmp/browsers.json
+          echo "${SYSTEMS}"   > /tmp/systems.json
+          echo "${SIZES}"     > /tmp/sizes.json
+          echo "${LOCATIONS}" > /tmp/locations.json
+
+          python3 - <<'EOF'
+import json
+from datetime import datetime, timezone
+import os, sys
+
+def load(path):
+    with open(path) as f:
+        try:
+            return json.load(f)
+        except json.JSONDecodeError:
+            print(f"⚠️  JSON invàlid a {path}", file=sys.stderr)
+            return None
+
+start = os.environ.get("START", "")
+end   = os.environ.get("END", "")
+
+data = {
+    "generated_at": datetime.now(timezone.utc).isoformat(),
+    "period": {"start": start, "end": end},
+    "hits_data":  load("/tmp/hits.json"),
+    "browsers":   load("/tmp/browsers.json"),
+    "systems":    load("/tmp/systems.json"),
+    "sizes":      load("/tmp/sizes.json"),
+    "locations":  load("/tmp/locations.json"),
+}
+
+with open("/tmp/raw_all.json", "w") as f:
+    json.dump(data, f, indent=2)
+
+print("✅ JSON generat correctament")
+EOF
+
+      - name: Process analytics
+        run: |
+          python3 scripts/process-analytics.py \
+            /tmp/raw_all.json \
+            static/data/analytics.json \
+            "$(date -d '30 days ago' +%Y-%m-%d)" \
+            "$(date +%Y-%m-%d)"
 
       - name: Commit analytics data
         run: |
@@ -39,4 +117,3 @@ jobs:
           git diff --staged --quiet || git commit -m "chore: actualitzar analytics [skip ci]"
           git pull --rebase
           git push
-# fetch analytics

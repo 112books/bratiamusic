@@ -1,72 +1,66 @@
-import json, sys, re
-from datetime import datetime, timezone
+import json
+import sys
+from datetime import datetime
 
-raw_file, out_file, start, end = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+def safe_get(data, key, default=None):
+    """Retorna el valor o default si és None o no existeix."""
+    if data is None:
+        return default
+    return data.get(key, default)
 
-with open(raw_file) as f:
-    data = json.load(f)
+def main():
+    if len(sys.argv) < 5:
+        print("Ús: process-analytics.py <input.json> <output.json> <start> <end>")
+        sys.exit(1)
 
+    input_file  = sys.argv[1]
+    output_file = sys.argv[2]
+    start_date  = sys.argv[3]
+    end_date    = sys.argv[4]
 
-hits = data.get('hits_data', {}).get('hits', [])
-sections = ['about', 'the-band', 'music', 'concerts', 'videos', 'photos', 'contact']
-langs = ['ca', 'es', 'en']
+    # Llegir i validar JSON d'entrada
+    try:
+        with open(input_file) as f:
+            content = f.read().strip()
+        if not content:
+            print("⚠️  Fitxer d'entrada buit, generant analytics buit.")
+            raw = {}
+        else:
+            raw = json.loads(content)
+    except json.JSONDecodeError as e:
+        print(f"❌ JSON invàlid: {e}")
+        print(f"   Contingut: {content[:200]}")
+        sys.exit(1)
 
-def normalize(path):
-    return re.sub(r'^/bratiamusic', '', path).strip('/')
+    # Processar hits (defensiu: pot ser null si l'API va fallar)
+    hits_data = safe_get(raw, "hits_data") or {}
+    hits = safe_get(hits_data, "hits") or []
 
-by_section = {s: 0 for s in sections}
-by_lang = {l: 0 for l in langs}
-total = 0
+    # Processar la resta
+    browsers  = safe_get(safe_get(raw, "browsers")  or {}, "browsers")  or []
+    systems   = safe_get(safe_get(raw, "systems")   or {}, "systems")   or []
+    sizes     = safe_get(safe_get(raw, "sizes")     or {}, "sizes")     or []
+    locations = safe_get(safe_get(raw, "locations") or {}, "locations") or []
 
-for h in hits:
-    path = normalize(h.get('path', ''))
-    count = h.get('count', 0)
-    total += count
-    parts = [p for p in path.split('/') if p]
-    lang = parts[0] if parts else ''
-    section = parts[1] if len(parts) > 1 else ''
-    if lang in langs:
-        by_lang[lang] += count
-    if section in sections:
-        by_section[section] += count
+    output = {
+        "generated_at": datetime.utcnow().isoformat() + "Z",
+        "period": {"start": start_date, "end": end_date},
+        "hits": hits,
+        "browsers": browsers,
+        "systems": systems,
+        "sizes": sizes,
+        "locations": locations,
+        "total_pageviews": sum(
+            sum(h.get("count", 0) for h in day.get("stats", []))
+            for day in hits
+        ) if hits else 0
+    }
 
-def parse_stats(key):
-    items = data.get(key, {}).get('stats', [])
-    result = []
-    for s in items:
-        item_id = s.get('id') or s.get('code') or s.get('name') or 'unknown'
-        name    = s.get('name') or s.get('id') or s.get('code') or item_id
-        count   = s.get('count', 0)
-        result.append({'id': item_id, 'name': name, 'count': count})
-    return result
+    with open(output_file, "w") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
-size_names = {
-    'phone':     'Mòbil',
-    'tablet':    'Tauleta',
-    'desktop':   'Escriptori',
-    'desktophd': 'Escriptori HD',
-    'larger':    'Pantalla gran'
-}
+    print(f"✅ Analytics processats: {output['total_pageviews']} pageviews")
+    print(f"   Browsers: {len(browsers)} | Sistemes: {len(systems)} | Ubicacions: {len(locations)}")
 
-sizes_raw = parse_stats('sizes')
-sizes = [
-    {'id': s['id'], 'name': size_names.get(s['id'], s['id']), 'count': s['count']}
-    for s in sizes_raw
-]
-
-result = {
-    "generated":  datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
-    "period":     {"start": start, "end": end},
-    "total":      total,
-    "by_lang":    by_lang,
-    "by_section": by_section,
-    "browsers":   parse_stats('browsers'),
-    "systems":    parse_stats('systems'),
-    "sizes":      sizes,
-    "locations":  parse_stats('locations')
-}
-
-with open(out_file, 'w') as f:
-    json.dump(result, f, indent=2)
-
-print('Analytics processades:', result)
+if __name__ == "__main__":
+    main()
