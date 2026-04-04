@@ -1,168 +1,110 @@
-# ═══════════════════════════════════════════════════════════
-# Decap CMS — config.yml
-# Bratia Music · LinuxBCN.com
-#
-# PARAMETRITZACIÓ PER REUTILITZAR:
-# Canvia només la secció [backend] i [site_url] per adaptar
-# a un altre projecte. La resta de col·leccions és genèrica.
-# ═══════════════════════════════════════════════════════════
-
 backend:
   name: github
   repo: 112books/bratiamusic
   branch: main
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
+  base_url: https://incomparable-belekoy-27d379.netlify.app
+  auth_endpoint: .netlify/identity/authorize
 
-site_url: https://bratiamusic.com   # ← canviar per altre projecte
+# Mode editorial: draft → review → ready → publish
+publish_mode: editorial_workflow
+
+# Imatges pujades des del CMS
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+# Interfície del CMS en català
+locale: "ca"
+
+# Configuració multilingüe
+i18n:
+  structure: multiple_folders
+  locales: [ca, es, en]
+  default_locale: ca
+
+# Site URL per a previsualització
+site_url: https://bratiamusic.com
 display_url: https://bratiamusic.com
-logo_url: /images/logo.svg
-
-media_folder: static/images/uploads
-public_folder: /images/uploads
-
-locale: ca
-
-# ═══ COL·LECCIONS ═══════════════════════════════════════════
 
 collections:
-
-  # ── Músics / Membres de la banda ────────────────────────
-  - name: musicians
-    label: Músics
-    label_singular: Músic
-    folder: content/ca/the-band
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    identifier_field: name
-    summary: "{{name}} — {{role}}"
-    sortable_fields: [weight, name]
-    fields:
-      - { label: "Títol (intern)", name: title, widget: string }
-      - { label: "Nom complet", name: name, widget: string }
-      - { label: "Rol / Instrument", name: role, widget: string }
-      - label: "Foto"
-        name: photo
-        widget: image
-        media_folder: /static/images/band
-        public_folder: images/band
-        required: false
-      - { label: "Ordre", name: weight, widget: number, default: 10 }
-      - { label: "Líder de la banda", name: leader, widget: boolean, default: false, required: false }
-      - { label: "Ocult", name: hidden, widget: boolean, default: false, required: false }
-      - { label: "Instagram", name: instagram, widget: string, required: false }
-      - { label: "Facebook", name: facebook, widget: string, required: false }
-      - { label: "Web personal", name: web, widget: string, required: false }
-      - label: "Imatge patrocinador"
-        name: sponsor_img
-        widget: image
-        media_folder: /static/images/sponsor
-        public_folder: images/sponsor
-        required: false
-      - { label: "URL patrocinador", name: sponsor_url, widget: string, required: false }
-      - { label: "Biografia", name: body, widget: markdown }
-
-  # ── Músics EN ────────────────────────────────────────────
-  - name: musicians_en
-    label: Musicians (EN)
-    label_singular: Musician
-    folder: content/en/the-band
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    identifier_field: name
-    summary: "{{name}} — {{role}}"
-    fields:
-      - { label: "Title", name: title, widget: string }
-      - { label: "Full name", name: name, widget: string }
-      - { label: "Role / Instrument", name: role, widget: string }
-      - label: "Photo"
-        name: photo
-        widget: image
-        media_folder: /static/images/band
-        public_folder: images/band
-        required: false
-      - { label: "Order", name: weight, widget: number, default: 10 }
-      - { label: "Band leader", name: leader, widget: boolean, default: false, required: false }
-      - { label: "Hidden", name: hidden, widget: boolean, default: false, required: false }
-      - { label: "Instagram", name: instagram, widget: string, required: false }
-      - { label: "Facebook", name: facebook, widget: string, required: false }
-      - { label: "Personal web", name: web, widget: string, required: false }
-      - { label: "Bio", name: body, widget: markdown }
-
-  # ── Músics ES ────────────────────────────────────────────
-  - name: musicians_es
-    label: Músicos (ES)
-    label_singular: Músico
-    folder: content/es/the-band
-    create: true
-    delete: true
-    slug: "{{slug}}"
-    identifier_field: name
-    summary: "{{name}} — {{role}}"
-    fields:
-      - { label: "Título", name: title, widget: string }
-      - { label: "Nombre completo", name: name, widget: string }
-      - { label: "Rol / Instrumento", name: role, widget: string }
-      - label: "Foto"
-        name: photo
-        widget: image
-        media_folder: /static/images/band
-        public_folder: images/band
-        required: false
-      - { label: "Orden", name: weight, widget: number, default: 10 }
-      - { label: "Líder", name: leader, widget: boolean, default: false, required: false }
-      - { label: "Oculto", name: hidden, widget: boolean, default: false, required: false }
-      - { label: "Instagram", name: instagram, widget: string, required: false }
-      - { label: "Facebook", name: facebook, widget: string, required: false }
-      - { label: "Web personal", name: web, widget: string, required: false }
-      - { label: "Biografía", name: body, widget: markdown }
-
-  # ── Configuració general ─────────────────────────────────
-  - name: config
-    label: Configuració
+  # ─── Pàgines principals ───────────────────────────
+  - name: "pages"
+    label: "Pàgines"
+    i18n:
+      structure: multiple_folders
+      locales: [ca, es, en]
+      default_locale: ca
     files:
-
-      - name: general
-        label: General (CA)
-        file: config/production/hugo.toml
+      - name: "home"
+        label: "Pàgina principal"
+        file: "content/{{locale}}/_index.md"
+        i18n: true
         fields:
-          - { label: "Títol del lloc", name: title, widget: string }
+          - { label: "Títol", name: "title", widget: "string", i18n: true }
+          - { label: "Descripció SEO", name: "description", widget: "text", i18n: true, required: false }
+          - { label: "Contingut", name: "body", widget: "markdown", i18n: true }
 
-      - name: params
-        label: Paràmetres del lloc
-        file: data/site-params.json
+      - name: "about"
+        label: "Sobre nosaltres"
+        file: "content/{{locale}}/sobre/_index.md"
+        i18n: true
         fields:
-          - { label: "Descripció", name: description, widget: text }
-          - { label: "Tagline", name: tagline, widget: string }
-          - label: "Font de concerts"
-            name: concerts_source
-            widget: select
-            options:
-              - { label: "Google Calendar (iCal)", value: "google_calendar" }
-              - { label: "Bandsintown", value: "bandsintown" }
-            default: google_calendar
-          - { label: "URL iCal Google Calendar", name: google_calendar_ical, widget: string, required: false }
-          - { label: "Artista Bandsintown", name: bandsintown_artist, widget: string, required: false }
-          - { label: "Canal YouTube (ID)", name: youtube_channel_id, widget: string, required: false }
-          - { label: "GoatCounter (subdomini)", name: goatcounter, widget: string, required: false }
+          - { label: "Títol", name: "title", widget: "string", i18n: true }
+          - { label: "Descripció SEO", name: "description", widget: "text", i18n: true, required: false }
+          - { label: "Contingut", name: "body", widget: "markdown", i18n: true }
 
-  # ── Pàgines de contingut (CA) ────────────────────────────
-  - name: pages_ca
-    label: Pàgines (CA)
-    files:
-      - name: about
-        label: Sobre nosaltres
-        file: content/ca/about/_index.md
-        fields:
-          - { label: "Títol", name: title, widget: string }
-          - { label: "Descripció SEO", name: description, widget: text, required: false }
-          - { label: "Contingut", name: body, widget: markdown }
+  # ─── Concerts ─────────────────────────────────────
+  - name: "concerts"
+    label: "Concerts"
+    label_singular: "Concert"
+    folder: "content/ca/concerts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    i18n: true
+    sortable_fields: ["date", "title"]
+    summary: "{{date}} — {{title}} ({{city}})"
+    fields:
+      - { label: "Títol", name: "title", widget: "string", i18n: true }
+      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: "HH:mm" }
+      - { label: "Lloc", name: "venue", widget: "string", i18n: true }
+      - { label: "Ciutat", name: "city", widget: "string" }
+      - { label: "Adreça", name: "address", widget: "string", required: false }
+      - { label: "Entrades (URL)", name: "tickets_url", widget: "string", required: false }
+      - { label: "Descripció", name: "body", widget: "markdown", i18n: true, required: false }
 
-      - name: contact
-        label: Contacte
-        file: content/ca/contact/_index.md
+  # ─── Discografia ──────────────────────────────────
+  - name: "discografia"
+    label: "Discografia"
+    label_singular: "Disc"
+    folder: "content/ca/discografia"
+    create: true
+    slug: "{{slug}}"
+    i18n: true
+    sortable_fields: ["year", "title"]
+    summary: "{{year}} — {{title}}"
+    fields:
+      - { label: "Títol", name: "title", widget: "string", i18n: true }
+      - { label: "Any", name: "year", widget: "number", value_type: "int" }
+      - { label: "Portada", name: "image", widget: "image", required: false }
+      - { label: "Spotify URL", name: "spotify_url", widget: "string", required: false }
+      - { label: "Bandcamp URL", name: "bandcamp_url", widget: "string", required: false }
+      - { label: "Descripció", name: "body", widget: "markdown", i18n: true, required: false }
+
+  # ─── Galeries ─────────────────────────────────────
+  - name: "galleries"
+    label: "Galeries"
+    label_singular: "Galeria"
+    folder: "content/ca/galleries"
+    create: true
+    slug: "{{slug}}"
+    i18n: true
+    fields:
+      - { label: "Títol", name: "title", widget: "string", i18n: true }
+      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Imatge destacada", name: "featured_image", widget: "image", required: false }
+      - label: "Fotos"
+        name: "photos"
+        widget: "list"
         fields:
-          - { label: "Títol", name: title, widget: string }
-          - { label: "Contingut", name: body, widget: markdown }
+          - { label: "Imatge", name: "src", widget: "image" }
+          - { label: "Peu de foto", name: "caption", widget: "string", required: false, i18n: true }
+      - { label: "Descripció", name: "body", widget: "markdown", i18n: true, required: false }
