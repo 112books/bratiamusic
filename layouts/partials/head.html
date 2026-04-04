@@ -3,7 +3,7 @@
   <!-- Fila 1: logo + idiomes -->
   <div class="header-top">
     <a href="{{ .Site.BaseURL }}" class="site-logo" aria-label="{{ .Site.Title }}">
-      <img class="logo-full" src="{{ "images/logo.png" | relURL }}" alt="{{ .Site.Title }}">
+      <img class="logo-full" src="{{ "images/logo.png" | relURL }}" alt="{{ .Site.Title }}" width="500" height="309">
     </a>
     {{ partial "lang-switcher.html" (dict "Site" .Site "Translations" .Translations "class" "lang-switcher--compact") }}
   </div>

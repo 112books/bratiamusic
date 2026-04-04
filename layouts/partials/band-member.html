@@ -1,6 +1,11 @@
 <div class="band-member">
 
-  <img src="{{ .photo }}" alt="{{ .name }}" class="band-photo-circle">
+  {{ $jpg := .photo }}
+  {{ $webp := .photo | strings.TrimSuffix ".jpg" | printf "%s.webp" }}
+  <picture>
+    <source srcset="{{ $webp }}" type="image/webp">
+    <img src="{{ $jpg }}" alt="{{ .name }}" class="band-photo-circle" width="768" height="768" loading="lazy">
+  </picture>
 
   <h2>{{ .name }}</h2>
 

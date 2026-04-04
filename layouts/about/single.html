@@ -2,7 +2,10 @@
 <div class="about-split">
 
   <div class="about-split__image">
-    <img src="{{ "images/bratia-about.jpg" | relURL }}" alt="{{ .Site.Title }}">
+    <picture>
+      <source srcset="{{ "images/bratia-about.webp" | relURL }}" type="image/webp">
+      <img src="{{ "images/bratia-about-1200.jpg" | relURL }}" alt="{{ .Site.Title }}" width="1200" height="800" loading="lazy">
+    </picture>
   </div>
 
   <div class="about-split__content">

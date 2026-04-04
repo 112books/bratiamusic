@@ -4,7 +4,12 @@
         {{ if not .Params.hidden }}
             <div class="band-member">
                 {{ with .Params.photo }}
-                    <img class="band-photo-circle" src="{{ . | relURL }}" alt="{{ $.Params.name }}">
+                {{ $jpg := . | relURL }}
+                {{ $webp := (. | strings.TrimSuffix ".jpg") | printf "%s.webp" | relURL }}
+                <picture>
+                    <source srcset="{{ $webp }}" type="image/webp">
+                    <img class="band-photo-circle" src="{{ $jpg }}" alt="{{ $.Params.name }}" width="768" height="768" loading="lazy">
+                </picture>
                 {{ end }}
                 <h3>{{ .Params.name }}</h3>
                 <p class="band-role">{{ .Params.role }}</p>
