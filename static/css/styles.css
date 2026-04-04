@@ -38,7 +38,7 @@
   --c-light:       #f5f1ea;
   --c-white:       #ffffff;
   --c-text:        #2c2a27;
-  --c-text-muted:  #7a7670;
+  --c-text-muted:  #5c5652;
 
   --f-display: 'Playfair Display', Georgia, serif;
   --f-body:    'DM Sans', system-ui, sans-serif;
@@ -492,6 +492,14 @@ a   { color: inherit; }
   padding: 1.25rem;
   background: rgba(0,0,0,0.35);
 }
+
+/* ── Accessibilitat: touch targets mínims 44x44px ── */
+.disc-platform__icon { min-width: 44px; min-height: 44px; }
+.footer-social-link  { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.contact-social-link { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.videos-cta__link    { min-width: 44px; min-height: 44px; }
+.section-nav__icon   { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+
 @media (min-width: 769px) {
   .cal-wrapper { position: sticky; top: calc(var(--compact-h) + 1rem); }
 }
