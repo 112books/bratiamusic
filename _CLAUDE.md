@@ -162,6 +162,17 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 - Icones proporcionals per navegadors, sistemes i dispositius
 - Interpretació automàtica · Responsive mòbil
 
+### Backend / Parametrització per reutilització
+- 🔲 Panel backend: editar músics (nom, rol, foto, bio, links)
+- 🔲 Panel backend: crear i gestionar galeries
+- 🔲 Configurar canal YouTube des de params (no hardcoded)
+- 🔲 Concerts: selector de font → Google Calendar o Bandsintown.com
+- 🔲 Concerts: editor manual de concerts com a alternativa als feeds
+
+### Documentació per reutilització
+- 🔲 Guia de parametrització per adaptar a altres bandes/solistes
+- 🔲 Checklist de configuració inicial (hugo.toml, socials, colors, fonts)
+
 ### Cache-busting JS
 ```html
 <script src="{{ "js/admin-dashboard.js" | absURL }}?v={{ now.Unix }}"></script>
