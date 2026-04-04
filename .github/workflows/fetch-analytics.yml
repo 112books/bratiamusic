@@ -22,7 +22,6 @@ jobs:
           START=$(date -d '30 days ago' +%Y-%m-%d)
           BASE="https://${GC_ACCOUNT}.goatcounter.com/api/v0"
           AUTH="Authorization: Bearer ${GC_TOKEN}"
-
           echo "=== HITS ==="
           curl -s --max-time 15 -H "${AUTH}" "${BASE}/stats/hits?start=${START}&end=${END}&limit=100" | head -c 200
           echo ""
@@ -49,13 +48,13 @@ jobs:
             if echo "${result}" | python3 -c "import sys,json; json.load(sys.stdin)" 2>/dev/null; then
               echo "${result}"
             else
-              echo "⚠️  Resposta invàlida per: ${url}" >&2
-              echo "   Contingut rebut: ${result:0:100}" >&2
+              echo "WARN: Resposta invalida per: ${url}" >&2
+              echo "      Contingut rebut: ${result:0:100}" >&2
               echo "null"
             fi
           }
 
-          echo "📊 Obtenint dades GoatCounter del ${START} al ${END}..."
+          echo "Obtenint dades GoatCounter del ${START} al ${END}..."
 
           HITS=$(fetch_json "${BASE}/stats/hits?start=${START}&end=${END}&limit=100")
           BROWSERS=$(fetch_json "${BASE}/stats/browsers?start=${START}&end=${END}&limit=10")
@@ -63,13 +62,13 @@ jobs:
           SIZES=$(fetch_json "${BASE}/stats/sizes?start=${START}&end=${END}&limit=10")
           LOCATIONS=$(fetch_json "${BASE}/stats/locations?start=${START}&end=${END}&limit=10")
 
-          echo "${HITS}"      > /tmp/hits.json
-          echo "${BROWSERS}"  > /tmp/browsers.json
-          echo "${SYSTEMS}"   > /tmp/systems.json
-          echo "${SIZES}"     > /tmp/sizes.json
-          echo "${LOCATIONS}" > /tmp/locations.json
+          echo "${HITS}"       > /tmp/hits.json
+          echo "${BROWSERS}"   > /tmp/browsers.json
+          echo "${SYSTEMS}"    > /tmp/systems.json
+          echo "${SIZES}"      > /tmp/sizes.json
+          echo "${LOCATIONS}"  > /tmp/locations.json
 
-          python3 - <<'EOF'
+          python3 - <<'PYEOF'
 import json
 from datetime import datetime, timezone
 import os, sys
@@ -78,8 +77,8 @@ def load(path):
     with open(path) as f:
         try:
             return json.load(f)
-        except json.JSONDecodeError:
-            print(f"⚠️  JSON invàlid a {path}", file=sys.stderr)
+        except json.JSONDecodeError as e:
+            print(f"WARN: JSON invalid a {path}: {e}", file=sys.stderr)
             return None
 
 start = os.environ.get("START", "")
@@ -98,8 +97,8 @@ data = {
 with open("/tmp/raw_all.json", "w") as f:
     json.dump(data, f, indent=2)
 
-print("✅ JSON generat correctament")
-EOF
+print("JSON generat correctament")
+PYEOF
 
       - name: Process analytics
         run: |
