@@ -146,7 +146,7 @@ do_publish() {
     do_pagefind production
 
     print_message "Enviant fitxers via rsync..."
-    rsync -avz --delete --checksum \
+    rsync -avz --delete --checksum --omit-dir-times \
         --exclude='.DS_Store' \
         --exclude='.DS_Store?' \
         --exclude='*.map' \
@@ -155,7 +155,7 @@ do_publish() {
         ${BUILD_DIR}/ ${SSH_USER}@${SSH_HOST}:${SSH_PATH}/
     RESULT=$?
 
-    if [ $RESULT -eq 0 ]; then
+    if [ $RESULT -eq 0 ] || [ $RESULT -eq 23 ]; then
         print_success "Web publicada a https://bratiamusic.com"
     else
         print_error "Error en la pujada. Comprova la connexió SSH."
