@@ -1,7 +1,10 @@
 {{ define "main" }}
 
 <div class="hero">
-  <img src="{{ "images/home-banner/bratia-portada-fondo.jpg" | relURL }}" alt="" class="hero-img" loading="eager" aria-hidden="true">
+  <picture>
+    <source srcset="{{ "images/home-banner/bratia-portada-fondo.webp" | relURL }}" type="image/webp">
+    <img src="{{ "images/home-banner/bratia-portada-fondo-1920.jpg" | relURL }}" alt="" class="hero-img" loading="eager" fetchpriority="high" width="1920" height="2148" aria-hidden="true">
+  </picture>
   <div class="hero-overlay">
 
     <div class="hero-logo-intro" id="hero-logo-intro">
