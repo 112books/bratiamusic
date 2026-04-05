@@ -2,7 +2,7 @@
 title: "Susurro Čoček"
 type_release: "single"
 year: 2023
-cover: "images/discography/Susurro.jpg"
+cover: "/images/discography/Susurro.jpg"
 description: "When a whisper from the past shows us who we are."
 spotify_embed: "https://open.spotify.com/embed/album/1Qu7jNAqj7HDoguJZxnW6Y?utm_source=generator&theme=0"
 spotify:      "https://open.spotify.com/album/1Qu7jNAqj7HDoguJZxnW6Y"
