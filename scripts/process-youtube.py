@@ -6,6 +6,15 @@ import sys
 feed_file = sys.argv[1]
 out_file  = sys.argv[2]
 
+# Validar que el fitxer conté XML vàlid
+with open(feed_file, 'r', encoding='utf-8') as f:
+    content = f.read()
+
+if content.strip().startswith('<!DOCTYPE html') or content.strip().startswith('<html'):
+    print("ERROR: YouTube ha retornat HTML en lloc de XML RSS", file=sys.stderr)
+    print(f"Primers 200 chars: {content[:200]}", file=sys.stderr)
+    sys.exit(1)
+
 tree = ET.parse(feed_file)
 root = tree.getroot()
 ns = {
