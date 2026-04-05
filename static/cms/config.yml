@@ -36,23 +36,7 @@ collections:
           - { label: "YouTube", name: "youtube", widget: "string", required: false }
           - { label: "Spotify", name: "spotify", widget: "string", required: false }
           - { label: "Bandcamp", name: "bandcamp", widget: "string", required: false }
-    
-      - name: "press"
-        label: "Press-Book"
-        file: "data/press.yaml"
-        fields:
-          - { label: "Bio curta (CA)", name: "bio_short_ca", widget: "markdown" }
-          - { label: "Bio llarga (CA)", name: "bio_long_ca", widget: "markdown" }
-          - { label: "Fotos promocionals", name: "photos", widget: "list", field: { label: "URL", name: "url", widget: "image" } }
-      
-      - name: "rider"
-        label: "Rider Tècnic"
-        file: "data/rider.yaml"
-        fields:
-          - { label: "PDF del Rider", name: "pdf", widget: "file" }
-          - { label: "Backline necessari", name: "backline", widget: "markdown" }
 
-collections:
   # ─── Pàgines fixes (per idioma) ──────────────────
   - name: "pages-ca"
     label: "Pàgines (CA)"
