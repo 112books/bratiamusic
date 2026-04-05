@@ -13,6 +13,31 @@ public_folder: "/images/uploads"
 locale: "ca"
 
 collections:
+  # ─── Configuració Global ─────────────────────────
+  - name: "settings"
+    label: "Configuració"
+    files:
+      - name: "contact"
+        label: "Contacte"
+        file: "data/contact.yaml"
+        fields:
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Telèfon", name: "phone", widget: "string", required: false }
+          - { label: "Text introductori (CA)", name: "intro_ca", widget: "markdown", required: false }
+          - { label: "Text introductori (ES)", name: "intro_es", widget: "markdown", required: false }
+          - { label: "Text introductori (EN)", name: "intro_en", widget: "markdown", required: false }
+      
+      - name: "social"
+        label: "Xarxes Socials"
+        file: "data/social.yaml"
+        fields:
+          - { label: "Facebook", name: "facebook", widget: "string", required: false }
+          - { label: "Instagram", name: "instagram", widget: "string", required: false }
+          - { label: "YouTube", name: "youtube", widget: "string", required: false }
+          - { label: "Spotify", name: "spotify", widget: "string", required: false }
+          - { label: "Bandcamp", name: "bandcamp", widget: "string", required: false }
+
+collections:
   # ─── Pàgines fixes (per idioma) ──────────────────
   - name: "pages-ca"
     label: "Pàgines (CA)"
