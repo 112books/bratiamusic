@@ -12,14 +12,6 @@ public_folder: "/images/uploads"
 
 locale: "ca"
 
-i18n:
-  structure: multiple_folders
-  locales: [ca, es, en]
-  default_locale: ca
-
-site_url: https://bratiamusic.com
-display_url: https://bratiamusic.com
-
 collections:
   # ─── Pàgines fixes (per idioma) ──────────────────
   - name: "pages-ca"
@@ -88,70 +80,191 @@ collections:
           - { label: "Title", name: "title", widget: "string" }
           - { label: "Content", name: "body", widget: "markdown" }
 
-  # ─── Discografia ──────────────────────────────────
-  - name: "music"
-    label: "Discografia"
+  # ─── Discografia (Català) ────────────────────────
+  - name: "music-ca"
+    label: "Discografia (CA)"
     label_singular: "Disc"
     folder: "content/ca/music"
     create: true
     slug: "{{slug}}"
-    i18n: true
     filter: { field: "headless", pattern: "^$" }
     summary: "{{year}} — {{title}}"
     fields:
-      - { label: "Títol", name: "title", widget: "string", i18n: true }
-      - { label: "Tipus", name: "type_release", widget: "select", options: ["album", "single", "ep"], i18n: duplicate }
-      - { label: "Any", name: "year", widget: "number", value_type: "int", i18n: duplicate, required: true }
-      - { label: "Portada", name: "cover", widget: "image", required: false, i18n: duplicate }
-      - { label: "Spotify Embed", name: "spotify_embed", widget: "string", required: false, i18n: duplicate }
-      - { label: "Spotify URL", name: "spotify", widget: "string", required: false, i18n: duplicate }
-      - { label: "Apple Music", name: "apple_music", widget: "string", required: false, i18n: duplicate }
-      - { label: "Tidal", name: "tidal", widget: "string", required: false, i18n: duplicate }
-      - { label: "Deezer", name: "deezer", widget: "string", required: false, i18n: duplicate }
-      - { label: "YouTube", name: "youtube", widget: "string", required: false, i18n: duplicate }
-      - { label: "Amazon Music", name: "amazon_music", widget: "string", required: false, i18n: duplicate }
-      - { label: "Bandcamp", name: "bandcamp", widget: "string", required: false, i18n: duplicate }
-      - { label: "Smartlink", name: "smartlink", widget: "string", required: false, i18n: duplicate }
-      - { label: "Ordre", name: "weight", widget: "number", value_type: "int", i18n: duplicate }
-      - { label: "Descripció", name: "body", widget: "markdown", i18n: true, required: false }
+      - { label: "Títol", name: "title", widget: "string" }
+      - { label: "Tipus", name: "type_release", widget: "select", options: ["album", "single", "ep"] }
+      - { label: "Any", name: "year", widget: "number", value_type: "int", required: true }
+      - { label: "Portada", name: "cover", widget: "image", required: false }
+      - { label: "Spotify Embed", name: "spotify_embed", widget: "string", required: false }
+      - { label: "Spotify URL", name: "spotify", widget: "string", required: false }
+      - { label: "Apple Music", name: "apple_music", widget: "string", required: false }
+      - { label: "Tidal", name: "tidal", widget: "string", required: false }
+      - { label: "Deezer", name: "deezer", widget: "string", required: false }
+      - { label: "YouTube", name: "youtube", widget: "string", required: false }
+      - { label: "Amazon Music", name: "amazon_music", widget: "string", required: false }
+      - { label: "Bandcamp", name: "bandcamp", widget: "string", required: false }
+      - { label: "Smartlink", name: "smartlink", widget: "string", required: false }
+      - { label: "Ordre", name: "weight", widget: "number", value_type: "int" }
+      - { label: "Descripció", name: "body", widget: "markdown", required: false }
 
-  # ─── La Banda ──────────────────────────────────────
-  - name: "the-band"
-    label: "Músics"
+  - name: "music-es"
+    label: "Discografía (ES)"
+    label_singular: "Disco"
+    folder: "content/es/music"
+    create: true
+    slug: "{{slug}}"
+    filter: { field: "headless", pattern: "^$" }
+    summary: "{{year}} — {{title}}"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Tipo", name: "type_release", widget: "select", options: ["album", "single", "ep"] }
+      - { label: "Año", name: "year", widget: "number", value_type: "int", required: true }
+      - { label: "Portada", name: "cover", widget: "image", required: false }
+      - { label: "Spotify Embed", name: "spotify_embed", widget: "string", required: false }
+      - { label: "Spotify URL", name: "spotify", widget: "string", required: false }
+      - { label: "Apple Music", name: "apple_music", widget: "string", required: false }
+      - { label: "Tidal", name: "tidal", widget: "string", required: false }
+      - { label: "Deezer", name: "deezer", widget: "string", required: false }
+      - { label: "YouTube", name: "youtube", widget: "string", required: false }
+      - { label: "Amazon Music", name: "amazon_music", widget: "string", required: false }
+      - { label: "Bandcamp", name: "bandcamp", widget: "string", required: false }
+      - { label: "Smartlink", name: "smartlink", widget: "string", required: false }
+      - { label: "Orden", name: "weight", widget: "number", value_type: "int" }
+      - { label: "Descripción", name: "body", widget: "markdown", required: false }
+
+  - name: "music-en"
+    label: "Discography (EN)"
+    label_singular: "Release"
+    folder: "content/en/music"
+    create: true
+    slug: "{{slug}}"
+    filter: { field: "headless", pattern: "^$" }
+    summary: "{{year}} — {{title}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Type", name: "type_release", widget: "select", options: ["album", "single", "ep"] }
+      - { label: "Year", name: "year", widget: "number", value_type: "int", required: true }
+      - { label: "Cover", name: "cover", widget: "image", required: false }
+      - { label: "Spotify Embed", name: "spotify_embed", widget: "string", required: false }
+      - { label: "Spotify URL", name: "spotify", widget: "string", required: false }
+      - { label: "Apple Music", name: "apple_music", widget: "string", required: false }
+      - { label: "Tidal", name: "tidal", widget: "string", required: false }
+      - { label: "Deezer", name: "deezer", widget: "string", required: false }
+      - { label: "YouTube", name: "youtube", widget: "string", required: false }
+      - { label: "Amazon Music", name: "amazon_music", widget: "string", required: false }
+      - { label: "Bandcamp", name: "bandcamp", widget: "string", required: false }
+      - { label: "Smartlink", name: "smartlink", widget: "string", required: false }
+      - { label: "Order", name: "weight", widget: "number", value_type: "int" }
+      - { label: "Description", name: "body", widget: "markdown", required: false }
+
+  # ─── La Banda (Català) ────────────────────────────
+  - name: "the-band-ca"
+    label: "Músics (CA)"
     label_singular: "Músic"
     folder: "content/ca/the-band"
     create: true
     slug: "{{slug}}"
-    i18n: true
     filter: { field: "headless", pattern: "^$" }
     summary: "{{name}} — {{role}}"
     fields:
-      - { label: "Títol pàgina", name: "title", widget: "string", i18n: true }
-      - { label: "Nom", name: "name", widget: "string", i18n: duplicate, required: true }
-      - { label: "Rol", name: "role", widget: "string", i18n: true }
-      - { label: "Foto", name: "photo", widget: "image", i18n: duplicate }
-      - { label: "Ordre", name: "weight", widget: "number", value_type: "int", i18n: duplicate }
-      - { label: "Líder", name: "leader", widget: "boolean", default: false, required: false, i18n: duplicate }
-      - { label: "Instagram", name: "instagram", widget: "string", required: false, i18n: duplicate }
-      - { label: "Facebook", name: "facebook", widget: "string", required: false, i18n: duplicate }
-      - { label: "Web", name: "web", widget: "string", required: false, i18n: duplicate }
-      - { label: "Sponsor imatge", name: "sponsor_img", widget: "image", required: false, i18n: duplicate }
-      - { label: "Sponsor URL", name: "sponsor_url", widget: "string", required: false, i18n: duplicate }
-      - { label: "Biografia", name: "body", widget: "markdown", i18n: true }
+      - { label: "Títol pàgina", name: "title", widget: "string" }
+      - { label: "Nom", name: "name", widget: "string", required: true }
+      - { label: "Rol", name: "role", widget: "string" }
+      - { label: "Foto", name: "photo", widget: "image" }
+      - { label: "Ordre", name: "weight", widget: "number", value_type: "int" }
+      - { label: "Líder", name: "leader", widget: "boolean", default: false, required: false }
+      - { label: "Instagram", name: "instagram", widget: "string", required: false }
+      - { label: "Facebook", name: "facebook", widget: "string", required: false }
+      - { label: "Web", name: "web", widget: "string", required: false }
+      - { label: "Sponsor imatge", name: "sponsor_img", widget: "image", required: false }
+      - { label: "Sponsor URL", name: "sponsor_url", widget: "string", required: false }
+      - { label: "Biografia", name: "body", widget: "markdown" }
 
-  # ─── Concerts ─────────────────────────────────────
-  - name: "concerts"
-    label: "Concerts"
+  - name: "the-band-es"
+    label: "Músicos (ES)"
+    label_singular: "Músico"
+    folder: "content/es/the-band"
+    create: true
+    slug: "{{slug}}"
+    filter: { field: "headless", pattern: "^$" }
+    summary: "{{name}} — {{role}}"
+    fields:
+      - { label: "Título página", name: "title", widget: "string" }
+      - { label: "Nombre", name: "name", widget: "string", required: true }
+      - { label: "Rol", name: "role", widget: "string" }
+      - { label: "Foto", name: "photo", widget: "image" }
+      - { label: "Orden", name: "weight", widget: "number", value_type: "int" }
+      - { label: "Líder", name: "leader", widget: "boolean", default: false, required: false }
+      - { label: "Instagram", name: "instagram", widget: "string", required: false }
+      - { label: "Facebook", name: "facebook", widget: "string", required: false }
+      - { label: "Web", name: "web", widget: "string", required: false }
+      - { label: "Sponsor imagen", name: "sponsor_img", widget: "image", required: false }
+      - { label: "Sponsor URL", name: "sponsor_url", widget: "string", required: false }
+      - { label: "Biografía", name: "body", widget: "markdown" }
+
+  - name: "the-band-en"
+    label: "Musicians (EN)"
+    label_singular: "Musician"
+    folder: "content/en/the-band"
+    create: true
+    slug: "{{slug}}"
+    filter: { field: "headless", pattern: "^$" }
+    summary: "{{name}} — {{role}}"
+    fields:
+      - { label: "Page title", name: "title", widget: "string" }
+      - { label: "Name", name: "name", widget: "string", required: true }
+      - { label: "Role", name: "role", widget: "string" }
+      - { label: "Photo", name: "photo", widget: "image" }
+      - { label: "Order", name: "weight", widget: "number", value_type: "int" }
+      - { label: "Leader", name: "leader", widget: "boolean", default: false, required: false }
+      - { label: "Instagram", name: "instagram", widget: "string", required: false }
+      - { label: "Facebook", name: "facebook", widget: "string", required: false }
+      - { label: "Web", name: "web", widget: "string", required: false }
+      - { label: "Sponsor image", name: "sponsor_img", widget: "image", required: false }
+      - { label: "Sponsor URL", name: "sponsor_url", widget: "string", required: false }
+      - { label: "Bio", name: "body", widget: "markdown" }
+
+  # ─── Concerts (Català) ────────────────────────────
+  - name: "concerts-ca"
+    label: "Concerts (CA)"
     label_singular: "Concert"
     folder: "content/ca/concerts"
     create: true
     slug: "{{slug}}"
-    i18n: true
     filter: { field: "headless", pattern: "^$" }
     summary: "{{date}} — {{venue}} ({{city}})"
     fields:
-      - { label: "Títol", name: "title", widget: "string", i18n: true }
-      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: "HH:mm", i18n: duplicate, required: true }
-      - { label: "Lloc", name: "venue", widget: "string", i18n: true }
-      - { label: "Ciutat", name: "city", widget: "string", i18n: duplicate }
-      - { label: "Contingut", name: "body", widget: "markdown", i18n: true, required: false }
+      - { label: "Títol", name: "title", widget: "string" }
+      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: "HH:mm", required: true }
+      - { label: "Lloc", name: "venue", widget: "string" }
+      - { label: "Ciutat", name: "city", widget: "string" }
+      - { label: "Contingut", name: "body", widget: "markdown", required: false }
+
+  - name: "concerts-es"
+    label: "Conciertos (ES)"
+    label_singular: "Concierto"
+    folder: "content/es/concerts"
+    create: true
+    slug: "{{slug}}"
+    filter: { field: "headless", pattern: "^$" }
+    summary: "{{date}} — {{venue}} ({{city}})"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Fecha", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: "HH:mm", required: true }
+      - { label: "Lugar", name: "venue", widget: "string" }
+      - { label: "Ciudad", name: "city", widget: "string" }
+      - { label: "Contenido", name: "body", widget: "markdown", required: false }
+
+  - name: "concerts-en"
+    label: "Concerts (EN)"
+    label_singular: "Concert"
+    folder: "content/en/concerts"
+    create: true
+    slug: "{{slug}}"
+    filter: { field: "headless", pattern: "^$" }
+    summary: "{{date}} — {{venue}} ({{city}})"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: "HH:mm", required: true }
+      - { label: "Venue", name: "venue", widget: "string" }
+      - { label: "City", name: "city", widget: "string" }
+      - { label: "Content", name: "body", widget: "markdown", required: false }
