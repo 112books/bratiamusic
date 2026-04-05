@@ -96,7 +96,7 @@ collections:
     create: true
     slug: "{{slug}}"
     i18n: true
-    filter: { field: "year" }
+    filter: { field: "headless", pattern: "^$" }
     summary: "{{year}} — {{title}}"
     fields:
       - { label: "Títol", name: "title", widget: "string", i18n: true }
@@ -123,7 +123,7 @@ collections:
     create: true
     slug: "{{slug}}"
     i18n: true
-    filter: { field: "name" }
+    filter: { field: "headless", pattern: "^$" }
     summary: "{{name}} — {{role}}"
     fields:
       - { label: "Títol pàgina", name: "title", widget: "string", i18n: true }
@@ -147,7 +147,7 @@ collections:
     create: true
     slug: "{{slug}}"
     i18n: true
-    filter: { field: "date" }
+    filter: { field: "headless", pattern: "^$" }
     summary: "{{date}} — {{venue}} ({{city}})"
     fields:
       - { label: "Títol", name: "title", widget: "string", i18n: true }
