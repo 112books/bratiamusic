@@ -96,11 +96,12 @@ collections:
     create: true
     slug: "{{slug}}"
     i18n: true
+    filter: { field: "year" }
     summary: "{{year}} — {{title}}"
     fields:
       - { label: "Títol", name: "title", widget: "string", i18n: true }
       - { label: "Tipus", name: "type_release", widget: "select", options: ["album", "single", "ep"], i18n: duplicate }
-      - { label: "Any", name: "year", widget: "number", value_type: "int", i18n: duplicate }
+      - { label: "Any", name: "year", widget: "number", value_type: "int", i18n: duplicate, required: true }
       - { label: "Portada", name: "cover", widget: "image", required: false, i18n: duplicate }
       - { label: "Spotify Embed", name: "spotify_embed", widget: "string", required: false, i18n: duplicate }
       - { label: "Spotify URL", name: "spotify", widget: "string", required: false, i18n: duplicate }
@@ -122,10 +123,11 @@ collections:
     create: true
     slug: "{{slug}}"
     i18n: true
+    filter: { field: "name" }
     summary: "{{name}} — {{role}}"
     fields:
       - { label: "Títol pàgina", name: "title", widget: "string", i18n: true }
-      - { label: "Nom", name: "name", widget: "string", i18n: duplicate }
+      - { label: "Nom", name: "name", widget: "string", i18n: duplicate, required: true }
       - { label: "Rol", name: "role", widget: "string", i18n: true }
       - { label: "Foto", name: "photo", widget: "image", i18n: duplicate }
       - { label: "Ordre", name: "weight", widget: "number", value_type: "int", i18n: duplicate }
@@ -145,9 +147,11 @@ collections:
     create: true
     slug: "{{slug}}"
     i18n: true
+    filter: { field: "date" }
+    summary: "{{date}} — {{venue}} ({{city}})"
     fields:
       - { label: "Títol", name: "title", widget: "string", i18n: true }
-      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: "HH:mm" }
+      - { label: "Data", name: "date", widget: "datetime", format: "YYYY-MM-DD", time_format: "HH:mm", i18n: duplicate, required: true }
       - { label: "Lloc", name: "venue", widget: "string", i18n: true }
-      - { label: "Ciutat", name: "city", widget: "string" }
+      - { label: "Ciutat", name: "city", widget: "string", i18n: duplicate }
       - { label: "Contingut", name: "body", widget: "markdown", i18n: true, required: false }
