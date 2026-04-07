@@ -33,7 +33,7 @@ def main():
         sys.exit(1)
 
     # Processar hits (defensiu: pot ser null si l'API va fallar)
-    hits_data = safe_get(raw, "hits_data") or {}
+    hits_data = safe_get(raw, "hits_data") or raw
     hits = safe_get(hits_data, "hits") or []
 
     # Processar la resta
@@ -50,10 +50,7 @@ def main():
         "systems": systems,
         "sizes": sizes,
         "locations": locations,
-        "total_pageviews": sum(
-            sum(h.get("count", 0) for h in day.get("stats", []))
-            for day in hits
-        ) if hits else 0
+        "total_pageviews": sum(h.get("count", 0) for h in hits) if hits else 0
     }
 
     with open(output_file, "w") as f:
