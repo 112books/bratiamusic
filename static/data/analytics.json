@@ -1,8 +1,32 @@
 {
-  "generated_at": "2026-04-07T13:20:28.036907Z",
+  "generated_at": "2026-04-07T15:02:24.159461Z",
+  "generated": "2026-04-07T15:02:24.159490Z",
   "period": {
     "start": "2026-03-08",
     "end": "2026-04-07"
+  },
+  "total": 351,
+  "total_pageviews": 351,
+  "by_lang": {
+    "ca": 154,
+    "other": 106,
+    "en": 50,
+    "es": 41
+  },
+  "by_section": {
+    "home": 72,
+    "concerts": 29,
+    "music": 23,
+    "bratiamusic": 94,
+    "about": 24,
+    "the-band": 22,
+    "videos": 22,
+    "contact": 23,
+    "photos": 23,
+    "search": 8,
+    "legal": 9,
+    "smartlink_click": 1,
+    "youtube_click": 1
   },
   "hits": [
     {
@@ -55628,6 +55652,5 @@
   "browsers": [],
   "systems": [],
   "sizes": [],
-  "locations": [],
-  "total_pageviews": 351
+  "locations": []
 }
