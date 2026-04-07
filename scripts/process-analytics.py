@@ -3,7 +3,6 @@ import sys
 from datetime import datetime
 
 def safe_get(data, key, default=None):
-    """Retorna el valor o default si és None o no existeix."""
     if data is None:
         return default
     return data.get(key, default)
@@ -18,7 +17,6 @@ def main():
     start_date  = sys.argv[3]
     end_date    = sys.argv[4]
 
-    # Llegir i validar JSON d'entrada
     try:
         with open(input_file) as f:
             content = f.read().strip()
@@ -32,32 +30,52 @@ def main():
         print(f"   Contingut: {content[:200]}")
         sys.exit(1)
 
-    # Processar hits (defensiu: pot ser null si l'API va fallar)
     hits_data = safe_get(raw, "hits_data") or raw
     hits = safe_get(hits_data, "hits") or []
 
-    # Processar la resta
     browsers  = safe_get(safe_get(raw, "browsers")  or {}, "browsers")  or []
     systems   = safe_get(safe_get(raw, "systems")   or {}, "systems")   or []
     sizes     = safe_get(safe_get(raw, "sizes")     or {}, "sizes")     or []
     locations = safe_get(safe_get(raw, "locations") or {}, "locations") or []
 
+    # Agregar per idioma i secció
+    LANGS = {'ca', 'es', 'en'}
+    by_lang = {}
+    by_section = {}
+    for h in hits:
+        path = h.get("path", "")
+        count = h.get("count", 0)
+        parts = [p for p in path.strip("/").split("/") if p]
+        lang = parts[0] if parts and parts[0] in LANGS else "other"
+        by_lang[lang] = by_lang.get(lang, 0) + count
+        if parts and parts[0] in LANGS:
+            section = parts[1] if len(parts) > 1 else "home"
+        else:
+            section = parts[0] if parts else "home"
+        by_section[section] = by_section.get(section, 0) + count
+
+    total = sum(h.get("count", 0) for h in hits) if hits else 0
+
     output = {
         "generated_at": datetime.utcnow().isoformat() + "Z",
-        "period": {"start": start_date, "end": end_date},
-        "hits": hits,
-        "browsers": browsers,
-        "systems": systems,
-        "sizes": sizes,
-        "locations": locations,
-        "total_pageviews": sum(h.get("count", 0) for h in hits) if hits else 0
+        "generated":    datetime.utcnow().isoformat() + "Z",
+        "period":       {"start": start_date, "end": end_date},
+        "total":        total,
+        "total_pageviews": total,
+        "by_lang":      by_lang,
+        "by_section":   by_section,
+        "hits":         hits,
+        "browsers":     browsers,
+        "systems":      systems,
+        "sizes":        sizes,
+        "locations":    locations,
     }
 
     with open(output_file, "w") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"✅ Analytics processats: {output['total_pageviews']} pageviews")
-    print(f"   Browsers: {len(browsers)} | Sistemes: {len(systems)} | Ubicacions: {len(locations)}")
+    print(f"✅ Analytics processats: {total} pageviews")
+    print(f"   Langs: {by_lang} | Seccions: {len(by_section)}")
 
 if __name__ == "__main__":
     main()
