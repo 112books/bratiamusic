@@ -29,7 +29,7 @@ for entry in root.findall('atom:entry', ns):
     video_id = entry.find('yt:videoId', ns).text or ''
     published = entry.find('atom:published', ns).text or ''
     desc_el  = entry.find('.//media:description', ns)
-    desc     = desc_el.text if desc_el is not None else ''
+    desc     = (desc_el.text or '') if desc_el is not None else ''
 
     if re.search(r'#[Ss]horts?', title + desc):
         continue
