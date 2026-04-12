@@ -27,7 +27,7 @@
 
   {{ partial "head.html" . }}
 
-  <main id="main-content" tabindex="-1">
+  <main id="main-content" tabindex="-1" data-pagefind-body>
     {{ block "main" . }}{{ .Content }}{{ end }}
   </main>
 
