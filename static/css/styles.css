@@ -674,6 +674,46 @@ footer {
 .page-wrap--dark { background: var(--c-dark-2); color: var(--c-light); }
 .page-wrap--dark .page-title { color: var(--c-light); }
 
+/* Discografia: portada del darrer disc com a fons subtil */
+.page-wrap--disc {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.page-wrap--disc::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -4%;
+  transform: translateY(-50%);
+  width: min(54%, 480px);
+  aspect-ratio: 1 / 1;
+  background-image: var(--disc-bg, none);
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  opacity: .07;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to left, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
+}
+.page-wrap--disc > .page-inner {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 768px) {
+  .page-wrap--disc::before {
+    top: 0;
+    right: 50%;
+    transform: translateX(50%);
+    width: min(80%, 320px);
+    opacity: .05;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 80%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 80%);
+  }
+}
+
 .about-split { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - var(--header-h)); gap: 0; }
 .about-split__image { position: sticky; top: var(--header-h); height: calc(100vh - var(--header-h)); overflow: hidden; }
 .about-split__image img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: brightness(.85); }

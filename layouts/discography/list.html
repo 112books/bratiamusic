@@ -1,5 +1,10 @@
 {{ define "main" }}
-<div class="page-wrap page-wrap--dark">
+{{ $latestCover := "" }}
+{{ with (sort .Pages "Params.weight") | first 1 }}
+  {{ with index . 0 }}{{ $latestCover = .Params.cover }}{{ end }}
+{{ end }}
+<div class="page-wrap page-wrap--dark page-wrap--disc"
+  {{ if $latestCover }}style="--disc-bg: url('{{ $latestCover | absURL }}')"{{ end }}>
   <div class="page-inner">
     <h1 class="page-title">{{ .Title }}</h1>
 
