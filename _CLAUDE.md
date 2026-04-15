@@ -47,6 +47,7 @@ hugo --minify --environment production
 - Exit code 23 tolerat → no marca error fals
 - `git pull --rebase` + `git push` integrat per evitar rebuig
 - Inclou `hugo && npx pagefind --site public` integrat al flux
+- ⚠️ `rm -rf ${BUILD_DIR}` ABANS del build → evita fitxers obsolets (stale) si templates han canviat
 
 ### Deploy producció — rsync SSH
 ```bash
@@ -122,6 +123,7 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 - Scroll >80px: nav-compact → logo + icones SVG
 - nav-icon.html: segments a ignorar → ca, es, en, bratiamusic
 - CSS: `.nav-compact { transform: translateY(-100%); }` · `.lang-switcher--mobile { display: none; }`
+- ⚠️ Logo: `logo.png` és el correcte (NO logo.svg — té un altre disseny). Tant `site-header` com `nav-compact` han d'usar `logo.png`
 
 ---
 
@@ -131,13 +133,13 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 |--------|-------|
 | Home | ✅ Hero animació logo |
 | About | ✅ Split imatge+text |
-| The Band | ✅ Fotos rodones |
-| Discografia | ✅ 2 discs, Spotify |
+| The Band | ✅ Fotos rodones + fons Susurro.jpg subtil |
+| Discografia | ✅ 2 discs, Spotify + fons BPI subtil |
 | Concerts | ✅ Google Calendar → concerts.txt |
 | Vídeos | ✅ RSS YouTube → JSON |
 | Galeries | ✅ Google Photos automàtic |
 | Contacte | ✅ |
-| Footer | ✅ Socials + legal |
+| Footer | ✅ Socials + legal + badges estàndards web |
 | 404 | ✅ static/404.html, detecció idioma |
 | Admin index | ✅ /ca/admin/ |
 | Admin dashboard | ✅ /ca/admin/insights/ |
@@ -204,12 +206,15 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 
 ### scripts/process-analytics.py
 - parse_stats() defensiu per camps variables per endpoint
+- ⚠️ GoatCounter retorna dades sota clau `"stats"`, NO sota el nom de l'endpoint
 - Ús: `python3 scripts/process-analytics.py raw.json out.json START END`
 
 ### scripts/process-youtube.py
 - NO heredoc inline al workflow
 - Filtra Shorts per #Shorts i per URL /shorts/
 - ⚠️ `desc = (desc_el.text or '') if desc_el is not None else ''` — desc_el.text pot ser None
+- ⚠️ **FUSIONA** amb videos.json existent (no sobreescriu) — preserva historial de vídeos no-Shorts
+- Canal YouTube: `UCXqrXtF9DiXVmfB4X8RX6gA` (confirmat de externalId a youtube.com/@bratiamusic)
 - Ús: `python3 scripts/process-youtube.py /tmp/yt-feed.xml static/data/videos.json`
 
 ### scripts/process-concerts.py
@@ -228,9 +233,9 @@ Usa `$.Site.BaseURL + $lang`. NO usar absURL ni relLangURL en local.
 | bratia-about.jpg (742KB) | .webp (104KB) | 86% |
 | band/*.jpg (~70KB) | .webp (~27KB) | ~62% |
 
-### Logo: PNG → SVG
-- `logo.png` substituït per `logo.svg` a tots els templates
-- SVG escala perfectament, més lleuger que PNG
+### Logo
+- `logo.png` és el fitxer correcte per al header (logo.svg existeix però té un disseny diferent)
+- Usat a `layouts/partials/head.html` tant per `site-header` com per `nav-compact`
 
 ### Comandes de conversió
 ```bash
@@ -299,6 +304,9 @@ URLs absolutes hardcoded. Detecta idioma via `navigator.language`.
 - PageSpeed pot mostrar fals negatiu de headers — verificar amb curl
 - .htaccess pot no pujar-se per rsync --checksum → forçar manualment si cal
 - Pagefind: mai deixar `static/pagefind/` al repo — conflicte de versions JS vs índex
+- ⚠️ **`headless: true` en `_index.md`** evita que Hugo generi HTML per aquella secció → pàgina 404. Només usar-lo si la secció és INTENCIONALMENT inaccessible
+- ⚠️ **Build estale**: si templates canvien però pàgines no es regeneren, cal `rm -rf public/` abans del build. sync-web.sh ho fa automàticament
+- GoatCounter stats API: la resposta sempre usa clau `"stats"`, no el nom de l'endpoint (`"browsers"`, `"systems"`, etc.)
 
 ---
 
@@ -307,21 +315,54 @@ URLs absolutes hardcoded. Detecta idioma via `navigator.language`.
 ```
 hugo.toml · config/local|staging|production/
 sync-web.sh · static/.htaccess · static/404.html
-static/data/analytics.json · static/js/admin-dashboard.js
+static/data/analytics.json · static/data/videos.json
+static/js/admin-dashboard.js
 scripts/process-analytics.py · scripts/process-youtube.py · scripts/process-concerts.py
 layouts/_default/baseof.html · layouts/_default/index.html
-layouts/partials/head.html · layouts/partials/seo.html
+layouts/partials/head.html · layouts/partials/footer.html · layouts/partials/seo.html
 layouts/partials/lang-switcher.html · layouts/partials/band-member.html
 layouts/shortcodes/band.html · layouts/about/single.html
 layouts/admin/baseof.html · layouts/admin/list.html · layouts/admin/single.html
 layouts/search/list.html
+layouts/discography/list.html · layouts/the-band/list.html
 .github/workflows/fetch-analytics.yml · fetch-videos.yml
 .github/workflows/fetch-concerts.yml · fetch-galleries.yml · deploy.yml
 i18n/ca.yaml · es.yaml · en.yaml
 static/images/home-banner/bratia-portada-fondo.webp
 static/images/bratia-about.webp · static/images/band/*.webp
-static/images/logo.svg
+static/images/logo.png  ← logo correcte del header
+static/images/discography/balkan-pompe-ignition.jpg  ← fons disc discografia
+static/images/discography/Susurro.jpg  ← fons disc the-band
 ```
+
+---
+
+## Patrons visuals de fons (15/04/2026)
+
+### Imatge de disc/portada com a fons subtil
+Classes CSS reutilitzables per afegir portades d'àlbum com a filigrana:
+
+```css
+/* Dreta (discografia) */
+.page-wrap--disc + --disc-bg: url('...')
+/* Centrada (the-band) */
+.page-wrap--disc + .page-wrap--disc-center + --disc-bg: url('...')
+```
+
+- `opacity: .07` (dreta) / `.10` (centre)
+- Pseudo-element `::before` amb `z-index: 0`; `.page-inner` amb `z-index: 1`
+- Màscara `linear-gradient` (dreta) o `radial-gradient` (centre)
+- La imatge es llegeix dinàmicament del frontmatter `cover` del disc de `weight: 1`
+- `overflow: hidden` + `isolation: isolate` al contenidor
+
+### Footer estàndards web
+```html
+<div class="footer-standards"> → badges .footer-std-badge (monospace, discrets)
+HTML5 · CSS3 · WCAG 2.1 AA · WAI-ARIA · OpenGraph · Schema.org · hreflang · Core Web Vitals · PWA
+```
+- Convenció: text pla (NO imatges W3C externes que poden trencar-se)
+- `opacity: .28` en repòs, `.55` en hover
+- Separador `border-top: 1px solid rgba(255,255,255,.06)`
 
 ---
 
@@ -389,6 +430,19 @@ frame-src open.spotify.com www.youtube.com www.youtube-nocookie.com player.vimeo
 ---
 
 ## Tasques pendents
+
+### Completades (15/04/2026)
+- ✅ Logo correcte (logo.png) a header i nav-compact en tots els idiomes
+- ✅ Fix headless:true eliminat de ca/the-band, ca/music, es/concerts, en/concerts
+- ✅ sync-web.sh: rm -rf public/ abans del build (evita stale files)
+- ✅ process-youtube.py: fusiona amb JSON existent (preserva historial vídeos)
+- ✅ Cerca: try/catch a pf.search() → error visible en lloc de bloqueig "Cercant..."
+- ✅ Analytics: insights ampliats (browser, SO, mòbil%, país, internacional)
+- ✅ Admin: secció estàndards i accessibilitat al dashboard
+- ✅ Footer: badges estàndards web (HTML5, WCAG 2.1 AA, etc.)
+- ✅ Discografia: fons subtil portada BPI (page-wrap--disc)
+- ✅ The Band: fons subtil Susurro.jpg centrat (page-wrap--disc-center)
+- ✅ Pagefind: índex net a cada build (stale .pf_meta eliminats per rsync --delete)
 
 ### Completades (12/04/2026)
 - ✅ Cerca Pagefind funcional a producció (/ca/search/ · /es/ · /en/)
