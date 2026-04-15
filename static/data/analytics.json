@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-15T04:42:59.609558Z",
-  "generated": "2026-04-15T04:42:59.609586Z",
+  "generated_at": "2026-04-15T05:58:07.306107Z",
+  "generated": "2026-04-15T05:58:07.306133Z",
   "period": {
     "start": "2026-03-16",
     "end": "2026-04-15"
@@ -1927,7 +1927,7 @@
       "path_id": 84972522,
       "path": "/ca/videos",
       "event": false,
-      "title": "Vídeos · Bratia Music",
+      "title": "Vídeos · Actuacions i clips de Bratia Music · Bratia Music",
       "max": 2,
       "stats": [
         {
@@ -2872,7 +2872,7 @@
       "path_id": 84972523,
       "path": "/ca/music",
       "event": false,
-      "title": "Música · Bratia Music",
+      "title": "Discografia · Àlbums i singles de Bratia Music · Bratia Music",
       "max": 2,
       "stats": [
         {
@@ -3817,7 +3817,7 @@
       "path_id": 84972525,
       "path": "/ca/the-band",
       "event": false,
-      "title": "Bratia, la banda · Bratia Music",
+      "title": "Bratia, la banda · Músics de Balkan Gypsy Jazz · Bratia Music",
       "max": 3,
       "stats": [
         {
@@ -4762,7 +4762,7 @@
       "path_id": 84972864,
       "path": "/ca/about",
       "event": false,
-      "title": "Qui som · Bratia Music",
+      "title": "Qui som · Bratia Music, la banda de Balkan Gypsy Jazz · Bratia Music",
       "max": 2,
       "stats": [
         {
@@ -6652,7 +6652,7 @@
       "path_id": 84972510,
       "path": "/ca/photos",
       "event": false,
-      "title": "Fotografies · Bratia Music",
+      "title": "Fotografies · Galeries de fotos de Bratia Music · Bratia Music",
       "max": 2,
       "stats": [
         {
@@ -62278,8 +62278,117 @@
       ]
     }
   ],
-  "browsers": [],
-  "systems": [],
-  "sizes": [],
-  "locations": []
+  "browsers": [
+    {
+      "id": "Chrome",
+      "name": "Chrome",
+      "count": 355
+    },
+    {
+      "id": "Safari",
+      "name": "Safari",
+      "count": 207
+    },
+    {
+      "id": "Firefox",
+      "name": "Firefox",
+      "count": 9
+    },
+    {
+      "id": "",
+      "name": "",
+      "count": 4
+    }
+  ],
+  "systems": [
+    {
+      "id": "macOS",
+      "name": "macOS",
+      "count": 365
+    },
+    {
+      "id": "iOS",
+      "name": "iOS",
+      "count": 104
+    },
+    {
+      "id": "Windows",
+      "name": "Windows",
+      "count": 59
+    },
+    {
+      "id": "Android",
+      "name": "Android",
+      "count": 42
+    },
+    {
+      "id": "Linux",
+      "name": "Linux",
+      "count": 5
+    }
+  ],
+  "sizes": [
+    {
+      "id": "phone",
+      "name": "phone",
+      "count": 143
+    },
+    {
+      "id": "tablet",
+      "name": "tablet",
+      "count": 6
+    },
+    {
+      "id": "desktop",
+      "name": "desktop",
+      "count": 101
+    },
+    {
+      "id": "desktophd",
+      "name": "desktophd",
+      "count": 325
+    },
+    {
+      "id": "unknown",
+      "name": "unknown",
+      "count": 0
+    }
+  ],
+  "locations": [
+    {
+      "id": "ES",
+      "name": "Spain",
+      "count": 557
+    },
+    {
+      "id": "DE",
+      "name": "Germany",
+      "count": 10
+    },
+    {
+      "id": "US",
+      "name": "United States",
+      "count": 3
+    },
+    {
+      "id": "TR",
+      "name": "Turkey",
+      "count": 2
+    },
+    {
+      "id": "RS",
+      "name": "Serbia",
+      "count": 1
+    },
+    {
+      "id": "SE",
+      "name": "Sweden",
+      "count": 1
+    },
+    {
+      "id": "VN",
+      "name": "Vietnam",
+      "count": 1
+    }
+  ]
 }
