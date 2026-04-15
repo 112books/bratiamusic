@@ -702,6 +702,24 @@ footer {
   position: relative;
   z-index: 1;
 }
+/* Variant centrada per a "El grup" */
+.page-wrap--disc-center::before {
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: min(70%, 560px);
+  opacity: .06;
+  -webkit-mask-image:
+    radial-gradient(ellipse 60% 55% at 50% 50%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
+  mask-image:
+    radial-gradient(ellipse 60% 55% at 50% 50%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
+}
+@media (max-width: 768px) {
+  .page-wrap--disc-center::before {
+    width: min(90%, 340px);
+    opacity: .05;
+  }
+}
 @media (max-width: 768px) {
   .page-wrap--disc::before {
     top: 0;
