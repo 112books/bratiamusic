@@ -638,6 +638,33 @@ footer {
 .footer-signature a { color: rgba(255,255,255,.6); text-decoration: none; transition: color var(--dur); }
 .footer-signature a:hover { color: var(--c-gold); }
 
+.footer-standards {
+  max-width: var(--max-w);
+  margin: 1rem auto 0;
+  padding-top: .75rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem .4rem;
+  justify-content: center;
+}
+.footer-std-badge {
+  font-size: .6rem;
+  font-family: var(--f-mono, 'Courier New', monospace);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.28);
+  border: 1px solid rgba(255,255,255,.12);
+  padding: .15rem .45rem;
+  border-radius: 2px;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+}
+.footer-std-badge:hover {
+  color: rgba(255,255,255,.55);
+  border-color: rgba(255,255,255,.28);
+}
+
 @media (max-width: 900px) {
   .footer-main { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
   .footer-socials  { grid-column: 1; grid-row: 1; }
@@ -705,19 +732,18 @@ footer {
 /* Variant centrada per a "El grup" */
 .page-wrap--disc-center::before {
   top: 50%;
-  right: 50%;
-  transform: translate(50%, -50%);
-  width: min(70%, 560px);
-  opacity: .06;
-  -webkit-mask-image:
-    radial-gradient(ellipse 60% 55% at 50% 50%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
-  mask-image:
-    radial-gradient(ellipse 60% 55% at 50% 50%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 100%);
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, -50%);
+  width: min(65%, 520px);
+  opacity: .10;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 40%, transparent 100%);
 }
 @media (max-width: 768px) {
   .page-wrap--disc-center::before {
-    width: min(90%, 340px);
-    opacity: .05;
+    width: min(85%, 320px);
+    opacity: .08;
   }
 }
 @media (max-width: 768px) {
