@@ -458,7 +458,7 @@ a   { color: inherit; }
 /* ── 9. CONCERTS / SHOWS ─────────────────────────────────── */
 .concerts-section {
   position: relative;
-  padding: calc(var(--section-v) + 2rem) var(--gap);
+  padding: var(--section-v) var(--gap);
   background:
     linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.90)),
     var(--concerts-bg, none) center center / cover no-repeat;
@@ -707,6 +707,11 @@ footer {
 .disc-platform__icon svg { width: 20px; height: 20px; }
 .disc-platform__icon:hover { color: var(--c-gold); transform: translateY(-2px); }
 
+.page-wrap--dark .disc-card__title { color: var(--c-light); }
+.page-wrap--dark .disc-card__year { color: rgba(255,255,255,.5); }
+.page-wrap--dark .disc-platform--main { color: var(--c-light); }
+.page-wrap--dark .disc-platform__icon { color: rgba(255,255,255,.45); }
+
 @media (max-width: 768px) {
   .disc-card { grid-template-columns: 1fr; gap: 1.5rem; }
   .disc-card:nth-child(even) { direction: ltr; }
@@ -839,7 +844,7 @@ footer {
 
 /* ── 17. CONTACTE ────────────────────────────────────────── */
 .contact-wrap { min-height: calc(100vh - var(--compact-h)); position: relative; background: var(--contact-bg, none) center center / cover no-repeat; display: flex; align-items: stretch; }
-.contact-overlay { flex: 1; background: linear-gradient(105deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.75) 55%, rgba(0,0,0,0.3) 100%); display: flex; align-items: center; }
+.contact-overlay { flex: 1; background: linear-gradient(105deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.75) 55%, rgba(0,0,0,0.3) 100%); display: flex; align-items: flex-start; }
 .contact-inner { max-width: var(--max-w); width: 100%; margin: 0 auto; padding: var(--section-v) var(--gap); }
 .contact-text { max-width: 560px; }
 .contact-title { font-family: var(--f-display); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400; color: var(--c-gold); margin-bottom: 1.5rem; position: relative; padding-bottom: 1rem; }

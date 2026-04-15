@@ -123,11 +123,13 @@ function loadData() {
 }
 
 /* ── Barra ────────────────────────────────────────────────────── */
-function bar(value, max, cls) {
-  var p = max > 0 ? Math.round((value / max) * 100) : 0;
+/* value/max controla l'amplada visual; pct és el % que es mostra (% del total) */
+function bar(value, max, cls, pct) {
+  var w = max > 0 ? Math.round((value / max) * 100) : 0;
+  var p = pct !== undefined ? pct : w;
   return '<div class="chart-bar-wrap">' +
-    '<div class="chart-bar ' + cls + '" data-width="' + p + '" style="width:0%">' +
-    (p > 8 ? '<span class="chart-pct">' + p + '%</span>' : '') +
+    '<div class="chart-bar ' + cls + '" data-width="' + w + '" style="width:0%">' +
+    (w > 8 ? '<span class="chart-pct">' + p + '%</span>' : '') +
     '</div></div>';
 }
 
@@ -196,12 +198,14 @@ function iconRowVisual(items, icons, cls) {
 /* ── Secció de barres ─────────────────────────────────────────── */
 function statSection(title, items, cls, icons) {
   if (!items || items.length === 0) return '';
-  var max  = Math.max.apply(null, items.map(function(i){ return i.count; }));
-  var vis  = icons ? iconRowVisual(items, icons, cls.replace('chart-bar--', '')) : '';
-  var rows = items.map(function(item) {
+  var max   = Math.max.apply(null, items.map(function(i){ return i.count; }));
+  var total = items.reduce(function(s, i){ return s + i.count; }, 0) || 1;
+  var vis   = icons ? iconRowVisual(items, icons, cls.replace('chart-bar--', '')) : '';
+  var rows  = items.map(function(item) {
+    var pct = Math.round(item.count / total * 100);
     return '<div class="chart-row">' +
       '<div class="chart-label">' + (SIZE_LABELS[item.id] || item.name) + '</div>' +
-      bar(item.count, max, cls) +
+      bar(item.count, max, cls, pct) +
       '<div class="chart-value">' + item.count + '</div></div>';
   }).join('');
   return '<div class="section-title">' + title + '</div>' + vis +
@@ -219,23 +223,27 @@ function renderDashboard(data) {
     : '';
 
   var langMax    = Math.max.apply(null, Object.values(byLang).concat([1]));
+  var langTotal  = Object.values(byLang).reduce(function(s,v){ return s+v; }, 0) || 1;
   var sectionMax = Math.max.apply(null, Object.values(bySection).concat([1]));
+  var sectionTotal = Object.values(bySection).reduce(function(s,v){ return s+v; }, 0) || 1;
 
   var langRows = Object.entries(byLang)
     .sort(function(a, b){ return b[1] - a[1]; })
     .map(function(e) {
+      var pct = Math.round(e[1] / langTotal * 100);
       return '<div class="chart-row">' +
         '<div class="chart-label">' + (LANG_NAMES[e[0]] || e[0]) + '</div>' +
-        bar(e[1], langMax, 'chart-bar--lang-' + e[0]) +
+        bar(e[1], langMax, 'chart-bar--lang-' + e[0], pct) +
         '<div class="chart-value">' + e[1] + '</div></div>';
     }).join('');
 
   var sectionRows = Object.entries(bySection)
     .sort(function(a, b){ return b[1] - a[1]; })
     .map(function(e) {
+      var pct = Math.round(e[1] / sectionTotal * 100);
       return '<div class="chart-row">' +
         '<div class="chart-label">' + (SECTION_NAMES[e[0]] || e[0]) + '</div>' +
-        bar(e[1], sectionMax, 'chart-bar--section') +
+        bar(e[1], sectionMax, 'chart-bar--section', pct) +
         '<div class="chart-value">' + e[1] + '</div></div>';
     }).join('');
 

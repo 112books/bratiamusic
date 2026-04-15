@@ -24,7 +24,7 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --minify --environment staging
+        run: hugo --minify --environment staging && npx pagefind --site public
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

@@ -33,10 +33,24 @@ def main():
     hits_data = safe_get(raw, "hits_data") or raw
     hits = safe_get(hits_data, "hits") or []
 
-    browsers  = safe_get(safe_get(raw, "browsers")  or {}, "browsers")  or []
-    systems   = safe_get(safe_get(raw, "systems")   or {}, "systems")   or []
-    sizes     = safe_get(safe_get(raw, "sizes")     or {}, "sizes")     or []
-    locations = safe_get(safe_get(raw, "locations") or {}, "locations") or []
+    def extract_stats(obj, key):
+        """GoatCounter pot retornar la llista sota el nom de l'endpoint o sota 'stats'"""
+        if not obj:
+            return []
+        items = obj.get(key) or obj.get('stats') or []
+        out = []
+        for s in items:
+            out.append({
+                "id":    s.get('id')   or s.get('code') or s.get('name') or '',
+                "name":  s.get('name') or s.get('id')   or s.get('code') or '',
+                "count": s.get('count', 0),
+            })
+        return out
+
+    browsers  = extract_stats(safe_get(raw, "browsers")  or {}, "browsers")
+    systems   = extract_stats(safe_get(raw, "systems")   or {}, "systems")
+    sizes     = extract_stats(safe_get(raw, "sizes")     or {}, "sizes")
+    locations = extract_stats(safe_get(raw, "locations") or {}, "locations")
 
     # Agregar per idioma i secció
     LANGS = {'ca', 'es', 'en'}

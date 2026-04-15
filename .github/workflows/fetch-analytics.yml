@@ -24,12 +24,11 @@ jobs:
           AUTH="Authorization: Bearer ${GC_TOKEN}"
           echo "=== TOKEN (primers 8 chars) ==="
           echo "${GC_TOKEN:0:8}..."
-          echo "=== HITS ==="
-          curl -s --max-time 15 -H "${AUTH}" "${BASE}/stats/hits?start=${START}&end=${END}&limit=100" | head -c 200
-          echo ""
-          echo "=== BROWSERS ==="
-          curl -s --max-time 15 -H "${AUTH}" "${BASE}/stats/browsers?start=${START}&end=${END}&limit=10" | head -c 200
-          echo ""
+          for EP in "hits?start=${START}&end=${END}&limit=100" "browsers?start=${START}&end=${END}&limit=10" "systems?start=${START}&end=${END}&limit=10" "sizes?start=${START}&end=${END}&limit=10" "locations?start=${START}&end=${END}&limit=10"; do
+            echo "=== stats/${EP%%\?*} ==="
+            curl -s --max-time 15 -H "${AUTH}" "${BASE}/stats/${EP}" | head -c 500
+            echo ""
+          done
 
       - name: Fetch analytics data
         env:
