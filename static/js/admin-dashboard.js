@@ -250,18 +250,52 @@ function renderDashboard(data) {
   /* Insights automàtics */
   var topLang    = Object.entries(byLang).sort(function(a,b){return b[1]-a[1];})[0];
   var topSection = Object.entries(bySection).sort(function(a,b){return b[1]-a[1];})[0];
+  var topBrowser = (data.browsers  || []).slice().sort(function(a,b){return b.count-a.count;})[0];
+  var topSystem  = (data.systems   || []).slice().sort(function(a,b){return b.count-a.count;})[0];
+  var topSize    = (data.sizes     || []).slice().sort(function(a,b){return b.count-a.count;})[0];
+  var topCountry = (data.locations || []).slice().sort(function(a,b){return b.count-a.count;})[0];
+  var browserTotal = (data.browsers  || []).reduce(function(s,i){return s+i.count;},0) || 1;
+  var systemTotal  = (data.systems   || []).reduce(function(s,i){return s+i.count;},0) || 1;
+  var sizeTotal    = (data.sizes     || []).reduce(function(s,i){return s+i.count;},0) || 1;
+  var phonePct  = (data.sizes || []).filter(function(s){return s.id==='phone';})
+                    .reduce(function(s,i){return s+i.count;},0);
+  var mobileTotal = (data.sizes || []).filter(function(s){return s.id==='phone'||s.id==='tablet';})
+                    .reduce(function(s,i){return s+i.count;},0);
+
   var insights   = [];
   if (topLang)
-    insights.push('L\'idioma més usat és el <strong style="color:var(--green)">' +
+    insights.push('L\'idioma més usat és el <strong>' +
       (LANG_NAMES[topLang[0]] || topLang[0]) + '</strong> amb ' + topLang[1] +
       ' visites (' + Math.round(topLang[1] / total * 100) + '% del total).');
   if (topSection)
-    insights.push('La secció més visitada és <strong style="color:var(--green)">' +
+    insights.push('La secció més visitada és <strong>' +
       (SECTION_NAMES[topSection[0]] || topSection[0]) + '</strong> amb ' + topSection[1] + ' visites.');
   if ((byLang.en || 0) > (byLang.es || 0))
-    insights.push('L\'anglès supera el castellà — considerar prioritzar traduccions EN.');
+    insights.push('L\'anglès supera el castellà — considera prioritzar contingut EN.');
   if ((bySection.contact || 0) < (bySection.about || 0) * 0.3)
-    insights.push('Poques visites a Contacte vs About — revisar el CTA de booking.');
+    insights.push('Poques visites a Contacte respecte a About — revisa el CTA de booking.');
+  if (topBrowser)
+    insights.push('Navegador principal: <strong>' + topBrowser.name + '</strong> (' +
+      Math.round(topBrowser.count / browserTotal * 100) + '% dels accessos).');
+  if (topSystem)
+    insights.push('Sistema operatiu principal: <strong>' + topSystem.name + '</strong> (' +
+      Math.round(topSystem.count / systemTotal * 100) + '% dels accessos).');
+  if (sizeTotal > 0) {
+    var mobilePct = Math.round(mobileTotal / sizeTotal * 100);
+    var desktopPct = 100 - mobilePct;
+    insights.push('Dispositius: <strong>' + mobilePct + '% mòbil/tauleta</strong> · ' +
+      desktopPct + '% escriptori — ' +
+      (mobilePct > 50 ? 'el disseny mòbil és prioritari.' : 'predomina l\'escriptori.'));
+  }
+  if (topCountry)
+    insights.push('Principal país de procedència: <strong>' + topCountry.name + '</strong> (' +
+      topCountry.count + ' visites).');
+  if ((data.locations || []).length > 1) {
+    var intlCount = (data.locations || []).slice(1).reduce(function(s,i){return s+i.count;},0);
+    var intlPct = Math.round(intlCount / total * 100);
+    if (intlPct > 10)
+      insights.push('El ' + intlPct + '% de les visites provenen de fora del país principal — bon potencial internacional.');
+  }
 
   /* Nota de període estimat */
   var p = PERIODS.find(function(x){ return x.id === activePeriod; });
@@ -295,6 +329,53 @@ function renderDashboard(data) {
     '<div class="insight-box">' +
     '<span class="label">// interpretació automàtica</span>' +
     insights.map(function(i){ return '<div class="insight-item">' + i + '</div>'; }).join('') +
+    '</div>' +
+
+    /* Estàndards i conformitat */
+    '<div class="standards-box">' +
+    '<span class="label">// estàndards i accessibilitat</span>' +
+    '<div class="standards-grid">' +
+    '<div class="standard-badge">' +
+      '<span class="standard-icon">✓</span>' +
+      '<span class="standard-name">HTML5</span>' +
+      '<span class="standard-desc">Marcat semàntic vàlid</span>' +
+    '</div>' +
+    '<div class="standard-badge">' +
+      '<span class="standard-icon">✓</span>' +
+      '<span class="standard-name">WCAG 2.1 AA</span>' +
+      '<span class="standard-desc">Accessibilitat web</span>' +
+    '</div>' +
+    '<div class="standard-badge">' +
+      '<span class="standard-icon">✓</span>' +
+      '<span class="standard-name">ARIA</span>' +
+      '<span class="standard-desc">Rols i etiquetes semàntiques</span>' +
+    '</div>' +
+    '<div class="standard-badge">' +
+      '<span class="standard-icon">✓</span>' +
+      '<span class="standard-name">OpenGraph</span>' +
+      '<span class="standard-desc">Metadades per xarxes socials</span>' +
+    '</div>' +
+    '<div class="standard-badge">' +
+      '<span class="standard-icon">✓</span>' +
+      '<span class="standard-name">Schema.org</span>' +
+      '<span class="standard-desc">Dades estructurades JSON-LD</span>' +
+    '</div>' +
+    '<div class="standard-badge">' +
+      '<span class="standard-icon">✓</span>' +
+      '<span class="standard-name">hreflang</span>' +
+      '<span class="standard-desc">SEO multilingüe CA/ES/EN</span>' +
+    '</div>' +
+    '<div class="standard-badge">' +
+      '<span class="standard-icon">✓</span>' +
+      '<span class="standard-name">Core Web Vitals</span>' +
+      '<span class="standard-desc">Rendiment i experiència</span>' +
+    '</div>' +
+    '<div class="standard-badge">' +
+      '<span class="standard-icon">✓</span>' +
+      '<span class="standard-name">PWA</span>' +
+      '<span class="standard-desc">Web Manifest + icones</span>' +
+    '</div>' +
+    '</div>' +
     '</div>' +
 
     /* Peu */

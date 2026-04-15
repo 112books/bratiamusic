@@ -118,8 +118,15 @@
       return;
     }
 
-    const search = await pf.search(query);
-    const data   = await Promise.all(search.results.slice(0, 10).map(r => r.data()));
+    let search, data;
+    try {
+      search = await pf.search(query);
+      data   = await Promise.all(search.results.slice(0, 10).map(r => r.data()));
+    } catch(e) {
+      console.error('Error en la cerca:', e);
+      status.textContent = 'Error en la cerca. Torna-ho a intentar.';
+      return;
+    }
 
     if (data.length === 0) {
       status.textContent = t.noResults(query);

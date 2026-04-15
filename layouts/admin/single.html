@@ -307,6 +307,56 @@
   .insight-item { display: flex; gap: .6rem; align-items: baseline; margin-bottom: .3rem; }
   .insight-item::before { content: '→'; color: var(--green); flex-shrink: 0; }
 
+  /* ── Estàndards ─────────────────────────────────────────── */
+  .standards-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    padding: 1.2rem 1.5rem;
+    margin-top: 1.5rem;
+    font-size: .95rem;
+    color: var(--text-dim);
+  }
+  .standards-box .label {
+    color: var(--blue);
+    font-size: .85rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .standards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: .6rem;
+  }
+  .standard-badge {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    grid-template-rows: auto auto;
+    gap: .1rem .5rem;
+    padding: .6rem .8rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    align-items: center;
+  }
+  .standard-icon {
+    color: var(--green);
+    font-weight: 700;
+    grid-row: span 2;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .standard-name {
+    color: var(--text);
+    font-size: .85rem;
+    font-weight: 700;
+  }
+  .standard-desc {
+    color: var(--text-dim);
+    font-size: .75rem;
+  }
+
   /* ── Loading / blink ─────────────────────────────────────── */
   .loading { color: var(--text-dim); font-size: .9rem; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }

@@ -141,6 +141,9 @@ do_publish() {
 
     do_sync
 
+    print_message "Netejant build anterior..."
+    rm -rf ${BUILD_DIR}
+
     print_message "Build Hugo producció..."
     hugo --minify --environment production || exit 1
     do_pagefind production
