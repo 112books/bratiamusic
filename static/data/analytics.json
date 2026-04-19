@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-19T09:41:25.162255Z",
-  "generated": "2026-04-19T09:41:25.162281Z",
+  "generated_at": "2026-04-19T10:33:40.230531Z",
+  "generated": "2026-04-19T10:33:40.230557Z",
   "period": {
     "start": "2026-03-20",
     "end": "2026-04-19"
@@ -64201,7 +64201,7 @@
     {
       "id": "Firefox",
       "name": "Firefox",
-      "count": 11
+      "count": 12
     },
     {
       "id": "",
@@ -64223,7 +64223,7 @@
     {
       "id": "Windows",
       "name": "Windows",
-      "count": 83
+      "count": 84
     },
     {
       "id": "Android",
@@ -64250,7 +64250,7 @@
     {
       "id": "desktop",
       "name": "desktop",
-      "count": 130
+      "count": 131
     },
     {
       "id": "desktophd",
@@ -64267,7 +64267,7 @@
     {
       "id": "ES",
       "name": "Spain",
-      "count": 666
+      "count": 667
     },
     {
       "id": "DE",
