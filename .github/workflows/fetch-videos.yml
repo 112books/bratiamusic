@@ -12,15 +12,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fetch i processa RSS de YouTube
+      - name: Fetch i processa vídeos de YouTube
         run: |
           mkdir -p static/data
-          curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
-            "https://www.youtube.com/feeds/videos.xml?channel_id=UCXqrXtF9DiXVmfB4X8RX6gA" \
-            -o /tmp/yt-feed.xml
-          echo "Feed rebut: $(wc -c < /tmp/yt-feed.xml) bytes"
-          head -2 /tmp/yt-feed.xml
-          python3 scripts/process-youtube.py /tmp/yt-feed.xml static/data/videos.json
+          pip install -q yt-dlp
+          yt-dlp \
+            --flat-playlist \
+            --dump-single-json \
+            --no-warnings \
+            --playlist-end 50 \
+            "https://www.youtube.com/channel/UCXqrXtF9DiXVmfB4X8RX6gA/videos" \
+            > /tmp/yt-playlist.json
+          echo "Entrades rebudes: $(python3 -c "import json,sys; d=json.load(open('/tmp/yt-playlist.json')); print(len(d.get('entries',[])), 'vídeos')")"
+          python3 scripts/process-youtube.py /tmp/yt-playlist.json static/data/videos.json
 
       - name: Commit si hi ha canvis
         run: |
