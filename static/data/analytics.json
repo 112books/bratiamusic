@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-20T20:05:30.240213Z",
-  "generated": "2026-05-20T20:05:30.240242Z",
+  "generated_at": "2026-05-20T22:21:03.089202Z",
+  "generated": "2026-05-20T22:21:03.089234Z",
   "period": {
     "start": "2026-04-20",
     "end": "2026-05-20"
@@ -27431,7 +27431,7 @@
     {
       "id": "",
       "name": "",
-      "count": 11
+      "count": 12
     }
   ],
   "systems": [
@@ -27446,14 +27446,14 @@
       "count": 54
     },
     {
-      "id": "macOS",
-      "name": "macOS",
+      "id": "Linux",
+      "name": "Linux",
       "count": 23
     },
     {
-      "id": "Linux",
-      "name": "Linux",
-      "count": 22
+      "id": "macOS",
+      "name": "macOS",
+      "count": 23
     },
     {
       "id": "iOS",
@@ -27485,7 +27485,7 @@
     {
       "id": "desktop",
       "name": "desktop",
-      "count": 93
+      "count": 94
     },
     {
       "id": "desktophd",
@@ -27502,7 +27502,7 @@
     {
       "id": "ES",
       "name": "Spain",
-      "count": 94
+      "count": 95
     },
     {
       "id": "US",
