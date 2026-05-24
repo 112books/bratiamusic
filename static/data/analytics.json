@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-24T02:40:10.257572Z",
-  "generated": "2026-05-24T02:40:10.257599Z",
+  "generated_at": "2026-05-24T06:31:57.318506Z",
+  "generated": "2026-05-24T06:31:57.318538Z",
   "period": {
     "start": "2026-04-24",
     "end": "2026-05-24"
@@ -23623,7 +23623,7 @@
     {
       "id": "Chrome",
       "name": "Chrome",
-      "count": 92
+      "count": 94
     },
     {
       "id": "Safari",
@@ -23633,7 +23633,7 @@
     {
       "id": "",
       "name": "",
-      "count": 12
+      "count": 13
     },
     {
       "id": "Firefox",
@@ -23645,7 +23645,7 @@
     {
       "id": "Android",
       "name": "Android",
-      "count": 56
+      "count": 58
     },
     {
       "id": "Windows",
@@ -23665,7 +23665,7 @@
     {
       "id": "Linux",
       "name": "Linux",
-      "count": 10
+      "count": 11
     },
     {
       "id": "",
@@ -23682,7 +23682,7 @@
     {
       "id": "phone",
       "name": "phone",
-      "count": 56
+      "count": 58
     },
     {
       "id": "tablet",
@@ -23692,7 +23692,7 @@
     {
       "id": "desktop",
       "name": "desktop",
-      "count": 60
+      "count": 61
     },
     {
       "id": "desktophd",
@@ -23709,12 +23709,12 @@
     {
       "id": "ES",
       "name": "Spain",
-      "count": 68
+      "count": 69
     },
     {
       "id": "HR",
       "name": "Croatia",
-      "count": 15
+      "count": 17
     },
     {
       "id": "BG",
