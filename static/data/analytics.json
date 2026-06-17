@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-06-17T00:12:05.074731Z",
-  "generated": "2026-06-17T00:12:05.074766Z",
+  "generated_at": "2026-06-17T06:04:44.123918Z",
+  "generated": "2026-06-17T06:04:44.123945Z",
   "period": {
     "start": "2026-05-18",
     "end": "2026-06-17"
   },
-  "total": 173,
-  "total_pageviews": 173,
+  "total": 174,
+  "total_pageviews": 174,
   "by_lang": {
-    "ca": 119,
+    "ca": 120,
     "es": 25,
     "en": 28,
     "other": 1
   },
   "by_section": {
-    "home": 80,
+    "home": 81,
     "concerts": 21,
     "the-band": 22,
     "about": 17,
@@ -28,7 +28,7 @@
   },
   "hits": [
     {
-      "count": 65,
+      "count": 66,
       "path_id": 84979268,
       "path": "/ca",
       "event": false,
@@ -488,7 +488,7 @@
           ],
           "daily": 3,
           "weekly": 14,
-          "monthly": 41
+          "monthly": 42
         },
         {
           "day": "2026-06-02",
@@ -910,7 +910,7 @@
             0
           ],
           "daily": 2,
-          "weekly": 6
+          "weekly": 7
         },
         {
           "day": "2026-06-16",
@@ -947,7 +947,7 @@
           "hourly": [
             0,
             0,
-            0,
+            1,
             0,
             0,
             0,
@@ -970,7 +970,7 @@
             0,
             0
           ],
-          "daily": 0
+          "daily": 1
         }
       ]
     },
@@ -25520,7 +25520,7 @@
     {
       "id": "Safari",
       "name": "Safari",
-      "count": 30
+      "count": 31
     },
     {
       "id": "",
@@ -25552,7 +25552,7 @@
     {
       "id": "iOS",
       "name": "iOS",
-      "count": 20
+      "count": 21
     },
     {
       "id": "Linux",
@@ -25564,7 +25564,7 @@
     {
       "id": "phone",
       "name": "phone",
-      "count": 65
+      "count": 66
     },
     {
       "id": "tablet",
@@ -25601,7 +25601,7 @@
     {
       "id": "US",
       "name": "United States",
-      "count": 12
+      "count": 13
     },
     {
       "id": "GR",
