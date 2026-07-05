@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-05T15:08:00.857095Z",
-  "generated": "2026-07-05T15:08:00.857119Z",
+  "generated_at": "2026-07-05T17:01:01.426322Z",
+  "generated": "2026-07-05T17:01:01.426343Z",
   "period": {
     "start": "2026-06-05",
     "end": "2026-07-05"
@@ -25555,33 +25555,7 @@
       "count": 12
     }
   ],
-  "sizes": [
-    {
-      "id": "phone",
-      "name": "phone",
-      "count": 103
-    },
-    {
-      "id": "tablet",
-      "name": "tablet",
-      "count": 2
-    },
-    {
-      "id": "desktop",
-      "name": "desktop",
-      "count": 94
-    },
-    {
-      "id": "desktophd",
-      "name": "desktophd",
-      "count": 10
-    },
-    {
-      "id": "unknown",
-      "name": "unknown",
-      "count": 0
-    }
-  ],
+  "sizes": [],
   "locations": [
     {
       "id": "ES",
