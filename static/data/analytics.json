@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-13T18:28:02.074725Z",
-  "generated": "2026-07-13T18:28:02.074761Z",
+  "generated_at": "2026-07-13T20:07:51.763993Z",
+  "generated": "2026-07-13T20:07:51.764017Z",
   "period": {
     "start": "2026-06-13",
     "end": "2026-07-13"
@@ -24567,7 +24567,7 @@
     {
       "id": "Safari",
       "name": "Safari",
-      "count": 34
+      "count": 35
     },
     {
       "id": "",
@@ -24592,13 +24592,13 @@
       "count": 36
     },
     {
-      "id": "macOS",
-      "name": "macOS",
-      "count": 25
-    },
-    {
       "id": "iOS",
       "name": "iOS",
+      "count": 26
+    },
+    {
+      "id": "macOS",
+      "name": "macOS",
       "count": 25
     },
     {
@@ -24611,7 +24611,7 @@
     {
       "id": "phone",
       "name": "phone",
-      "count": 92
+      "count": 93
     },
     {
       "id": "tablet",
