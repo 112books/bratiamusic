@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-24T16:34:56.071014Z",
-  "generated": "2026-07-24T16:34:56.071054Z",
+  "generated_at": "2026-07-24T18:13:18.686987Z",
+  "generated": "2026-07-24T18:13:18.687022Z",
   "period": {
     "start": "2026-06-24",
     "end": "2026-07-24"
@@ -25570,6 +25570,83 @@
       "count": 3
     }
   ],
-  "sizes": [],
-  "locations": []
+  "sizes": [
+    {
+      "id": "phone",
+      "name": "phone",
+      "count": 68
+    },
+    {
+      "id": "tablet",
+      "name": "tablet",
+      "count": 4
+    },
+    {
+      "id": "desktop",
+      "name": "desktop",
+      "count": 65
+    },
+    {
+      "id": "desktophd",
+      "name": "desktophd",
+      "count": 3
+    },
+    {
+      "id": "unknown",
+      "name": "unknown",
+      "count": 0
+    }
+  ],
+  "locations": [
+    {
+      "id": "ES",
+      "name": "Spain",
+      "count": 89
+    },
+    {
+      "id": "FR",
+      "name": "France",
+      "count": 14
+    },
+    {
+      "id": "US",
+      "name": "United States",
+      "count": 11
+    },
+    {
+      "id": "RS",
+      "name": "Serbia",
+      "count": 9
+    },
+    {
+      "id": "DE",
+      "name": "Germany",
+      "count": 2
+    },
+    {
+      "id": "IT",
+      "name": "Italy",
+      "count": 2
+    },
+    {
+      "id": "PL",
+      "name": "Poland",
+      "count": 2
+    },
+    {
+      "id": "SI",
+      "name": "Slovenia",
+      "count": 2
+    },
+    {
+      "id": "CA",
+      "name": "Canada",
+      "count": 1
+    },
+    {
+      "id": "GB",
+      "name": "United Kingdom",
+      "count": 1
+    }
+  ]
 }
