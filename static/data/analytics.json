@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-16T08:19:48.181137Z",
-  "generated": "2026-08-16T08:19:48.181173Z",
+  "generated_at": "2026-08-16T09:20:16.007033Z",
+  "generated": "2026-08-16T09:20:16.007060Z",
   "period": {
     "start": "2026-07-17",
     "end": "2026-08-16"
@@ -28375,7 +28375,7 @@
     {
       "id": "Firefox",
       "name": "Firefox",
-      "count": 6
+      "count": 9
     },
     {
       "id": "Dalvik",
@@ -28397,7 +28397,7 @@
     {
       "id": "Android",
       "name": "Android",
-      "count": 111
+      "count": 114
     },
     {
       "id": "macOS",
@@ -28429,7 +28429,7 @@
     {
       "id": "phone",
       "name": "phone",
-      "count": 148
+      "count": 151
     },
     {
       "id": "tablet",
@@ -28489,6 +28489,11 @@
       "count": 5
     },
     {
+      "id": "DE",
+      "name": "Germany",
+      "count": 5
+    },
+    {
       "id": "NL",
       "name": "Netherlands",
       "count": 4
@@ -28496,11 +28501,6 @@
     {
       "id": "CA",
       "name": "Canada",
-      "count": 3
-    },
-    {
-      "id": "HU",
-      "name": "Hungary",
       "count": 3
     }
   ]
