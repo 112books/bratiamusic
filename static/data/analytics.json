@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-17T15:18:21.087041Z",
-  "generated": "2026-08-17T15:18:21.087073Z",
+  "generated_at": "2026-08-17T16:19:12.093456Z",
+  "generated": "2026-08-17T16:19:12.093484Z",
   "period": {
     "start": "2026-07-18",
     "end": "2026-08-17"
@@ -29305,8 +29305,147 @@
       ]
     }
   ],
-  "browsers": [],
-  "systems": [],
-  "sizes": [],
-  "locations": []
+  "browsers": [
+    {
+      "id": "Chrome",
+      "name": "Chrome",
+      "count": 206
+    },
+    {
+      "id": "Safari",
+      "name": "Safari",
+      "count": 56
+    },
+    {
+      "id": "Firefox",
+      "name": "Firefox",
+      "count": 10
+    },
+    {
+      "id": "Dalvik",
+      "name": "Dalvik",
+      "count": 1
+    },
+    {
+      "id": "",
+      "name": "",
+      "count": 1
+    },
+    {
+      "id": "Edge",
+      "name": "Edge",
+      "count": 1
+    }
+  ],
+  "systems": [
+    {
+      "id": "Android",
+      "name": "Android",
+      "count": 129
+    },
+    {
+      "id": "macOS",
+      "name": "macOS",
+      "count": 58
+    },
+    {
+      "id": "iOS",
+      "name": "iOS",
+      "count": 53
+    },
+    {
+      "id": "Windows",
+      "name": "Windows",
+      "count": 31
+    },
+    {
+      "id": "Chrome OS",
+      "name": "Chrome OS",
+      "count": 3
+    },
+    {
+      "id": "Linux",
+      "name": "Linux",
+      "count": 1
+    }
+  ],
+  "sizes": [
+    {
+      "id": "phone",
+      "name": "phone",
+      "count": 169
+    },
+    {
+      "id": "tablet",
+      "name": "tablet",
+      "count": 9
+    },
+    {
+      "id": "desktop",
+      "name": "desktop",
+      "count": 89
+    },
+    {
+      "id": "desktophd",
+      "name": "desktophd",
+      "count": 8
+    },
+    {
+      "id": "unknown",
+      "name": "unknown",
+      "count": 0
+    }
+  ],
+  "locations": [
+    {
+      "id": "ES",
+      "name": "Spain",
+      "count": 101
+    },
+    {
+      "id": "FR",
+      "name": "France",
+      "count": 81
+    },
+    {
+      "id": "SG",
+      "name": "Singapore",
+      "count": 40
+    },
+    {
+      "id": "US",
+      "name": "United States",
+      "count": 10
+    },
+    {
+      "id": "BE",
+      "name": "Belgium",
+      "count": 7
+    },
+    {
+      "id": "GB",
+      "name": "United Kingdom",
+      "count": 7
+    },
+    {
+      "id": "HR",
+      "name": "Croatia",
+      "count": 6
+    },
+    {
+      "id": "DE",
+      "name": "Germany",
+      "count": 5
+    },
+    {
+      "id": "NL",
+      "name": "Netherlands",
+      "count": 4
+    },
+    {
+      "id": "CA",
+      "name": "Canada",
+      "count": 3
+    }
+  ]
 }
