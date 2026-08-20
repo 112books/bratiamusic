@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-20T13:39:46.364165Z",
-  "generated": "2026-08-20T13:39:46.364186Z",
+  "generated_at": "2026-08-20T14:28:43.621072Z",
+  "generated": "2026-08-20T14:28:43.621105Z",
   "period": {
     "start": "2026-07-21",
     "end": "2026-08-20"
@@ -30259,7 +30259,7 @@
     {
       "id": "Firefox",
       "name": "Firefox",
-      "count": 10
+      "count": 13
     },
     {
       "id": "Dalvik",
@@ -30296,7 +30296,7 @@
     {
       "id": "Windows",
       "name": "Windows",
-      "count": 35
+      "count": 38
     },
     {
       "id": "Linux",
@@ -30318,7 +30318,7 @@
     {
       "id": "desktop",
       "name": "desktop",
-      "count": 86
+      "count": 89
     },
     {
       "id": "desktophd",
@@ -30335,7 +30335,7 @@
     {
       "id": "ES",
       "name": "Spain",
-      "count": 92
+      "count": 95
     },
     {
       "id": "FR",
