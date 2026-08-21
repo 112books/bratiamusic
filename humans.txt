@@ -1,0 +1,22 @@
+/* TEAM */
+Developer & Consultant: LinuxBCN.com
+Site: https://linuxbcn.com
+Location: Barcelona, Catalonia
+
+/* THANKS */
+Band: Bratia Music
+Site: https://bratiamusic.com
+
+/* TECHNOLOGY */
+Hugo SSG: https://gohugo.io
+Hosting: LinuxBCN.com
+Analytics: GoatCounter (privacy-first)
+Fonts: Playfair Display, DM Sans, Dancing Script
+Photos: Google Photos
+Calendar: Google Calendar
+Videos: YouTube
+
+/* SITE */
+Last update: 2026-03
+Language: CA / ES / EN
+Standards: HTML5, CSS3
