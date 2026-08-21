@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-21T19:20:29.251326Z",
-  "generated": "2026-08-21T19:20:29.251346Z",
+  "generated_at": "2026-08-21T20:17:29.019822Z",
+  "generated": "2026-08-21T20:17:29.019852Z",
   "period": {
     "start": "2026-07-22",
     "end": "2026-08-21"
@@ -30250,7 +30250,7 @@
     {
       "id": "Chrome",
       "name": "Chrome",
-      "count": 199
+      "count": 200
     },
     {
       "id": "Safari",
@@ -30302,7 +30302,7 @@
     {
       "id": "Linux",
       "name": "Linux",
-      "count": 2
+      "count": 3
     }
   ],
   "sizes": [
@@ -30314,7 +30314,7 @@
     {
       "id": "tablet",
       "name": "tablet",
-      "count": 9
+      "count": 10
     },
     {
       "id": "desktop",
@@ -30379,8 +30379,8 @@
       "count": 4
     },
     {
-      "id": "HU",
-      "name": "Hungary",
+      "id": "CA",
+      "name": "Canada",
       "count": 3
     }
   ]
