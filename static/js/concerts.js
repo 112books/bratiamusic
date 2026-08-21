@@ -136,7 +136,21 @@
   }
 
   // ─── Parser iCal ─────────────────────────────────────────────────────────
+  function unfoldICal(raw) {
+    const lines = raw.split(/\r?\n/);
+    const result = [];
+    for (const line of lines) {
+      if (/^[ \t]/.test(line) && result.length > 0) {
+        result[result.length - 1] += line.slice(1);
+      } else {
+        result.push(line);
+      }
+    }
+    return result.join("\n");
+  }
+
   function parseICal(raw) {
+    raw = unfoldICal(raw);
     const events = [];
     const blocks = raw.split("BEGIN:VEVENT");
     blocks.shift();
@@ -144,7 +158,7 @@
       const get = (key) => {
         const re = new RegExp(key + "(?:;[^:]*)?:([\\s\\S]*?)(?=\\r?\\n[A-Z])", "m");
         const m = block.match(re);
-        return m ? m[1].replace(/\r?\n[ \t]/g, "").trim() : "";
+        return m ? m[1].trim() : "";
       };
       const dtRaw = get("DTSTART");
       if (!dtRaw) return;
