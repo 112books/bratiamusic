@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-02T06:32:00.391942Z",
-  "generated": "2026-10-02T06:32:00.391972Z",
+  "generated_at": "2026-10-02T13:26:04.215961Z",
+  "generated": "2026-10-02T13:26:04.216003Z",
   "period": {
     "start": "2026-09-02",
     "end": "2026-10-02"
@@ -2873,7 +2873,7 @@
       "path_id": 84990521,
       "path": "/en/about",
       "event": false,
-      "title": "About · Bratia Music",
+      "title": "About Bratia Music – Balkan Gypsy Jazz Band from Barcelona · Bratia Music",
       "max": 1,
       "stats": [
         {
@@ -26466,12 +26466,12 @@
     {
       "id": "Chrome",
       "name": "Chrome",
-      "count": 102
+      "count": 106
     },
     {
       "id": "Safari",
       "name": "Safari",
-      "count": 32
+      "count": 36
     },
     {
       "id": "Firefox",
@@ -26488,12 +26488,12 @@
     {
       "id": "Windows",
       "name": "Windows",
-      "count": 68
+      "count": 70
     },
     {
       "id": "Android",
       "name": "Android",
-      "count": 45
+      "count": 47
     },
     {
       "id": "iOS",
@@ -26503,7 +26503,7 @@
     {
       "id": "macOS",
       "name": "macOS",
-      "count": 17
+      "count": 21
     },
     {
       "id": "",
@@ -26520,7 +26520,7 @@
     {
       "id": "phone",
       "name": "phone",
-      "count": 69
+      "count": 71
     },
     {
       "id": "tablet",
@@ -26530,7 +26530,7 @@
     {
       "id": "desktop",
       "name": "desktop",
-      "count": 70
+      "count": 76
     },
     {
       "id": "desktophd",
@@ -26547,17 +26547,17 @@
     {
       "id": "ES",
       "name": "Spain",
-      "count": 92
+      "count": 98
+    },
+    {
+      "id": "RS",
+      "name": "Serbia",
+      "count": 19
     },
     {
       "id": "FR",
       "name": "France",
       "count": 18
-    },
-    {
-      "id": "RS",
-      "name": "Serbia",
-      "count": 17
     },
     {
       "id": "US",
